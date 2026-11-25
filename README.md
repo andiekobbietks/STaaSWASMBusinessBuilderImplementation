@@ -294,3 +294,8 @@ The application originated as a Bolt.new-generated React/TypeScript/Vite prototy
 ## Technology readiness and evidence discipline
 
 TRL statements in this repository are provisional, component-specific assessments—not a single maturity score for the whole product. The imported analyzer is an early prototype. Research papers establish feasibility of selected techniques, not that this product has reproduced their results. The OKF integration, business intelligence corpus, model fine-tuning, DWH and end-to-end founder outcomes require their own implementation evidence and validation.
+
+
+### Conversational learning and evidence-led belief revision
+
+STaaS also draws on research into personalised, evidence-based LLM dialogue and belief revision. This informs a testable learning design: elicit a founder's assumptions, introduce relevant evidence and counterexamples, invite reflection, and record how their reasoning changes. It is a design hypothesis, not proof that an LLM can teach entrepreneurship or improve venture outcomes. The 2024 *Science* study by Costello et al. has a subsequent expression-of-concern and October 2026 erratum; see [the research register](RESEARCH.md#conversational-belief-revision-and-founder-learning) for the publication history and limitations. A 2025 *PNAS Nexus* study and a 2024 HKS Misinformation Review study provide related evidence on evidence-based dialogue and reflection.
