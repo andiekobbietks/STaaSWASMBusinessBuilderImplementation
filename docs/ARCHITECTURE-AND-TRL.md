@@ -10,6 +10,40 @@ STaaS is the founder-facing strategy-to-execution product. The Bolt.new-generate
 
 ### Logical architecture
 
+~~~text
+┌──────────────────────────────────────────────────────────────────┐
+│ FOUNDER EXPERIENCE: analyzer · learning · cases · strategy       │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────┐
+│ PLATFORM-OWNED FOUNDER STATE: goals · assumptions · evidence      │
+│ decisions · experiments · metrics · outcomes · consent            │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────┐
+│ REASONING / WORKFLOW: retrieval · model · deterministic checks    │
+│ permissions · human approval · audit                              │
+└───────────────┬─────────────────────────────┬────────────────────┘
+                │                             │
+┌───────────────▼────────────────┐  ┌─────────▼────────────────────┐
+│ CATALOGUE & RETRIEVAL           │  │ LEARNING & EVALUATION       │
+│ cases · frameworks · evidence  │  │ recall · scenarios · skill  │
+└───────────────┬────────────────┘  └──────────────────────────────┘
+                │
+┌───────────────▼──────────────────────────────────────────────────┐
+│ SOURCES → rights → OCR/parsing → entity/event validation          │
+│              → OKF interchange → DWH → search projections         │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────┐
+│ Public records · surveys · research · cases · founder uploads     │
+└──────────────────────────────────────────────────────────────────┘
+
+Cross-cutting: provenance · licensing · privacy · security · portability
+~~~
+
+The current application implements only the analyzer and Supabase report/authentication path. The remaining layers are target architecture, not existing deployed services.
+
 1. **Experience layer:** current React/Vite application; future Next.js migration is an option, not an existing fact. Vercel AI SDK is a candidate orchestration library, not currently present in package.json.
 2. **Founder state:** goals, stage, constraints, capabilities, preferences and consented context.
 3. **Evidence ingestion:** source acquisition, OCR/document parsing, extraction, entity resolution, validation, licensing and provenance.
