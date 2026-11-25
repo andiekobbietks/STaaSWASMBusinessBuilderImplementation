@@ -253,3 +253,44 @@ Changes should preserve the distinction between verified functionality and roadm
 ## Licence
 
 No licence is specified yet. Until a licence is added, the repository is not automatically open source merely because it is publicly visible. Confirm the intended ownership and reuse terms before adding a licence.
+
+
+## Manifesto
+
+> **Reduce the friction between having an idea and acting on it.**
+
+An idea should not remain unrealised because someone lacks access to the knowledge, experience, resources or strategic guidance needed to develop it. Founders should not have to keep paying the cost of discovering every lesson independently.
+
+STaaS (Strategy as a Service) is being developed as an evidence-led environment that helps founders understand what they are building, why it matters, who it serves, how it might become viable and what to do next. It connects business education, global company case studies, market and industry intelligence, strategic frameworks, founder-provided evidence and practical execution.
+
+The platform is intended to learn from businesses across the US, UK, Europe, Africa, Asia and elsewhere—not only celebrated successes, but also failures, pivots, acquisitions, financing decisions and operational challenges. Lessons must be contextualised: a strategy that worked in one market is not automatically transferable to another.
+
+A business plan is one possible output, not the destination. The intended journey is continuous discovery, diagnosis, strategy, prioritisation, experimentation, execution, measurement and adaptation.
+
+**Don't start from scratch. Start from what has already been learned, test what applies, and build what comes next.**
+
+This is an independent product direction. References to public entrepreneurial advocacy and research are inspiration, not endorsements or partnerships.
+
+## Knowledge architecture: OKF, DWH and the catalogue
+
+The proposed intelligence architecture separates three responsibilities:
+
+- **OKF (Open Knowledge Format, as used by this project):** the portable, provenance-aware knowledge interchange layer. It is intended to preserve source-linked records, timestamps, versions and structured meaning so compatible tools and agent harnesses can exchange knowledge without depending on one model's conversation history. The exact schema/version and conformance tests must be linked to the canonical OKF specification before claiming interoperability.
+- **DWH (Data Warehouse):** the analytical store for harmonised company, event, market, industry and founder data. It supports longitudinal analysis, comparisons, aggregation and reporting. It is not a substitute for source records or the portable OKF artefacts.
+- **Knowledge catalogue:** the discoverable index connecting business cases, frameworks, research, datasets and founder-specific evidence. Search indexes and embeddings are derived retrieval aids; they do not replace source documents, licences or provenance.
+
+The target flow is: source acquisition and rights review → extraction/OCR → entity resolution and validation → provenance-preserving OKF records → governed DWH models and catalogue indexes → retrieval and evaluation → STaaS workflows and compatible agents (including MCP-enabled harnesses such as OpenCode where implemented).
+
+The application originated as a Bolt.new-generated React/TypeScript/Vite prototype. The current baseline described above remains the scope evidenced by the imported repository; the OKF/DWH/catalogue, research agents, model training and managed STaaS capabilities are proposed architecture, not claims of existing implementation.
+
+## Research, architecture and decision records
+
+- [Research register and literature findings](RESEARCH.md)
+- [Architecture, technology readiness and validation plan](docs/ARCHITECTURE-AND-TRL.md)
+- [Architecture Decision Records](docs/adr/README.md)
+- [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
+- [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
+
+## Technology readiness and evidence discipline
+
+TRL statements in this repository are provisional, component-specific assessments—not a single maturity score for the whole product. The imported analyzer is an early prototype. Research papers establish feasibility of selected techniques, not that this product has reproduced their results. The OKF integration, business intelligence corpus, model fine-tuning, DWH and end-to-end founder outcomes require their own implementation evidence and validation.
