@@ -1,301 +1,311 @@
 # STaaS Business Builder
 
-> **Working product definition:** a business-building workspace that helps founders turn an early-stage idea into a clearer, testable strategy and an actionable plan. The longer-term direction is to evolve this into a **Strategy as a Service (STaaS)** operating model: strategy is continuously translated into prioritised work, measurable outcomes and evidence-led adaptation, rather than delivered as a one-off report.
+> **Reduce the friction between having an idea and acting on it.**
 
-[Product requirements](docs/PRODUCT-REQUIREMENTS.md) · [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
+STaaS means **Strategy as a Service**. This project explores a founder-centred workspace that helps people understand a business opportunity, challenge assumptions, learn from relevant evidence, choose a direction and turn that direction into measurable action.
 
-## What STaaS means here
+The ambition is bigger than generating a business plan. STaaS should help founders build and continuously improve the mental models they use to make decisions. It connects business education, global company intelligence, founder-specific evidence, strategic frameworks and execution in one traceable workflow.
 
-**STaaS means Strategy as a Service.** It is a recurring, structured capability for helping a business decide what to do next, why it matters, how to execute it, and whether the work is producing the intended result.
+**Current status:** an early React/TypeScript/Vite Business Idea Analyzer with deterministic browser-side analysis and Supabase-backed authentication/report persistence. The broader knowledge, learning, data-warehouse, catalogue and agent architecture described below is proposed, not implemented functionality.
 
-It is not simply:
-- a one-off business plan;
-- generic AI-generated advice;
-- a strategy presentation that is never implemented; or
-- an automated promise that a business idea will succeed.
+- [Research contributions, bibliography and open questions](RESEARCH.md)
+- [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
+- [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
+- [Architecture and provisional TRL assessment](docs/ARCHITECTURE-AND-TRL.md)
+- [Architecture decision records](docs/adr/README.md)
 
-A credible STaaS service connects six activities:
+---
 
-1. **Discover** the founder's goals, constraints, resources, customers and current position.
-2. **Diagnose** the idea, customer problem, market assumptions, risks and capability gaps.
-3. **Strategise** define a differentiated direction, value proposition, business model and priorities.
-4. **Prioritise** translate the strategy into sequenced experiments, decisions, milestones and an owned backlog.
-5. **Execute** support implementation, track decisions and surface blockers, with the founder retaining approval and ownership.
-6. **Measure and adapt** review evidence, outcomes, costs and assumptions, then revise priorities.
+## Why build STaaS?
 
-The service should make the link between strategic intent and day-to-day execution visible. Each recommendation should have a rationale, an owner, a next action, an expected outcome and a way to review whether it worked.
+Founders can find articles, watch talks, use a business-plan generator and ask a general-purpose chatbot for advice. Those activities often remain disconnected. They may produce information without helping the founder understand which evidence applies, what is uncertain, what to test next or how new learning should change the plan.
+
+STaaS is intended to close that gap. It should help a founder:
+
+1. **Understand** their idea, customer problem, market and constraints.
+2. **Learn** the concepts and frameworks needed to reason about the business.
+3. **Compare** relevant company cases, including failures, pivots, acquisitions, financing and operational challenges.
+4. **Challenge** assumptions through respectful, evidence-grounded dialogue.
+5. **Decide** between strategic options while retaining ownership of the decision.
+6. **Act** through experiments, milestones and prioritised work.
+7. **Review** outcomes and adapt the strategy as evidence changes.
+
+The platform should not assume that a founder has access to a large local network, nearby incubator or obvious precedent. It should surface relevant knowledge across the US, UK, Europe, Africa, Asia and diaspora markets while making contextual differences explicit.
 
 ## Product at a glance
 
-The current application is an early **Business Idea Analyzer**, not yet a complete STaaS platform.
+### Current application
 
-It accepts a business idea and produces four structured sections through a deterministic, browser-side analysis engine:
+The imported application is an early **Business Idea Analyzer**. It accepts a free-text business idea and produces four structured sections through a deterministic, heuristic, browser-side analysis engine:
 
-| Analysis stage | Current purpose |
+| Stage | Current purpose |
 |---|---|
-| Clarity | Clarify the core concept, customer problem and business model |
+| Clarity | Clarify the concept, customer problem and business model |
 | Niche | Explore target segments and positioning |
-| Action | Suggest an initial action plan |
-| Strategy | Synthesize a broader business strategy |
+| Action | Suggest initial actions |
+| Strategy | Synthesize a broader strategic direction |
 
-The application currently includes:
-- React, TypeScript and Vite;
-- a responsive Tailwind CSS interface and Lucide icons;
-- English and Italian interface/output language selection;
-- a rules-based analysis flow that runs in the browser;
-- Supabase authentication and user-scoped report persistence;
-- report history, deletion and browser print-based PDF export;
-- progress states for the four analysis stages.
+The documented application baseline includes React, TypeScript and Vite; responsive Tailwind CSS and Lucide icons; English and Italian interface/output language selection; deterministic browser-side analysis; Supabase authentication and user-scoped report persistence; report history, deletion and browser print-based PDF export; and progress feedback across the four stages.
 
-The current rules-based engine is deterministic and heuristic. It does **not** conduct live market research, validate demand, access authoritative financial data, or provide professional legal, tax, accounting or investment advice. Its outputs are hypotheses and prompts for founder validation, not verified facts or guaranteed outcomes.
+The current engine does **not** conduct live market research, validate demand, access authoritative financial data or provide professional legal, tax, accounting or investment advice. Outputs are hypotheses and prompts for founder validation, not verified facts or guaranteed outcomes.
 
-## Product vision
+### Intended STaaS service cycle
 
-Evolve the analyzer into a practical business-building workspace for independent founders, creators, consultants and small businesses. The product should help a user move from an idea to a validated direction and then maintain momentum through a transparent strategy-to-execution cycle.
+~~~text
+DISCOVER → DIAGNOSE → LEARN → STRATEGISE → PRIORITISE
+    ↑                                           ↓
+ REVIEW ← MEASURE ← EXECUTE ← EXPERIMENT ← DECIDE
+~~~
 
-The intended differentiator is not simply generating more text. It is maintaining a coherent thread between:
-- the founder's goals and constraints;
-- evidence about customers and the market;
-- strategic choices and rejected alternatives;
-- assumptions and experiments;
-- prioritised work and accountable owners;
-- milestones, metrics and observed outcomes; and
-- periodic strategy reviews and changes.
+Each recommendation should have a visible rationale, evidence basis, owner, next action, expected outcome and review point. A plan should evolve when new evidence arrives.
 
-The product should be useful as a self-serve tool first, with a possible human-supported or managed STaaS service layered on later. Any managed service must be clearly distinguished from software features and priced transparently.
+## Research-informed design
 
-## Intended users
+Three connected ideas shape the proposed product:
 
-**Primary users**
-- aspiring founders exploring and comparing business ideas;
-- early-stage founders who need to turn a concept into a practical plan;
-- independent creators, coaches, consultants and micro-business owners who need joined-up business planning.
+1. **Business intelligence as reusable knowledge.** Preserve source provenance and context so a founder can learn from companies beyond their immediate geography or network. Do not reduce a business to a success/failure label: preserve events, constraints, decisions, pivots and outcomes over time.
+2. **Reflective, evidence-led dialogue.** Research on personalised LLM dialogue and belief revision motivates a testable design in which the system elicits assumptions, presents relevant evidence and counterexamples, invites reflection and records the founder's own reasoning. This is a design hypothesis for entrepreneurship education, not proof of STaaS effectiveness. The 2024 Science study has a subsequent expression-of-concern and erratum; see the [publication-history note in RESEARCH.md](RESEARCH.md#1-personalised-evidence-based-dialogue-and-belief-revision).
+3. **Learning is not the same as recall.** Spaced retrieval may help founders remember concepts, but applied competence must be evaluated separately through scenarios, decisions, experiments and observed follow-through.
 
-**Secondary users**
-- business advisers, mentors and incubator teams supporting founders;
-- delivery partners who may help implement agreed work, where explicitly authorised.
+The ethical objective is informed founder agency, not persuasion or agreement with the model. Founders must be able to disagree, inspect sources and retain control of consequential decisions.
 
-## Problem statement
+## Proposed system architecture
 
-Early-stage founders often have fragmented advice, uncertain priorities and limited time. A conventional business-plan generator can produce a document without helping the founder test assumptions, make trade-offs or carry the work forward.
+The diagrams distinguish the current application from the proposed knowledge and intelligence services.
 
-The product aims to reduce that gap by guiding users through structured analysis and, over time, connecting the resulting strategy to evidence, decisions, tasks and reviews.
+### Current prototype boundary
 
-## Product principles
+~~~text
+┌──────────────────────────────────────────────────────────┐
+│             React + TypeScript + Vite UI                 │
+│                                                          │
+│  Idea input → Clarity → Niche → Action → Strategy        │
+│                     │                                    │
+│             Deterministic browser-side engine            │
+│                     │                                    │
+│        Report view / print-to-PDF / history UI           │
+└─────────────────────┬────────────────────────────────────┘
+                      │ Supabase client
+          ┌───────────┴────────────┐
+          │                       │
+     Supabase Auth          Reports storage
+          │                       │
+          └──── user-scoped RLS ──┘
+~~~
 
-1. **Founder control:** the founder owns their business, data, decisions, accounts and expenditure.
-2. **Evidence over confidence:** distinguish user-provided facts, external evidence, assumptions and generated suggestions.
-3. **Explainable recommendations:** show why a recommendation was made and what would change it.
-4. **Actionability:** recommendations should lead to specific next steps, not just narrative.
-5. **Continuous improvement:** strategies are reviewed as evidence and circumstances change.
-6. **Privacy by design:** collect the minimum information required; protect reports with user-scoped access controls.
-7. **Honest capability claims:** label implemented, planned and experimental capabilities separately.
-8. **Human accountability:** AI may assist analysis and drafting, but users approve consequential decisions and external actions.
+This is the documented current baseline. It is not a live research agent, DWH, vector database, knowledge catalogue or managed strategy service.
 
-## Functional requirements
+### Target STaaS architecture (proposed)
 
-### Current baseline
-- **FR-01 Idea input:** a user can submit a free-text description of a business idea.
-- **FR-02 Structured analysis:** the application produces Clarity, Niche, Action and Strategy sections.
-- **FR-03 Progress feedback:** the interface shows progress through the four analysis stages.
-- **FR-04 Language selection:** the interface supports English and Italian.
-- **FR-05 Authentication:** users can sign in and create an account through Supabase Auth.
-- **FR-06 Report persistence:** authenticated users can save and retrieve their own reports.
-- **FR-07 Report management:** users can view and delete their report history.
-- **FR-08 Export:** users can print or save a report as PDF through the browser print dialog.
+~~~text
+┌──────────────────────────────────────────────────────────────────────┐
+│                         FOUNDER EXPERIENCE                           │
+│ Idea workspace · Learning coach · Case explorer · Strategy · Tasks  │
+│ Evidence register · Assumption ledger · Decision log · Review       │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────────┐
+│                 FOUNDER & BUSINESS STRATEGIC STATE                   │
+│ Goals · Stage · Sector · Geography · Constraints · Capabilities     │
+│ Assumptions · Confidence · Decisions · Experiments · Outcomes       │
+│ Consent · Access policy · Version history                           │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────────┐
+│                  REASONING & WORKFLOW ORCHESTRATION                  │
+│ Retrieval-augmented dialogue · Framework selection · Planning       │
+│ Deterministic finance/schema checks · Tool permissions              │
+│ Human approval for consequential actions                            │
+└───────────────┬─────────────────────────────┬────────────────────────┘
+                │                             │
+┌───────────────▼────────────────┐  ┌─────────▼────────────────────────┐
+│       KNOWLEDGE CATALOGUE      │  │       LEARNING & EVALUATION      │
+│ Company cases · Frameworks     │  │ Spaced recall · Scenario tasks   │
+│ Datasets · Founder evidence    │  │ Calibration · Competence         │
+│ Search · Filters · Discovery   │  │ Held-out benchmark · Feedback    │
+└───────────────┬────────────────┘  └──────────────────────────────────┘
+                │
+┌───────────────▼──────────────────────────────────────────────────────┐
+│                    DATA & KNOWLEDGE FOUNDATION                       │
+│ Source register → rights review → fetch/import → OCR/parsing         │
+│      → entity/event resolution → validation & human review           │
+│                                                                      │
+│   ┌────────────────┐  ┌────────────────┐  ┌──────────────────────┐  │
+│   │ OKF interchange│→ │ DWH / analytics│→ │ Search/vector index │  │
+│   │ portable record│  │ history/metrics│  │ rebuildable view    │  │
+│   └────────────────┘  └────────────────┘  └──────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+                │
+┌───────────────▼──────────────────────────────────────────────────────┐
+│                 SOURCES & CONNECTED KNOWLEDGE                        │
+│ Public filings · Enterprise surveys · Research · Case studies        │
+│ Founder uploads · Interviews · Product/market evidence               │
+└──────────────────────────────────────────────────────────────────────┘
 
-### Target STaaS capabilities (not yet implemented unless explicitly stated above)
-- **FR-09 Business profile:** maintain goals, stage, sector, geography, resources, constraints and founder preferences.
-- **FR-10 Evidence register:** capture customer interviews, research sources, competitor observations, test results and evidence dates.
-- **FR-11 Assumption ledger:** record assumptions, confidence, impact, validation method and review status.
-- **FR-12 Strategic options:** compare possible directions, trade-offs, risks and reasons for selecting or rejecting an option.
-- **FR-13 Roadmap and backlog:** convert selected priorities into milestones, tasks, owners, dependencies and due dates.
-- **FR-14 Experiment planning:** define hypotheses, target users, test methods, success criteria, cost limits and learning outcomes.
-- **FR-15 Metrics:** connect strategic objectives to measurable leading and lagging indicators.
-- **FR-16 Review cycle:** support recurring reviews that compare expected and observed outcomes and update priorities.
-- **FR-17 Decision log:** preserve important decisions, their rationale, approver and date.
-- **FR-18 Collaboration:** support explicit invitations and role-based access for advisers or delivery partners.
-- **FR-19 Integrations:** add optional integrations only where they reduce friction and have clear permission, data-flow and revocation controls.
-- **FR-20 Service delivery:** support a separately consented human-supported STaaS engagement, with scope, service levels, responsibilities and fees made explicit.
+Cross-cutting: provenance · licensing · privacy · security · auditability
+               portability · observability · backup · deletion controls
+~~~
 
-## Non-functional requirements
+### The roles of OKF, DWH and catalogue
 
-- **Security:** enforce server-side authorisation and row-level security; never rely on client-side filtering alone.
-- **Privacy:** minimise collection, define retention and deletion behaviour, and document third-party processors.
-- **Reliability:** provide clear loading, empty, error and retry states; avoid silent loss of user work.
-- **Accessibility:** target WCAG 2.2 AA, including keyboard operation, visible focus, semantic structure and adequate contrast.
-- **Responsive design:** support mobile, tablet and desktop layouts.
-- **Maintainability:** keep analysis logic, persistence, presentation and integrations separated.
-- **Portability:** document data export and avoid unnecessary lock-in.
-- **Performance:** keep the current analysis path responsive on ordinary modern devices; measure before setting numerical service-level targets.
-- **Observability:** log operational failures without unnecessarily logging sensitive business-idea content.
+These are separate responsibilities, not interchangeable names for one database.
 
-## User journey
+| Layer | Intended responsibility | Not a substitute for |
+|---|---|---|
+| **OKF** | Portable, versioned, provenance-aware knowledge interchange artefacts. The canonical specification and schema must be verified before claiming conformance. | Conversation history, embeddings or hidden model reasoning. |
+| **DWH** | Governed analytical integration of source-grain records, entities, events, geography, sector, time and outcomes. | Original documents or a portable exchange format. |
+| **Catalogue** | Human- and machine-readable discovery across cases, datasets, frameworks and founder records. | Evidence validation, copyright permission or a guarantee that a result is true. |
+| **Search/vector index** | Rebuildable keyword and semantic retrieval projections over governed records. | Canonical records, provenance or source rights. |
 
-1. A founder creates an account or uses an explicitly configured demo route.
-2. They describe their idea and choose the output language.
-3. The analyzer returns four structured sections.
-4. The founder reviews, edits and exports or saves the report.
-5. In the target product, the founder validates assumptions, records evidence and chooses priorities.
-6. Priorities become a roadmap and actionable backlog.
-7. Progress and outcomes are reviewed on an agreed cadence.
-8. The strategy is adapted when evidence, resources or goals change.
+### Proposed evidence-to-learning data flow
 
-## Current architecture
+~~~text
+SOURCE REGISTER
+   ↓
+Rights / licence / privacy review
+   ↓
+Fetch or founder-authorised import
+   ↓
+Source capture and metadata (where lawful)
+   ↓
+OCR / parsing / extraction
+   ↓
+Entity resolution + event normalisation
+   ↓
+Validation, deduplication and human review
+   ↓
+OKF knowledge artefacts (schema verification required)
+   ↓
+DWH analytical history
+   ↓
+Catalogue + keyword/vector retrieval projections
+   ↓
+Contextual retrieval for founder question or decision
+   ↓
+Model + deterministic workflow + human approval
+   ↓
+Founder-approved decision / experiment / action
+   ↓
+Evidence and outcome captured; strategy reviewed
+~~~
 
-```text
-React + TypeScript + Vite
-        |
-        +-- Analyzer UI
-        |     +-- deterministic browser-side analysis engine
-        |     +-- English / Italian translations
-        |     +-- Markdown report rendering
-        |     +-- browser print / PDF workflow
-        |
-        +-- Supabase client
-              +-- Supabase Auth
-              +-- reports table
-              +-- owner-scoped Row Level Security
-```
+Every knowledge item should distinguish observed facts, attributed claims, founder assertions, model-generated interpretation and unresolved hypotheses. Preserve source identifiers, publisher, publication/event date, retrieval date, licence/terms, extraction method/version, validation status and lawful links to originals.
 
-The current analysis engine is local and rules-based. Supabase is used for authentication and report storage. No claim is made here that the application currently has a server-side AI agent system, live research pipeline, CRM, task manager, project-management integration or managed strategy service.
+## Global business intelligence and contextual transfer
 
-## Data and trust model
+The catalogue is intended to learn from businesses across the US, UK, Europe, Africa, Asia and diaspora communities. It should include businesses that grew, survived, stalled or closed; pivots and failed experiments; acquisitions, mergers and ownership changes; funding rounds, bootstrapping and financing constraints; operational challenges, infrastructure constraints and regulatory changes; and customer discovery, distribution, pricing and business-model changes.
 
-- Reports belong to the authenticated user identified by `auth.uid()`.
-- Row Level Security policies should restrict select, insert, update and delete operations to the owning user.
-- The browser Supabase key is a public client key, not a substitute for database policies.
-- Service-role credentials must never be placed in client code or committed to the repository.
-- Demo-account provisioning must not expose privileged administrative operations through an unauthenticated public endpoint.
-- User-provided business information should be treated as confidential business data. Do not use it for model training or external processing without clear disclosure and an appropriate lawful basis/consent.
+A case from another market is a comparison, not a prescription. Capture the conditions that shape transferability: infrastructure, capital access, regulation, purchasing power, informality, language, distribution, institutions, supply chains and customer behaviour. When no close precedent exists, say so rather than inventing one.
 
-**Security review required before production:** the imported project includes a demo-account setup Edge Function configured with JWT verification disabled and privileged Supabase administrative operations. Review and redesign or remove this endpoint before operating the app publicly. Do not deploy it with a service-role secret exposed or allow an unauthenticated caller to delete/recreate accounts. Rotate any credentials that may have been exposed. The repository also contains a demo sign-in flow that needs an explicit abuse and access-control review.
+## Founder learning and mental-model development
 
-## Roadmap
+A proposed learning loop:
+
+1. Ask the founder to explain their current model of the business in their own words.
+2. Identify assumptions, confidence levels and the decision currently blocked by uncertainty.
+3. Retrieve relevant cases, evidence and framework concepts, including credible counterexamples.
+4. Explain what is comparable and what differs; make the evidence trail inspectable.
+5. Invite the founder to revise, retain or reject their view and explain why.
+6. Record the founder's decision and rationale, not merely the model's preferred answer.
+7. Revisit the assumption after experiments or new evidence.
+8. Use spaced retrieval for concept recall and separate applied tasks to assess competence.
+
+Potential measures include comprehension, calibration, quality of reasoning, experiment design, decision quality and follow-through. Do not optimise for agreement, confidence inflation or a predetermined business outcome.
+
+## Agent interoperability and infrastructure
+
+The longer-term architecture may expose permissioned capabilities through MCP or other adapters so compatible agent harnesses (for example, OpenCode) can read approved knowledge and update authorised work items. The platform must own durable strategic state; provider-specific conversation formats and thought signatures are not portable business memory.
+
+AKCloud may help founders assess deployment readiness, hosting options and applications for third-party startup programmes. It cannot guarantee Google Cloud credits or any provider award. External integrations must be optional, scoped, auditable and revocable.
+
+## Security, privacy and trust
+
+- Enforce authorisation server-side and test Supabase Row Level Security for every user-owned record.
+- Treat business ideas, uploaded documents, interviews and financial data as confidential.
+- Minimise collection; document retention, export, deletion and third-party processing.
+- Keep service-role credentials out of browser code and Git history.
+- Require explicit permission before sending founder data to external models or connected services.
+- Log operational events without unnecessarily logging sensitive business content.
+- Require founder approval for spending, publication, external communication and other consequential actions.
+- Preserve evidence provenance and distinguish source facts from generated analysis.
+
+**Known security blocker:** the imported project includes a demo-account setup Edge Function described as having JWT verification disabled and privileged Supabase administrative operations. Review, redesign or remove it before public production use. Do not expose a service-role secret or allow unauthenticated callers to delete/recreate accounts. Rotate credentials if exposure is suspected. The demo sign-in flow also requires abuse and access-control review.
+
+## Roadmap and maturity
 
 | Phase | Outcome | Status |
 |---|---|---|
-| 0. Imported baseline | Existing Bolt/Vite application and four-stage analyzer | Present in imported source; requires local verification |
-| 1. Product foundation | Accurate product documentation, requirements and security review | Documentation defined here; security work outstanding |
-| 2. Strategy workspace | Business profile, evidence register, assumption ledger and decision log | Planned |
-| 3. Execution workspace | Prioritised roadmap, experiments, owners and milestones | Planned |
-| 4. Measurement loop | Objectives, metrics, review cadence and strategy adaptation | Planned |
-| 5. STaaS service layer | Optional human-supported delivery model, permissions and transparent service terms | Exploratory |
+| 0. Imported baseline | Four-stage Business Idea Analyzer | Present in imported source; local build/test verification still required |
+| 1. Product foundation | Requirements, research register, architecture, ADRs and security review | Documentation in progress; security blocker outstanding |
+| 2. Founder workspace | Business profile, evidence register, assumption ledger and decision log | Planned |
+| 3. Knowledge foundation | Rights-cleared ingestion, verified OKF, DWH and catalogue | Proposed; not implemented |
+| 4. Learning and reasoning | Retrieval, reflective dialogue, spaced recall and applied assessment | Research-informed hypothesis; not implemented end to end |
+| 5. Execution loop | Experiments, roadmap, metrics and recurring strategy reviews | Planned |
+| 6. Interoperability and service | Permissioned agent adapters and optional managed STaaS delivery | Exploratory |
 
-## Success measures
+See [ARCHITECTURE-AND-TRL.md](docs/ARCHITECTURE-AND-TRL.md) for component-level provisional TRLs and evidence gates. Do not represent the integrated product at the highest TRL of any individual component.
 
-Measure whether users make better-informed decisions and take useful action, not simply whether the system generates long reports.
+## Success measures to validate
 
-Candidate measures to validate:
-- time from idea submission to a first prioritised next action;
-- proportion of recommendations converted into user-approved actions;
+- time from idea submission to a founder-approved next action;
 - proportion of key assumptions with recorded validation evidence;
-- experiment completion and learning capture rates;
+- experiment completion and learning capture;
+- decision quality and calibrated confidence;
+- comprehension of relevant business concepts;
+- usefulness of retrieved cases and quality of contextual comparisons;
 - milestone progress and review completion;
-- user-reported clarity and usefulness;
-- retention attributable to ongoing planning and review, not notification volume;
-- trust indicators such as successful export, data deletion and permission revocation.
+- successful data export, deletion and permission revocation.
 
-Targets should be set only after baseline usage and user research. Do not invent conversion, revenue or business-success claims.
-
-## Commercial model hypotheses
-
-Potential models to validate with users:
-- **Self-serve:** free entry-level analysis with clearly defined limits.
-- **Subscription:** recurring access to planning, evidence, roadmap and review capabilities.
-- **Adviser-supported:** paid sessions or packages with an independent adviser.
-- **Managed STaaS:** a scoped recurring service with an accountable delivery contact, agreed backlog, approvals, reporting and transparent fees.
-- **Implementation work:** separately scoped projects or specialist work, never implied to be included in a subscription unless the contract says so.
-
-Pricing, willingness to pay, retention and delivery economics are unvalidated hypotheses. Test them before committing to tiers or revenue forecasts.
+Set numerical targets only after baseline research and user pilots. Do not claim improved revenue, funding, survival or venture success without suitable evidence.
 
 ## Development
 
-Install dependencies and start the local development server:
+Install dependencies and run the Vite development server:
 
-```bash
+~~~bash
 npm install
 npm run dev
-```
+~~~
 
 Available scripts:
 
-```bash
+~~~bash
 npm run dev       # Start Vite development server
 npm run build     # Create production build
 npm run preview   # Preview production build
 npm run lint      # Run ESLint
 npm run typecheck # Run TypeScript checks
-```
+~~~
 
-### Environment
+Configure the Supabase project URL and public anon key using the variable names referenced in src/lib/supabase.ts. Keep local secrets in an ignored .env file and configure deployment secrets through the hosting platform. Never commit service-role keys. Apply and verify migrations in a non-production Supabase project before production.
 
-Configure the Supabase project URL and public anon key using the environment variable names referenced in `src/lib/supabase.ts`. Keep local secrets in an ignored `.env` file and configure deployment secrets through the hosting platform. Never commit service-role keys.
+## Research and evidence
 
-The Supabase schema and access policies are defined in `supabase/migrations/`. Apply and verify migrations against a non-production project before production.
+The [research register](RESEARCH.md) documents model-training literature, data-source leads, evidence on reflective LLM dialogue, evaluation design, open problems and limitations. It distinguishes published findings from STaaS hypotheses and engineering observations.
 
-## Project status and limitations
+Important limits:
 
-This repository is an imported application baseline, not evidence that every requirement in this document has been delivered. The current four-stage analyzer is the implemented product direction visible in the imported source. The broader STaaS workspace and managed service are proposed evolution.
-
-Before a production release:
-- resolve the demo provisioning endpoint security issue;
-- verify Supabase migrations, RLS policies and auth configuration;
-- confirm language consistency (the current UI supports English and Italian);
-- test account creation, sign-in, report isolation, deletion and export;
-- run lint, typecheck, build and end-to-end security tests;
-- add privacy, retention, terms and support documentation.
-
-## Contributing
-
-Changes should preserve the distinction between verified functionality and roadmap proposals. For substantial product changes, update the requirements, data-flow/security notes and user-facing documentation alongside the implementation.
-
-## Licence
-
-No licence is specified yet. Until a licence is added, the repository is not automatically open source merely because it is publicly visible. Confirm the intended ownership and reuse terms before adding a licence.
-
+- A 3,000–5,000-example pilot is an experiment for a narrow task, not a proven threshold for business reasoning.
+- A reported local tokens-per-second result is not evidence of reasoning quality.
+- Dataset record counts are not unique business counts or training-example counts.
+- Public availability does not automatically grant commercial reuse or model-training rights.
+- Belief-revision studies do not validate entrepreneurship education or outcomes for African founders.
+- No OKF conformance claim is justified until the canonical specification, version and round-trip tests are verified.
 
 ## Manifesto
 
-> **Reduce the friction between having an idea and acting on it.**
+> **Don't start from scratch. Start from what has already been learned, test what applies, and build what comes next.**
 
-An idea should not remain unrealised because someone lacks access to the knowledge, experience, resources or strategic guidance needed to develop it. Founders should not have to keep paying the cost of discovering every lesson independently.
+A founder should not have to rediscover every lesson independently. STaaS aims to make knowledge discoverable, contextual and actionable while respecting the limits of analogy and evidence.
 
-STaaS (Strategy as a Service) is being developed as an evidence-led environment that helps founders understand what they are building, why it matters, who it serves, how it might become viable and what to do next. It connects business education, global company case studies, market and industry intelligence, strategic frameworks, founder-provided evidence and practical execution.
+We do not simply generate business plans. We aim to help founders build the mental models to understand, challenge, validate and evolve their businesses.
 
-The platform is intended to learn from businesses across the US, UK, Europe, Africa, Asia and elsewhere—not only celebrated successes, but also failures, pivots, acquisitions, financing decisions and operational challenges. Lessons must be contextualised: a strategy that worked in one market is not automatically transferable to another.
+This is an independent product direction. References to public research, frameworks and organisations are not endorsements, partnerships or claims of affiliation.
 
-A business plan is one possible output, not the destination. The intended journey is continuous discovery, diagnosis, strategy, prioritisation, experimentation, execution, measurement and adaptation.
+## Contributing
 
-**Don't start from scratch. Start from what has already been learned, test what applies, and build what comes next.**
+Keep implementation claims aligned with the code. For substantial changes, update requirements, architecture, threat/data-flow notes, tests and the research register together. Mark proposed capabilities as proposed until code and validation evidence demonstrate otherwise.
 
-This is an independent product direction. References to public entrepreneurial advocacy and research are inspiration, not endorsements or partnerships.
+## Licence
 
-## Knowledge architecture: OKF, DWH and the catalogue
-
-The proposed intelligence architecture separates three responsibilities:
-
-- **OKF (Open Knowledge Format, as used by this project):** the portable, provenance-aware knowledge interchange layer. It is intended to preserve source-linked records, timestamps, versions and structured meaning so compatible tools and agent harnesses can exchange knowledge without depending on one model's conversation history. The exact schema/version and conformance tests must be linked to the canonical OKF specification before claiming interoperability.
-- **DWH (Data Warehouse):** the analytical store for harmonised company, event, market, industry and founder data. It supports longitudinal analysis, comparisons, aggregation and reporting. It is not a substitute for source records or the portable OKF artefacts.
-- **Knowledge catalogue:** the discoverable index connecting business cases, frameworks, research, datasets and founder-specific evidence. Search indexes and embeddings are derived retrieval aids; they do not replace source documents, licences or provenance.
-
-The target flow is: source acquisition and rights review → extraction/OCR → entity resolution and validation → provenance-preserving OKF records → governed DWH models and catalogue indexes → retrieval and evaluation → STaaS workflows and compatible agents (including MCP-enabled harnesses such as OpenCode where implemented).
-
-The application originated as a Bolt.new-generated React/TypeScript/Vite prototype. The current baseline described above remains the scope evidenced by the imported repository; the OKF/DWH/catalogue, research agents, model training and managed STaaS capabilities are proposed architecture, not claims of existing implementation.
-
-## Research, architecture and decision records
-
-- [Research register and literature findings](RESEARCH.md)
-- [Architecture, technology readiness and validation plan](docs/ARCHITECTURE-AND-TRL.md)
-- [Architecture Decision Records](docs/adr/README.md)
-- [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
-- [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
-
-## Technology readiness and evidence discipline
-
-TRL statements in this repository are provisional, component-specific assessments—not a single maturity score for the whole product. The imported analyzer is an early prototype. Research papers establish feasibility of selected techniques, not that this product has reproduced their results. The OKF integration, business intelligence corpus, model fine-tuning, DWH and end-to-end founder outcomes require their own implementation evidence and validation.
-
-
-### Conversational learning and evidence-led belief revision
-
-STaaS also draws on research into personalised, evidence-based LLM dialogue and belief revision. This informs a testable learning design: elicit a founder's assumptions, introduce relevant evidence and counterexamples, invite reflection, and record how their reasoning changes. It is a design hypothesis, not proof that an LLM can teach entrepreneurship or improve venture outcomes. The 2024 *Science* study by Costello et al. has a subsequent expression-of-concern and October 2026 erratum; see [the research register](RESEARCH.md#conversational-belief-revision-and-founder-learning) for the publication history and limitations. A 2025 *PNAS Nexus* study and a 2024 HKS Misinformation Review study provide related evidence on evidence-based dialogue and reflection.
+No licence is specified yet. A public repository is not automatically open source. Confirm ownership and reuse terms before adding a licence.
