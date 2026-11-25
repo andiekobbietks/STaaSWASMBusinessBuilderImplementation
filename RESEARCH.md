@@ -1,146 +1,336 @@
-# STaaS research register
+# STaaS — Research Contributions
 
-- **Status:** curated starting bibliography and research plan; not an exhaustive systematic review.
-- **Last reviewed:** 25 November 2026.
-- **Purpose:** distinguish published evidence, engineering observations, product hypotheses and work still required.
+STaaS (Strategy as a Service) is an early-stage founder-support and business-intelligence project. It explores how evidence-grounded conversational learning, global company cases, persistent strategic state and controlled execution workflows could help founders move from an idea to informed action.
 
-## Executive interpretation
+This document describes the research rationale, proposed technical contributions, evidence register, evaluation questions and open problems. It is a curated research register, not a systematic review. It distinguishes published research from project hypotheses and implementation claims.
 
-The literature supports a plausible engineering approach: compact language models can be useful for bounded tasks; high-quality curated and synthetic examples can materially affect model capability; supervised fine-tuning and preference/reinforcement methods are available; retrieval and deterministic workflows can ground outputs in current, source-linked evidence. None of these findings proves that a small model can independently deliver reliable business strategy, nor that a particular dataset size guarantees a capability level.
+For the product and architecture overview, see the [main README](README.md).
 
-STaaS should therefore be a system, not a fine-tuned model alone: retrieval over licensed and provenance-preserving knowledge, explicit business state, deterministic calculations and policy checks, human approval for consequential decisions, and evaluation against held-out business cases.
+---
 
-## Research register
+## Research contributions
 
-| Source | Finding relevant to STaaS | What it does not establish |
-|---|---|---|
-| [Phi-3 Technical Report (Microsoft, 2024)](https://arxiv.org/abs/2404.14219) | Phi-3 Mini is 3.8B parameters and was trained on 3.3T tokens using heavily filtered web data and synthetic data; post-training included SFT and DPO. Shows that data quality and training recipe matter for compact models. | It does not show that 3B models automatically match frontier models on business strategy. |
-| [Phi-4 Technical Report (Microsoft, 2024)](https://arxiv.org/abs/2412.08905) | Phi-4 (14B) emphasises data quality and synthetic data throughout training, with curriculum and post-training improvements. | Not evidence that 3,000–5,000 examples alone reproduce Phi-4. Its pretraining scale and compute are vastly larger. |
-| [Phi-4-reasoning Technical Report (Microsoft, 2025)](https://arxiv.org/abs/2504.21318) | 14B model further trained with SFT on curated teachable prompts and teacher-generated reasoning demonstrations; a variant used outcome-based RL. Demonstrates a specific recipe for improving reasoning. | Does not establish that a Phi-sized model trained on founder cases will achieve equivalent general reasoning or domain performance. |
-| [Small Language Models are the Future of Agentic AI (NVIDIA Research)](https://research.nvidia.com/labs/lpr/slm-agents/) | Argues many agent systems can benefit from specialised models and code-orchestrated workflows rather than delegating every decision to a general-purpose model. | Does not prove a universal percentage of tool calls or a universal small-model advantage for STaaS workloads. Benchmark the actual tasks. |
-| [Unsloth integration in Hugging Face TRL](https://huggingface.co/docs/trl/v1.15.0/en/unsloth_integration) | Documents integration for SFT and preference/RL workflows, including LoRA/QLoRA and supported algorithms. Useful implementation path for constrained training environments. | Training speed and memory claims are workload/hardware dependent; compatibility must be checked for the selected base model and versions. |
-| [MIT Martin Trust Center: Disciplined Entrepreneurship](https://diymtc.mit.edu/education/deframework/) | Describes a systematic 24-step framework for building innovation-driven enterprises. A useful structured knowledge source and workflow reference. | A framework is not a universal recipe or a validated outcome predictor. Respect book and course copyrights; store references and licensed summaries, not unauthorised copies. |
-| [World Bank Enterprise Surveys: methodology](https://www.enterprisesurveys.org/en/methodology) | Firm-level, stratified survey methodology covering business environment topics such as finance, infrastructure, regulation and competition; panel data can support longitudinal analysis. | Survey populations, dates, instruments and sampling differ. Do not treat all waves as directly comparable without methodology checks. |
-| [World Bank Enterprise Surveys: FAQ](https://www.enterprisesurveys.org/en/about-us/frequently-asked-questions) | Reports nearly 300,000 interviews in 181 economies following the Global Methodology. | Interviews are not 300,000 narrative startup case studies or labelled reasoning examples. |
-| [World Bank Enterprise Surveys: data portal](https://www.enterprisesurveys.org/en/data) | Provides indicators and microdata across formal, micro and informal enterprise surveys. Strong basis for country/sector context. | Check the individual dataset's metadata, terms, sampling and permitted use before ingestion or model training. |
-| [FSRS](https://github.com/open-spaced-repetition/fsrs4anki) | A modern spaced-repetition scheduler estimates memory stability and retrievability from review history. Could inform recall scheduling. | Recall scheduling is not evidence of applied business competence; application needs separate assessment. |
+### 1. A provenance-preserving business knowledge architecture
 
-## Training approach and evidence boundaries
+The proposed knowledge foundation separates portable knowledge exchange, analytical storage and discovery:
 
-### Proposed pipeline
+- **OKF interchange:** intended to represent portable, versioned and provenance-aware knowledge artefacts. The authoritative specification, schema version and conformance suite must be verified before implementation claims or conformance are made.
+- **Data warehouse (DWH):** intended to harmonise source-grain company, event, geography, sector, funding, acquisition, operating-condition and outcome records while preserving lineage.
+- **Catalogue:** intended to make cases, datasets, frameworks and founder evidence discoverable through structured filters and search.
+- **Search projections:** keyword and vector indexes are rebuildable retrieval aids, not canonical records or provenance stores.
 
-1. **Select a base model** after evaluating licence, language coverage, context length, tool-use ability, hardware footprint and baseline performance. Phi is a candidate family, not a predetermined answer.
-2. **Build a rights-cleared corpus.** Collect source documents and structured records with licence, attribution, geography, date, source type and extraction provenance.
-3. **Create curated examples.** Convert cases into tasks: identify facts vs assumptions; compare strategic options; diagnose constraints; ask for missing evidence; design experiments; calculate unit economics; explain uncertainty; and revise a recommendation when evidence changes.
-4. **SFT/QLoRA first.** Teach output formats, disciplined evidence use, structured analysis and domain workflows. Use Unsloth/TRL where compatible.
-5. **Preference optimisation second.** DPO may be useful where high-quality chosen/rejected responses and clear preference criteria exist.
-6. **RL only where reward is defensible.** GRPO or other outcome-based methods are experimental until rewards can be checked reliably (e.g. arithmetic, schema validity, evidence citation, explicit task success). Do not reward persuasive but unsupported advice.
-7. **RAG remains essential.** Use current sources and founder evidence at inference time; do not attempt to bake changing market facts into model weights.
-8. **Evaluate and deploy.** Compare base vs adapted model on held-out companies, sectors, countries and task types; test calibration, citations, refusal/abstention, tool safety and regression. Quantise and benchmark with the target inference runtime (including OpenVINO where supported).
+**Proposed flow:**
 
-### Dataset-size caution
+~~~text
+Sources → rights review → ingestion → OCR / parsing
+   → entity & event resolution → validation / human review
+   → OKF artefacts → DWH → catalogue / search indexes
+   → contextual retrieval → founder-facing reasoning
+   → approved decision → experiment → outcome evidence
+~~~
 
-A 3,000–5,000-example pilot is a reasonable experiment for a narrow SFT task, not a literature-proven threshold and not a substitute for Phi's pretraining corpus. Quality, coverage, task diversity, deduplication, leakage controls and evaluation matter more than a headline count. Start with a small expert-reviewed pilot, measure it, then expand based on error analysis.
+This separation is intended to prevent treating documents, embeddings or chat transcripts as if they were a governed business knowledge base. None of these components is currently evidenced as an integrated implementation in this repository.
 
-### Suggested example taxonomy
+### 2. Global company-case intelligence, including failure and context
 
-- Evidence extraction and provenance.
-- Business-model and customer-problem diagnosis.
-- Market/industry context and geographic transferability.
-- Strategic-framework selection and application.
-- Financial reasoning and unit economics.
-- Competitive positioning and differentiation.
-- Failure, pivot, acquisition and financing case analysis.
-- Experiment design and prioritisation.
-- Decision revision after new evidence.
-- Founder teaching, retrieval practice and misconception correction.
+The proposed catalogue should represent businesses as evolving entities with dated events and contextual conditions, not as static success stories. Relevant evidence includes formation, product launches and customer segments; funding, bootstrapping, debt and financing constraints; pivots, failed experiments and strategic reversals; acquisitions, mergers, ownership and leadership changes; operating constraints, regulation, infrastructure and supply chains; and growth, stagnation, closure and post-mortem evidence.
 
-## Dataset and source acquisition register
+Potential coverage spans the US, UK, Europe, Africa, Asia and diaspora markets. Geographic coverage must be measured from actual ingested, deduplicated records; a source list is not proof of coverage.
 
-This is a lead list, not a claim that all records have been downloaded, deduplicated, licensed for commercial use or converted into OKF.
+For African founders and founders without obvious local precedents, the catalogue could broaden access to comparable cases. The system must not assume transferability. It should record context such as capital access, infrastructure, regulation, purchasing power, informality, language, distribution, institutions and customer behaviour, and explicitly indicate when a close precedent is unavailable.
 
-| Source | Potential value | Acquisition / rights note |
-|---|---|---|
-| [World Bank Enterprise Surveys](https://www.enterprisesurveys.org/en/data) | Firm operating conditions, finance, infrastructure, regulation, competition and performance across economies. | Inspect each survey's metadata and use terms; distinguish formal, micro and informal samples. |
-| [Global Entrepreneurship Monitor](https://www.gemconsortium.org/data) | Entrepreneurship attitudes, activity and framework conditions across participating economies. | Check access, country/year coverage and dataset licence. |
-| [Autopsy](https://data.getautopsy.io/) | Startup failure post-mortems and failure patterns. | Commercial access/licensing to be confirmed; do not assume bulk reuse. |
-| [Simplifying Finance case studies](https://simplifyingfinance.org/case-studies/) | Company strategy, crises and failures. | Publicly readable does not mean unrestricted text reuse or training rights. |
-| [Fliar BI datasets](https://fliarbi.com/datasets/) | Company events, funding, acquisitions, financial and operational records. | Published sample terms include non-commercial restrictions; obtain commercial permission before use. |
-| [Propel Africa](https://www.propel.africa/dataset) | African startup funding and deal coverage. | Confirm export access, coverage and commercial reuse rights. |
-| [The Chancery Africa Funding Atlas](https://atlas.thechancery.io/index.html) | African startup, investor and funding records. | Confirm data provenance, API/export access and licence. |
-| [Companies House](https://www.gov.uk/government/organisations/companies-house) | UK company filings, accounts and corporate events. | Review Companies House API terms, personal data obligations and filing limitations. |
-| [SEC EDGAR](https://www.sec.gov/edgar/search/) | US public-company filings, acquisitions, risk factors and financial disclosures. | Follow SEC access policies; filings are primary evidence but not uniformly structured case studies. |
-| [OpenAlex](https://openalex.org/) | Research discovery and scholarly metadata for entrepreneurship, strategy and management. | Use API/data licence and article-level copyright conditions; metadata access is not a licence to full text. |
+### 3. Reflective, evidence-led founder learning
 
-Do not sum source record counts as unique businesses: sources overlap and count different units (firms, interviews, deals, events, articles or cases). Maintain separate counts for source records, unique entities, events, documents and training examples.
+Research on personalised LLM dialogue and belief revision motivates a testable interaction pattern:
 
-## Evaluation design
+1. Elicit the founder's current understanding, assumptions and confidence.
+2. Identify the consequential uncertainty or decision.
+3. Retrieve relevant evidence, frameworks, cases and counterexamples with source provenance.
+4. Explain similarities and differences between the case and the founder's context.
+5. Invite the founder to revise, retain or reject their view and explain why.
+6. Record the founder's reasoning and decision, with consent and version history.
+7. Revisit assumptions after experiments or new evidence.
 
-Create a held-out benchmark stratified by geography, sector, company stage and outcome (growth, survival, pivot, acquisition, closure). Include counterfactual traps and incomplete evidence. Score:
+The intended outcome is stronger critical thinking and founder agency, not compliance with the model. The system should expose uncertainty, allow disagreement and avoid covert persuasion.
 
-- factual accuracy and source support;
-- correct separation of facts, claims, assumptions and inference;
-- quality of questions asked when information is missing;
-- strategic option quality and trade-off reasoning;
-- numerical correctness for finance calculations;
-- context-sensitive transferability (including when lessons do not transfer);
-- calibrated uncertainty and appropriate abstention;
-- tool-call/schema correctness;
-- consistency after new evidence and state updates;
-- usefulness and comprehension in founder-facing explanations.
+**Evidence boundary:** the studies below concern belief revision in specific experimental populations and topics. They do not establish that LLM dialogue teaches entrepreneurship, improves venture outcomes or transfers to African founder populations. This is a product hypothesis that requires its own ethical, contextualised evaluation.
 
-Avoid training/test leakage by splitting at company/entity and source-family level, not merely random rows. Evaluate by temporal holdout where possible.
+### 4. Separating recall from applied competence
 
-## Local inference observation
+Spaced repetition systems such as FSRS may help schedule retrieval of concepts and framework knowledge. Recall is only one part of learning. STaaS should separately assess whether a founder can apply a concept to a new business scenario, interpret evidence, compare options, design an experiment and revise a decision.
 
-The user has reported an OpenVINO benchmark around 40 tokens/second on their local hardware. This is a user-reported runtime observation, not independently reproduced in this repository. Record exact model ID/revision, quantisation, device, prompt/output token counts, warm-up, concurrency, OpenVINO version and measurement script before using it as a repeatable performance claim. Tokens/second says nothing by itself about strategic reasoning quality.
+A future learning system could combine concept prompts and spaced retrieval; case-based questions; scenario and counterfactual tasks; evidence interpretation; founder-authored explanations; and later review of decisions against observed outcomes.
 
-## Research gaps
+No learning engine or competence outcome is claimed as implemented.
 
-- Locate and assess the exact strategic-management module material from the user's BSc only if its syllabus/learning outcomes are available and permission allows reuse.
-- Conduct a systematic review of entrepreneurship strategy, founder cognition, business-model validation and AI-assisted decision support.
-- Confirm all data licensing and model-training permissions.
-- Establish the OKF canonical specification, schema version, conformance suite and lossless round-trip tests.
-- Validate DWH dimensional model and data lineage against actual ingestion samples.
-- Run domain-specific benchmark before making model capability or TRL claims.
+### 5. A bounded model-and-workflow architecture
 
+The research supports testing a system composed of retrieval, models, deterministic logic and human approval rather than relying on fine-tuning alone.
 
-## Conversational belief revision and founder learning
+- Retrieval supplies current, source-linked market and case evidence.
+- The model supports explanation, comparison, question generation and synthesis.
+- Deterministic code handles arithmetic, schema validation, access control and workflow constraints.
+- Human approval gates consequential decisions, spending and external actions.
+- Persistent platform-owned state preserves goals, assumptions, evidence, decisions and outcomes independently of a model provider or agent harness.
 
-### Costello, Pennycook and Rand (2024): personalised evidence-based dialogue
+Fine-tuning may improve bounded tasks such as structured extraction, evidence classification, framework selection and output consistency. It cannot replace current retrieval or establish factual correctness by itself.
 
-**Paper:** Thomas H. Costello, Gordon Pennycook and David G. Rand, “Durably reducing conspiracy beliefs through dialogues with AI,” *Science* 385(6714), eadq1814 (13 September 2024). [PubMed record and DOI](https://pubmed.ncbi.nlm.nih.gov/39264999/) · [MIT Sloan research summary](https://mitsloan.mit.edu/ideas-made-to-matter/mit-study-ai-chatbot-can-reduce-belief-conspiracy-theories).
+---
 
-The original report described experiments involving 2,190 participants who engaged in personalised, evidence-based dialogues with GPT-4 Turbo. The authors reported reductions in conspiracy-belief ratings, persistence at follow-up and some generalisation beyond the specific belief discussed. This is relevant as evidence that tailored conversational engagement can support belief revision; it is not evidence that an LLM can reliably teach business strategy, improve venture outcomes or reproduce the effect in African founder populations.
+## Architecture
 
-**Important publication-history qualification (checked 25 November 2026):** *Science* issued an Editorial Expression of Concern on 11 June 2026 after reporting/screening inconsistencies and a code-merging error affecting the public dataset and reproducibility of some reported values. The authors supplied a corrected analysis pipeline and stated that corrected results retained the original direction, statistical significance and substantive size. *Science* subsequently published an erratum on 22 October 2026; PubMed records the erratum, and the expression-of-concern record is marked rescinded. The erratum's full corrected numerical results have not been independently reviewed for this project. Therefore STaaS cites this work for the research question and conversational-intervention design, but does **not** present the original ~20% figure as an unqualified settled effect estimate. [Expression-of-concern notice](https://pubmed.ncbi.nlm.nih.gov/42275523/) · [Erratum record](https://pubmed.ncbi.nlm.nih.gov/42912168/) · [AAAS notice](https://sciencesources.eurekalert.org/news-releases/1131247).
+### Current prototype
 
-### Boissin et al. (2025): messenger identity and evidence quality
+The repository documents an imported React, TypeScript and Vite application with a deterministic browser-side four-stage analyzer (Clarity, Niche, Action and Strategy), English/Italian support, Supabase authentication, user-scoped report persistence, report history and browser print-to-PDF export.
 
-**Paper:** Esther Boissin et al., “Dialogues with large language models reduce conspiracy beliefs even when the AI is perceived as human,” *PNAS Nexus* 4(11), pgaf325 (14 October 2025). [Open article and DOI](https://doi.org/10.1093/pnasnexus/pgaf325).
+The current application does not provide a live research pipeline, integrated DWH, knowledge catalogue, vector retrieval, persistent founder mental model, fine-tuned model, MCP adapter or managed STaaS service. Those are proposed capabilities.
 
-In a preregistered experiment (N=955), participants discussed a conspiracy or an epistemically unwarranted belief with an LLM presenting evidence-based counterarguments. The study manipulated whether the interlocutor was described as an AI or an expert and whether the tone was human-like. Confidence in the beliefs decreased, with no significant differences between those presentation conditions. This supports testing evidence quality, personal relevance and reflective dialogue rather than assuming that anthropomorphic presentation is the active ingredient. It does not establish efficacy for founder education.
+### Proposed target architecture
 
-### Meyer et al. (2024): reflection and epistemic uncertainty
+~~~text
+┌──────────────────────────────────────────────────────────────────┐
+│ FOUNDER EXPERIENCE                                               │
+│ Idea analysis · Learning · Cases · Strategy · Tasks · Reviews    │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────┐
+│ FOUNDER STRATEGIC STATE                                          │
+│ Goals · Constraints · Assumptions · Evidence · Decisions         │
+│ Experiments · Metrics · Outcomes · Consent · Version history    │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────┐
+│ REASONING & ORCHESTRATION                                        │
+│ RAG · Dialogue · Frameworks · Deterministic checks · Approvals   │
+└───────────────┬─────────────────────────────┬────────────────────┘
+                │                             │
+┌───────────────▼────────────────┐  ┌─────────▼────────────────────┐
+│ CATALOGUE & RETRIEVAL          │  │ LEARNING & EVALUATION        │
+│ Cases · Datasets · Frameworks  │  │ Recall · Scenarios ·         │
+│ Founder evidence · Search      │  │ Calibration · Competence     │
+└───────────────┬────────────────┘  └──────────────────────────────┘
+                │
+┌───────────────▼──────────────────────────────────────────────────┐
+│ KNOWLEDGE FOUNDATION                                             │
+│ Sources → rights → OCR/parsing → entities/events → validation   │
+│          → OKF interchange → DWH → catalogue/search projections  │
+└───────────────────────────────┬──────────────────────────────────┘
+                                │
+┌───────────────────────────────▼──────────────────────────────────┐
+│ PUBLIC SOURCES + FOUNDER-AUTHORISED EVIDENCE                      │
+│ Filings · Surveys · Research · Cases · Interviews · Uploads      │
+└──────────────────────────────────────────────────────────────────┘
+
+Cross-cutting: provenance · licensing · privacy · security · audit
+               portability · observability · backup · deletion
+~~~
+
+The full component assessment and validation gates are in [ARCHITECTURE-AND-TRL.md](docs/ARCHITECTURE-AND-TRL.md).
+
+---
+
+## Evidence register
+
+### 1. Personalised evidence-based dialogue and belief revision
+
+#### Costello, Pennycook and Rand (2024)
+
+**Paper:** Thomas H. Costello, Gordon Pennycook and David G. Rand, “Durably reducing conspiracy beliefs through dialogues with AI,” *Science* 385(6714), eadq1814 (13 September 2024). [PubMed record](https://pubmed.ncbi.nlm.nih.gov/39264999/) · [MIT Sloan summary](https://mitsloan.mit.edu/ideas-made-to-matter/mit-study-ai-chatbot-can-reduce-belief-conspiracy-theories).
+
+The original report described experiments involving 2,190 participants who engaged in personalised, evidence-based dialogues with GPT-4 Turbo. The authors reported reductions in conspiracy-belief ratings and persistence at follow-up. This motivates testing tailored evidence-led dialogue, but it is not evidence that an LLM can teach business strategy or improve venture outcomes.
+
+**Publication-history qualification (reviewed 25 November 2026):** Science issued an Editorial Expression of Concern on 11 June 2026 after reporting/screening inconsistencies and a code-merging error affecting the public dataset and reproducibility of some reported values. The authors supplied a corrected analysis pipeline and stated that corrected results retained the original direction, statistical significance and substantive size. Science subsequently published an erratum on 22 October 2026; PubMed records the erratum and marks the expression-of-concern record as rescinded. The corrected numerical results have not been independently re-analysed for this project. Accordingly, this project does not treat the originally reported approximately 20% figure as an unqualified settled estimate. [Expression-of-concern record](https://pubmed.ncbi.nlm.nih.gov/42275523/) · [Erratum record](https://pubmed.ncbi.nlm.nih.gov/42912168/) · [AAAS notice](https://sciencesources.eurekalert.org/news-releases/1131247).
+
+#### Boissin et al. (2025)
+
+**Paper:** Esther Boissin et al., “Dialogues with large language models reduce conspiracy beliefs even when the AI is perceived as human,” *PNAS Nexus* 4(11), pgaf325 (2025). [Article and DOI](https://doi.org/10.1093/pnasnexus/pgaf325) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/41179846/).
+
+In a preregistered experiment (N=955), participants discussed a conspiracy or an epistemically unwarranted belief with an LLM presenting evidence-based counterarguments. The study manipulated whether the interlocutor was described as an AI or an expert and whether the tone was human-like. Confidence decreased, with no significant differences between those presentation conditions. This supports investigating evidence quality and reflection rather than assuming anthropomorphic presentation is the active ingredient. It does not establish entrepreneurship-learning efficacy.
+
+#### Meyer et al. (2024)
 
 **Paper:** Marco Meyer et al., “Using an AI-powered ‘street epistemologist’ chatbot and reflection tasks to diminish conspiracy theory beliefs,” *Harvard Kennedy School Misinformation Review* 5(6) (12 December 2024). [Article](https://misinforeview.hks.harvard.edu/article/using-an-ai-powered-street-epistemologist-chatbot-and-reflection-tasks-to-diminish-conspiracy-theory-beliefs/).
 
-This work examined AI-facilitated reflection on uncertainty and found that both chatbot interaction and reflection tasks could weaken conviction for some participants. It motivates STaaS patterns that ask founders to articulate confidence, assumptions and what evidence could change their minds. Reflection should be respectful and non-coercive; the objective is informed agency, not persuading a founder toward a predetermined business choice.
+This work examined AI-facilitated reflection on uncertainty and reported that chatbot interaction and reflection tasks could weaken conviction for some participants. It motivates asking founders what they are uncertain about and what evidence might change their view. It is not a validation of STaaS or a general claim about all users.
 
-## How STaaS may apply this research
+### 2. Compact language models and model adaptation
 
-The transferable design hypothesis is **personalised, evidence-grounded, reflective dialogue**:
+| Source | Relevant finding | Limitation for STaaS |
+|---|---|---|
+| [Phi-3 Technical Report (Microsoft, 2024)](https://arxiv.org/abs/2404.14219) | Phi-3 Mini is 3.8B parameters and was trained on 3.3T tokens using heavily filtered web and synthetic data; post-training included SFT and DPO. | Does not show that a small model automatically matches frontier models on business strategy. |
+| [Phi-4 Technical Report (Microsoft, 2024)](https://arxiv.org/abs/2412.08905) | Phi-4 (14B) emphasises data quality and synthetic data throughout training, with curriculum and post-training improvements. | Does not show that a few thousand examples reproduce Phi-4's capabilities. |
+| [Phi-4-reasoning Technical Report (Microsoft, 2025)](https://arxiv.org/abs/2504.21318) | Describes SFT on curated teachable prompts and teacher-generated reasoning demonstrations; a variant uses outcome-based RL. | Not evidence that the same recipe transfers to founder strategy tasks without domain evaluation. |
+| [NVIDIA Research: Small Language Models are the Future of Agentic AI](https://research.nvidia.com/labs/lpr/slm-agents/) | Makes the case for specialised models and code-orchestrated workflows for bounded agent tasks. | Does not establish a universal SLM advantage or a fixed share of agent tasks. |
+| [Hugging Face TRL: Unsloth integration](https://huggingface.co/docs/trl/v1.15.0/en/unsloth_integration) | Documents SFT and preference/RL workflows with LoRA/QLoRA where supported. | Compatibility, memory and speed depend on model, hardware and software versions. |
 
-1. Elicit the founder's current mental model, goals, assumptions and confidence without treating them as facts.
-2. Identify the key uncertainty or decision that matters now.
-3. Retrieve relevant, provenance-linked business cases, market evidence and framework concepts, including failures and counterexamples.
-4. Explain why the evidence is relevant and where the analogy breaks; distinguish observation, source claim, inference and hypothesis.
-5. Ask the founder to compare evidence with their prior view and decide what, if anything, should change.
-6. Record the decision, rationale, confidence, timestamp and evidence in persistent founder state/OKF-backed records (subject to verified schema and consent).
-7. Revisit the assumption when new evidence arrives; use spaced retrieval for concept recall and separate scenario tasks for applied competence.
+### 3. Business strategy, entrepreneurship and enterprise context
 
-For founders operating in African markets or building businesses without abundant local precedents, the catalogue could make comparable cases from other African countries and the diaspora discoverable alongside cases from the US, UK, Europe and Asia. It must not assume that foreign business models transfer unchanged. Capture local infrastructure, capital access, regulation, purchasing power, informality, language, distribution and institutional context, and explicitly surface when no close precedent is available.
+| Source | Potential contribution | Limitation / use condition |
+|---|---|---|
+| [MIT Martin Trust Center: Disciplined Entrepreneurship](https://diymtc.mit.edu/education/deframework/) | A structured 24-step framework for building innovation-driven enterprises. | A framework is not a universal recipe or outcome predictor. Respect copyright; store references and licensed summaries rather than unauthorised copies. |
+| [World Bank Enterprise Surveys: methodology](https://www.enterprisesurveys.org/en/methodology) | Firm-level survey methodology covering finance, infrastructure, regulation, competition and business environment. | Survey populations, dates, instruments and sampling differ; check comparability. |
+| [World Bank Enterprise Surveys: FAQ](https://www.enterprisesurveys.org/en/about-us/frequently-asked-questions) | Reports nearly 300,000 interviews in 181 economies following the Global Methodology. | Interviews are not equivalent to 300,000 startup case studies or labelled reasoning examples. |
+| [World Bank Enterprise Surveys: data portal](https://www.enterprisesurveys.org/en/data) | Indicators and microdata across enterprise surveys, including formal, micro and informal enterprise surveys. | Inspect dataset-level metadata, terms, sampling and permitted uses. |
+| [FSRS](https://github.com/open-spaced-repetition/fsrs4anki) | Spaced-repetition scheduling based on memory stability and retrievability. | Recall scheduling does not prove applied business competence. |
 
-**Ethical boundary:** STaaS must not use covert persuasion, exploit vulnerabilities or optimise for agreement with the platform. It should support critical thinking, disclose uncertainty and sources, present credible counterevidence, preserve the founder's right to disagree, and measure understanding and decision quality rather than compliance or persuasion.
+---
 
-**Evidence boundary:** these studies concern belief revision in specific experimental populations and topics. They provide design inspiration and a research rationale for testing reflective dialogue, not a validated causal claim about entrepreneurship education, African founders, business-plan quality, funding success or venture survival. STaaS must run its own preregistered or transparently designed pilot with informed consent, appropriate comparison conditions, independent review and outcomes such as evidence comprehension, assumption calibration, decision quality and follow-through.
+## Dataset and source acquisition register
+
+This is a lead list, not a statement that records have been downloaded, deduplicated, licensed for commercial use or converted into a training corpus.
+
+| Source | Potential value | Acquisition and rights note |
+|---|---|---|
+| [World Bank Enterprise Surveys](https://www.enterprisesurveys.org/en/data) | Firm operating conditions, finance, infrastructure, regulation, competition and performance across economies. | Inspect each survey's metadata and terms; distinguish formal, micro and informal samples. |
+| [Global Entrepreneurship Monitor](https://www.gemconsortium.org/data) | Entrepreneurship attitudes, activity and framework conditions across participating economies. | Check access, country/year coverage and dataset licence. |
+| [Autopsy](https://data.getautopsy.io/) | Startup failure post-mortems and failure patterns. | Confirm commercial access and licensing; do not assume bulk reuse. |
+| [Simplifying Finance case studies](https://simplifyingfinance.org/case-studies/) | Company strategy, crises and failures. | Publicly readable does not mean unrestricted text reuse or model-training rights. |
+| [Fliar BI datasets](https://fliarbi.com/datasets/) | Company events, funding, acquisitions, financial and operational records. | Published sample terms include non-commercial restrictions; obtain commercial permission before use. |
+| [Propel Africa](https://www.propel.africa/dataset) | African startup funding and deal coverage. | Confirm export access, coverage and commercial reuse rights. |
+| [The Chancery Africa Funding Atlas](https://atlas.thechancery.io/index.html) | African startup, investor and funding records. | Confirm data provenance, API/export access and licence. |
+| [Companies House](https://www.gov.uk/government/organisations/companies-house) | UK company filings, accounts and corporate events. | Review API terms, personal data obligations and filing limitations. |
+| [SEC EDGAR](https://www.sec.gov/edgar/search/) | US public-company filings, acquisitions, risk factors and financial disclosures. | Follow SEC access policies; filings are primary evidence but not uniformly structured case studies. |
+| [OpenAlex](https://openalex.org/) | Research discovery and scholarly metadata for entrepreneurship and management. | Metadata access is not a licence to full text; check API and article-level rights. |
+
+Do not add source record counts together as if they were unique businesses. Sources count different units: firms, interviews, deals, events, documents and articles. Track separate totals for source records, unique entities, events, documents, extracted claims and training/evaluation examples.
+
+---
+
+## Training and adaptation methodology
+
+### Proposed pipeline
+
+1. **Base-model selection:** compare licence, language coverage, context length, tool-use reliability, footprint and baseline task performance.
+2. **Rights-cleared corpus:** retain source attribution, licence, geography, date, source type and extraction provenance.
+3. **Expert-reviewed task generation:** create tasks for evidence extraction, assumption identification, option comparison, missing-information questions, experiment design, unit economics and decision revision.
+4. **SFT/QLoRA:** first adapt bounded behaviours such as structured extraction, disciplined citations and workflow outputs.
+5. **Preference optimisation:** consider DPO only when chosen/rejected examples and preference criteria are high quality.
+6. **Outcome-based RL:** consider GRPO or other methods only where rewards are independently verifiable (for example arithmetic, schema validity, citation support or explicit task completion). Do not reward persuasive but unsupported advice.
+7. **RAG at inference:** retrieve changing market facts, case evidence and founder-specific material rather than attempting to encode them permanently in model weights.
+8. **Held-out evaluation:** compare base and adapted models across unseen companies, sectors, countries and tasks; test calibration, citations, abstention, tool safety and regressions.
+9. **Deployment profiling:** test quantisation and runtime behaviour on target hardware, including OpenVINO where supported.
+
+### Dataset-size caution
+
+A 3,000–5,000-example pilot is a proposed experiment for a narrow SFT task, not a literature-proven threshold and not a substitute for large-scale pretraining. Quality, coverage, task diversity, deduplication, leakage controls and evaluation matter more than a headline count. Begin with a small expert-reviewed pilot, measure errors and expand only where justified.
+
+### Suggested example taxonomy
+
+- evidence extraction and provenance;
+- business-model and customer-problem diagnosis;
+- market context and geographic transferability;
+- strategic-framework selection and application;
+- financial reasoning and unit economics;
+- competitive positioning and differentiation;
+- failure, pivot, acquisition and financing case analysis;
+- experiment design and prioritisation;
+- decision revision after new evidence;
+- founder teaching, retrieval practice and misconception correction.
+
+---
+
+## Evaluation design
+
+Build a held-out benchmark stratified by geography, sector, company stage and outcome (growth, survival, pivot, acquisition and closure). Include incomplete evidence, conflicting sources, counterexamples and counterfactual traps.
+
+Score factual accuracy and source support; separation of facts, attributed claims, founder assertions, assumptions and inference; quality of clarifying questions when information is missing; strategic option quality and trade-off reasoning; numerical correctness for financial calculations; contextual transferability, including recognition when lessons do not transfer; calibrated uncertainty and appropriate abstention; tool-call and schema correctness; consistency after evidence and state updates; founder comprehension and usefulness; applied competence on unseen scenarios; and decision quality and follow-through where ethically and practically measurable.
+
+Split by company/entity and source family, not random rows alone, to reduce leakage. Use temporal holdouts where possible. Report sample sizes, confidence intervals, subgroup performance and missingness. Do not present synthetic validation accuracy as real-world founder impact.
+
+For the reflective-learning hypothesis, compare appropriate interaction conditions and assess evidence comprehension, assumption calibration, quality of reasoning and follow-through. Use informed consent, disclose AI involvement, avoid manipulation and permit disagreement. A preregistered or otherwise transparently specified pilot with independent review is preferable before making efficacy claims.
+
+---
+
+## Engineering observations and project status
+
+### Local inference observation
+
+The user has reported an OpenVINO benchmark around 40 tokens/second on local hardware. This is a user-reported runtime observation, not independently reproduced in this repository. A repeatable benchmark must record exact model ID/revision, quantisation, device, prompt/output token counts, warm-up, concurrency, OpenVINO version and measurement script. Tokens per second do not measure reasoning quality.
+
+### Current implementation boundary
+
+The repository currently documents the imported four-stage analyzer and Supabase report workflow. The following remain unimplemented or unverified as integrated capabilities: rights-cleared ingestion and OCR pipeline; canonical OKF schema/conformance and lossless round-trip tests; DWH, entity/event resolution and catalogue; provenance-preserving keyword/vector retrieval; persistent founder strategic state and assumption/decision lifecycle; reflective founder-learning workflow; spaced-repetition and applied-competence assessment; fine-tuned STaaS model and held-out benchmark; MCP/OpenCode or other agent-harness adapter; and managed STaaS service operations.
+
+See [the architecture and TRL assessment](docs/ARCHITECTURE-AND-TRL.md). The integrated product must not be assigned the highest TRL of one component.
+
+---
+
+## Research questions
+
+1. **Founder mental models:** Can evidence-grounded dialogue improve founders' ability to articulate, test and revise business assumptions without reducing agency or encouraging agreement with the system?
+2. **Contextual case transfer:** Which case attributes best predict whether a strategy is relevant across different countries, sectors, infrastructure and capital environments?
+3. **African and diaspora case coverage:** What are the actual coverage gaps by country, language, sector, stage and outcome, and which rights-cleared sources can close them?
+4. **Failure and negative evidence:** How can the system preserve reliable lessons from failures and pivots without survivorship bias or hindsight distortion?
+5. **Retrieval quality:** Does hybrid lexical/semantic retrieval with metadata and contextual reranking outperform simpler retrieval for business-case discovery?
+6. **Small-model specialisation:** Which bounded STaaS tasks benefit from SFT/QLoRA, and where do retrieval, deterministic code or a larger model remain necessary?
+7. **Recall versus competence:** Does spaced retrieval improve concept recall, and does that transfer to applied decision-making on unseen scenarios?
+8. **Persistent state and interoperability:** Can a platform-owned, versioned knowledge/state model support reliable handoff across model providers and agent harnesses without losing provenance or permission boundaries?
+9. **Founder outcomes:** Do pilots improve evidence quality, decision quality, experiment completion or time to a useful next action compared with appropriate baselines?
+
+---
+
+## Open problems and limitations
+
+### Research transfer
+
+The belief-revision literature concerns specific beliefs and experimental samples. It does not establish entrepreneurship-learning efficacy, improved venture performance or transfer to African founders. Product pilots must test these hypotheses directly and ethically.
+
+### Source bias and coverage
+
+Public company information overrepresents visible, formal, funded and successful firms. Informal businesses, small local firms, closed companies and founders outside major ecosystems are less documented. The catalogue must record missingness and source bias rather than implying comprehensive global coverage.
+
+### Rights and licensing
+
+Publicly accessible content is not automatically available for commercial reuse, redistribution, embedding or model training. A rights register and source-specific review are prerequisites for ingestion at scale.
+
+### Entity resolution and event quality
+
+Company names, subsidiaries, aliases, funding announcements and acquisitions are difficult to reconcile. Incorrect merges can corrupt longitudinal analysis. Retain source-level records, confidence, review state and reversible entity mappings.
+
+### Outcome and survivorship bias
+
+Success stories are easier to find and often retrospectively simplified. Include failures, censored outcomes, unsuccessful experiments and contradictory accounts. Do not infer causality from a case narrative.
+
+### OKF specification
+
+The canonical OKF source, exact schema version, required fields and compatibility rules must be verified. Do not invent a schema or claim conformance without validation fixtures and lossless round-trip tests.
+
+### Evaluation validity
+
+Synthetic cases can test format and bounded skills but cannot substitute for real founder usage. Benchmarks need entity-level holdouts, contextual coverage, independent review and transparent uncertainty.
+
+### Security and privacy
+
+Founder uploads may contain commercially sensitive, personal or financial data. Define data minimisation, retention, deletion, access control, encryption, model-processing disclosures and incident response before enabling broad ingestion or third-party agent access.
+
+### Local inference
+
+The reported tokens/second figure is not an accuracy, latency distribution, cost or quality benchmark. Reproduce it under a documented test protocol and evaluate task quality independently.
+
+---
+
+## What further research and funding could enable
+
+1. **Rights-cleared global case corpus:** build a traceable company/event dataset with deliberate coverage of African markets, diaspora founders, failures, pivots and operational constraints.
+2. **Founder-learning pilot:** evaluate reflective dialogue, case-based learning and spaced retrieval with consented founders and independent outcome review.
+3. **Knowledge integrity implementation:** verify the canonical OKF contract and build ingestion, entity resolution, DWH, catalogue and round-trip tests.
+4. **Retrieval benchmark:** compare lexical, semantic and hybrid retrieval on realistic founder questions and context-sensitive case matching.
+5. **Small-model adaptation study:** compare baseline and SFT/QLoRA models on held-out extraction, reasoning, calibration and workflow tasks.
+6. **Agent interoperability:** implement permissioned MCP adapters and test auditability, revocation and portable state across compatible harnesses.
+7. **Operational validation:** resolve the imported demo provisioning security issue, test tenant isolation, backup/restore, deletion and provider-exit procedures.
+
+---
+
+## Selected bibliography
+
+- Costello, T. H., Pennycook, G. & Rand, D. G. (2024). “Durably reducing conspiracy beliefs through dialogues with AI.” *Science*, 385(6714), eadq1814. [PubMed](https://pubmed.ncbi.nlm.nih.gov/39264999/).
+- Boissin, E. et al. (2025). “Dialogues with large language models reduce conspiracy beliefs even when the AI is perceived as human.” *PNAS Nexus*, 4(11), pgaf325. [DOI](https://doi.org/10.1093/pnasnexus/pgaf325).
+- Meyer, M. et al. (2024). “Using an AI-powered ‘street epistemologist’ chatbot and reflection tasks to diminish conspiracy theory beliefs.” *Harvard Kennedy School Misinformation Review*, 5(6). [Article](https://misinforeview.hks.harvard.edu/article/using-an-ai-powered-street-epistemologist-chatbot-and-reflection-tasks-to-diminish-conspiracy-theory-beliefs/).
+- Microsoft (2024). [Phi-3 Technical Report](https://arxiv.org/abs/2404.14219).
+- Microsoft (2024). [Phi-4 Technical Report](https://arxiv.org/abs/2412.08905).
+- Microsoft (2025). [Phi-4-reasoning Technical Report](https://arxiv.org/abs/2504.21318).
+- NVIDIA Research. [Small Language Models are the Future of Agentic AI](https://research.nvidia.com/labs/lpr/slm-agents/).
+- Hugging Face. [TRL Unsloth integration](https://huggingface.co/docs/trl/v1.15.0/en/unsloth_integration).
+- MIT Martin Trust Center. [Disciplined Entrepreneurship](https://diymtc.mit.edu/education/deframework/).
+- World Bank. [Enterprise Surveys methodology](https://www.enterprisesurveys.org/en/methodology) and [data portal](https://www.enterprisesurveys.org/en/data).
+- FSRS. [Free Spaced Repetition Scheduler](https://github.com/open-spaced-repetition/fsrs4anki).
