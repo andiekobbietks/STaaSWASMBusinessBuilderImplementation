@@ -11,7 +11,7 @@ These records document decisions and proposed decisions for STaaS. **Proposed** 
 | [0005](0005-model-and-orchestration-boundaries.md) | Model + retrieval + deterministic workflow + human approval | Accepted direction |
 | [0006](0006-progressive-learning-and-application.md) | Separate knowledge recall from applied competence | Proposed |
 | [0007](0007-interoperable-agent-harnesses.md) | Harness-neutral adapters and MCP boundary | Proposed |
-| [0008](0008-model-adaptation-and-evaluation.md) | Staged SFT/QLoRA, optional DPO/RL and held-out evaluation | Proposed |
+| [0008](0008-model-adaptation-and-evaluation.md) | Staged SFT/QLoRA, optional DPO/RL and held-out evaluation | Proposed |\n| [0009](0009-evidence-led-reflective-founder-learning.md) | Evidence-led reflective dialogue for founder learning | Proposed |
 
 ## Decision review
 
