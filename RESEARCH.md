@@ -103,3 +103,44 @@ The user has reported an OpenVINO benchmark around 40 tokens/second on their loc
 - Establish the OKF canonical specification, schema version, conformance suite and lossless round-trip tests.
 - Validate DWH dimensional model and data lineage against actual ingestion samples.
 - Run domain-specific benchmark before making model capability or TRL claims.
+
+
+## Conversational belief revision and founder learning
+
+### Costello, Pennycook and Rand (2024): personalised evidence-based dialogue
+
+**Paper:** Thomas H. Costello, Gordon Pennycook and David G. Rand, “Durably reducing conspiracy beliefs through dialogues with AI,” *Science* 385(6714), eadq1814 (13 September 2024). [PubMed record and DOI](https://pubmed.ncbi.nlm.nih.gov/39264999/) · [MIT Sloan research summary](https://mitsloan.mit.edu/ideas-made-to-matter/mit-study-ai-chatbot-can-reduce-belief-conspiracy-theories).
+
+The original report described experiments involving 2,190 participants who engaged in personalised, evidence-based dialogues with GPT-4 Turbo. The authors reported reductions in conspiracy-belief ratings, persistence at follow-up and some generalisation beyond the specific belief discussed. This is relevant as evidence that tailored conversational engagement can support belief revision; it is not evidence that an LLM can reliably teach business strategy, improve venture outcomes or reproduce the effect in African founder populations.
+
+**Important publication-history qualification (checked 25 November 2026):** *Science* issued an Editorial Expression of Concern on 11 June 2026 after reporting/screening inconsistencies and a code-merging error affecting the public dataset and reproducibility of some reported values. The authors supplied a corrected analysis pipeline and stated that corrected results retained the original direction, statistical significance and substantive size. *Science* subsequently published an erratum on 22 October 2026; PubMed records the erratum, and the expression-of-concern record is marked rescinded. The erratum's full corrected numerical results have not been independently reviewed for this project. Therefore STaaS cites this work for the research question and conversational-intervention design, but does **not** present the original ~20% figure as an unqualified settled effect estimate. [Expression-of-concern notice](https://pubmed.ncbi.nlm.nih.gov/42275523/) · [Erratum record](https://pubmed.ncbi.nlm.nih.gov/42912168/) · [AAAS notice](https://sciencesources.eurekalert.org/news-releases/1131247).
+
+### Boissin et al. (2025): messenger identity and evidence quality
+
+**Paper:** Esther Boissin et al., “Dialogues with large language models reduce conspiracy beliefs even when the AI is perceived as human,” *PNAS Nexus* 4(11), pgaf325 (14 October 2025). [Open article and DOI](https://doi.org/10.1093/pnasnexus/pgaf325).
+
+In a preregistered experiment (N=955), participants discussed a conspiracy or an epistemically unwarranted belief with an LLM presenting evidence-based counterarguments. The study manipulated whether the interlocutor was described as an AI or an expert and whether the tone was human-like. Confidence in the beliefs decreased, with no significant differences between those presentation conditions. This supports testing evidence quality, personal relevance and reflective dialogue rather than assuming that anthropomorphic presentation is the active ingredient. It does not establish efficacy for founder education.
+
+### Meyer et al. (2024): reflection and epistemic uncertainty
+
+**Paper:** Marco Meyer et al., “Using an AI-powered ‘street epistemologist’ chatbot and reflection tasks to diminish conspiracy theory beliefs,” *Harvard Kennedy School Misinformation Review* 5(6) (12 December 2024). [Article](https://misinforeview.hks.harvard.edu/article/using-an-ai-powered-street-epistemologist-chatbot-and-reflection-tasks-to-diminish-conspiracy-theory-beliefs/).
+
+This work examined AI-facilitated reflection on uncertainty and found that both chatbot interaction and reflection tasks could weaken conviction for some participants. It motivates STaaS patterns that ask founders to articulate confidence, assumptions and what evidence could change their minds. Reflection should be respectful and non-coercive; the objective is informed agency, not persuading a founder toward a predetermined business choice.
+
+## How STaaS may apply this research
+
+The transferable design hypothesis is **personalised, evidence-grounded, reflective dialogue**:
+
+1. Elicit the founder's current mental model, goals, assumptions and confidence without treating them as facts.
+2. Identify the key uncertainty or decision that matters now.
+3. Retrieve relevant, provenance-linked business cases, market evidence and framework concepts, including failures and counterexamples.
+4. Explain why the evidence is relevant and where the analogy breaks; distinguish observation, source claim, inference and hypothesis.
+5. Ask the founder to compare evidence with their prior view and decide what, if anything, should change.
+6. Record the decision, rationale, confidence, timestamp and evidence in persistent founder state/OKF-backed records (subject to verified schema and consent).
+7. Revisit the assumption when new evidence arrives; use spaced retrieval for concept recall and separate scenario tasks for applied competence.
+
+For founders operating in African markets or building businesses without abundant local precedents, the catalogue could make comparable cases from other African countries and the diaspora discoverable alongside cases from the US, UK, Europe and Asia. It must not assume that foreign business models transfer unchanged. Capture local infrastructure, capital access, regulation, purchasing power, informality, language, distribution and institutional context, and explicitly surface when no close precedent is available.
+
+**Ethical boundary:** STaaS must not use covert persuasion, exploit vulnerabilities or optimise for agreement with the platform. It should support critical thinking, disclose uncertainty and sources, present credible counterevidence, preserve the founder's right to disagree, and measure understanding and decision quality rather than compliance or persuasion.
+
+**Evidence boundary:** these studies concern belief revision in specific experimental populations and topics. They provide design inspiration and a research rationale for testing reflective dialogue, not a validated causal claim about entrepreneurship education, African founders, business-plan quality, funding success or venture survival. STaaS must run its own preregistered or transparently designed pilot with informed consent, appropriate comparison conditions, independent review and outcomes such as evidence comprehension, assumption calibration, decision quality and follow-through.
