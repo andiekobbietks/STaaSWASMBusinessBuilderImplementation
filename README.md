@@ -370,6 +370,90 @@ Publicly viewable does not mean freely reusable, downloadable, modifiable or sui
 
 The initial corpus should prioritise public, rights-cleared or user-authorised sources. A source adapter should be replaceable without changing the canonical STaaS knowledge model. Retrieval indexes are rebuildable projections, not the authoritative record.
 
+## Conversational workspace, tools and interactive apps
+
+The chat interface is intended to become a multi-capability workspace, not just a text box connected to one model. The Vercel AI SDK is a candidate TypeScript foundation for streaming, provider abstraction, structured outputs, tool calling, agent loops and React chat state. Its MCP integration can connect compatible external tools and resources. Its documented MCP Apps host pattern can also render interactive interfaces returned by MCP tools.
+
+This creates a route towards some of the interaction patterns familiar from ChatGPT Apps: the user asks for a task, the assistant invokes a capability, and a focused interface appears inside the conversation to inspect, compare, edit or confirm the result. The portable foundation should be the open MCP Apps protocol, not a dependency on ChatGPT's proprietary host APIs.
+
+### Capability layers
+
+| Layer | Candidate capability | STaaS examples |
+|---|---|---|
+| Conversation | AI SDK UI streaming and typed message parts | Progressive answers, saved conversation context and tool status |
+| Model orchestration | AI SDK Core, provider adapters and agent/tool loops | Select a model for research synthesis, structured analysis or summarisation |
+| Native STaaS tools | Typed, application-owned tools | Score business parameters, calculate unit economics, validate assumptions, build an experiment plan |
+| External integrations | MCP clients and scoped MCP servers | Connect approved research, document, CRM, project and data services |
+| Interactive tool apps | MCP Apps resources and host rendering | Evidence explorer, market-comparison table, roadmap editor, financial scenario controls |
+| Purpose-built interface | React generative UI | Charts, source cards, parameter scorecards, decision forms and review panels |
+| Multimodal input/output | Provider/model-dependent file, image, audio and other modalities | Analyse a founder-uploaded document or image; voice interaction where supported |
+| Human control | Explicit approval and confirmation states | Confirm external writes, sending messages, spending, publishing or changing business records |
+
+### Example interaction
+
+~~~text
+FOUNDER
+  "Compare these business models and help me test the pricing."
+
+       |
+       v
+STaaS CHAT / AI SDK
+  streams progress; asks clarifying questions
+       |
+       +----> STaaS NATIVE TOOLS
+       |        parameter analysis · unit economics · validation rules
+       |
+       +----> MCP CONNECTORS
+       |        approved research · CRM · documents · project tools
+       |
+       +----> KNOWLEDGE SERVICES
+       |        source catalogue · retrieval · provenance · DWH
+       |
+       v
+STRUCTURED RESULTS
+  evidence + assumptions + calculations + uncertainty
+       |
+       v
+INTERACTIVE UI
+  comparison · charts · scenario controls · evidence explorer
+       |
+       v
+FOUNDER REVIEW / APPROVAL
+  accept · edit · reject · request more evidence
+       |
+       v
+AUDITED WORKFLOW
+  approved action · decision record · outcome measurement
+~~~
+
+### MCP Apps and ChatGPT Apps: compatibility, not equivalence
+
+OpenAI's Apps SDK uses MCP servers and supports optional interactive UI resources. The MCP Apps specification provides a shared host/UI protocol intended to work across compatible clients. A Vercel AI SDK application can implement an MCP Apps host, but it does not thereby become ChatGPT, inherit every ChatGPT Apps capability, or gain access to ChatGPT's proprietary host extensions.
+
+STaaS should build its own first-party chat and interactive component system, expose portable capabilities through well-scoped MCP tools and resources, use MCP Apps for interoperable tool-provided UI where supported, and keep any ChatGPT-specific extension optional. Provide a useful text/structured-data fallback when a host cannot render a widget.
+
+### Important implementation and security boundaries
+
+The AI SDK is an orchestration/UI toolkit, not a complete permissions, tenancy, audit, billing or workflow-governance system. STaaS must supply those controls.
+
+- Keep model API keys and privileged connector credentials server-side.
+- Authenticate each founder and bind every tool invocation to an authorised tenant and user.
+- Allowlist MCP servers and tools; do not expose every discovered tool to every model or user.
+- Validate tool input and output against schemas and enforce timeouts, quotas and rate limits.
+- Separate read-only tools from write-capable tools.
+- Require explicit user confirmation for consequential external writes, spending, publishing, messaging and irreversible changes.
+- Record actor, tool, arguments (with sensitive fields redacted), approval, outcome and correlation ID in an audit trail.
+- Treat MCP tool descriptions, resource content, documents and widget HTML as untrusted input.
+- Render MCP Apps in a sandbox with a narrowly scoped bridge; never grant an iframe direct access to application secrets or unrestricted APIs.
+- Keep authoritative business state in STaaS services. UI widget state and provider conversation state are not the system of record.
+- Support connector revocation, failure handling, retries with idempotency and export/exit paths.
+
+### Delivery status
+
+This is a proposed architecture. The current repository describes a React/TypeScript/Vite deterministic analyzer with Supabase authentication and report persistence. It does not currently establish that Vercel AI SDK, an MCP client/server, MCP Apps rendering, multimodal chat, agent orchestration or ChatGPT Apps compatibility has been implemented. Verify the package manifest and runtime before changing any capability to implemented.
+
+The MCP Apps renderer documented by Vercel is marked experimental in the referenced integration guide. Pin and test compatible versions, isolate the renderer behind an adapter and retain a fallback before relying on it in a production workflow.
+
 ## Proposed system architecture
 
 The diagrams distinguish the current application from the proposed knowledge and intelligence services.
