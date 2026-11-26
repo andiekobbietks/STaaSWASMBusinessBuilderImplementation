@@ -8,7 +8,25 @@ const provider = createOpenAICompatible({
 });
 const modelName = process.env.LLM_MODEL || "qwen2.5:0.5b";
 
-export default async function handler(req: any, res: any) {
+type ChatRequest = {
+  method?: string;
+  body?: {
+    messages?: Array<{
+      role: string;
+      parts?: Array<{ type: string; text?: string }>;
+    }>;
+  };
+};
+
+type ChatResponse = {
+  status: (code: number) => ChatResponse;
+  json: (body: unknown) => void;
+  setHeader: (name: string, value: string) => void;
+  write: (chunk: Buffer) => void;
+  end: () => void;
+};
+
+export default async function handler(req: ChatRequest, res: ChatResponse) {
   // This unauthenticated route is deliberately demo-only. Production must add
   // Supabase session verification, venture-level authorisation and rate limits.
   if (process.env.STAAS_DEMO_CHAT !== "true") {
@@ -24,9 +42,9 @@ export default async function handler(req: any, res: any) {
   try {
     const messages = Array.isArray(req.body?.messages) ? req.body.messages : [];
     const prompt = messages
-      .map((message: any) => {
+      .map((message) => {
         const text = Array.isArray(message.parts)
-          ? message.parts.filter((part: any) => part.type === "text").map((part: any) => part.text).join("\n")
+          ? message.parts.filter((part) => part.type === "text").map((part: any) => part.text).join("\n")
           : "";
         return text ? `${message.role}: ${text}` : "";
       })
