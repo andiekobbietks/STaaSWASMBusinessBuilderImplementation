@@ -214,6 +214,36 @@ The current engine is deterministic and runs in the browser. Future AI-assisted 
 - Provide a non-AI or export fallback for core user data.
 - Never put privileged API keys in client-side code.
 
+## 12.1 Conversational workspace and connected capabilities
+
+The target conversational interface should support more than free-form text. It may coordinate first-party STaaS tools, approved external integrations and interactive components while preserving the founder's control over business data and consequential actions.
+
+### Functional requirements
+
+- **BB-026 Streaming chat:** stream assistant output and tool progress; preserve typed message parts and recoverable error states.
+- **BB-027 First-party tools:** expose selected STaaS analysis operations through typed, versioned schemas and server-side execution.
+- **BB-028 MCP integrations:** connect only approved MCP servers; display the connector identity and permissions; allow users to revoke access.
+- **BB-029 Interactive tool UI:** render native STaaS components and, where compatible, MCP Apps UI resources inside a constrained host.
+- **BB-030 Structured outputs:** render validated business scorecards, evidence lists, comparisons, charts and action plans from typed data.
+- **BB-031 Human approval:** preview and obtain explicit confirmation for consequential external writes, messages, publication, spending and deletion.
+- **BB-032 Multimodal input:** accept only documented file/image/audio modalities supported by the selected provider/model and current privacy policy.
+- **BB-033 Long-running work:** show status, allow cancellation and recover from failure for multi-step research or analysis jobs.
+- **BB-034 Auditability:** record tool identity, actor, venture scope, approval and outcome for material operations, with sensitive arguments redacted.
+- **BB-035 Fallback:** ensure core results remain understandable without a widget renderer or external MCP host capability.
+
+### Acceptance criteria
+
+- A model cannot invoke a tool outside the authenticated user's authorised scope.
+- A tool's input is schema-validated and independently authorised on the server.
+- A prompt or tool description cannot grant permissions.
+- Read-only and write-capable tools are distinguishable.
+- Consequential writes show the target and proposed changes before confirmation.
+- MCP Apps content is isolated in a sandbox and cannot read application secrets.
+- Tool results preserve source/provenance references where applicable.
+- The UI degrades to text or structured data when an interactive component is unsupported.
+- Provider/model modality support is tested and documented rather than inferred from the SDK.
+- Connector access can be revoked and the revocation is enforced on subsequent calls.
+
 ## 13. Security, privacy and governance
 
 Minimum requirements:
@@ -285,7 +315,10 @@ Add objectives, initiatives, experiments, roadmap, owners, dependencies and mile
 ### Phase 4 - measurement and adaptation
 Add metric observations, review cadence, outcome summaries and strategy revision.
 
-### Phase 5 - optional STaaS service layer
+### Phase 5 - conversational and integration foundation
+Prototype streaming chat; add first-party read-only tools; structured generative UI; one scoped MCP integration; sandboxed MCP Apps proof of concept; approval and audit controls. Do not enable consequential writes until security acceptance criteria pass.
+
+### Phase 6 - optional STaaS service layer
 Validate service demand, operating cadence, service agreements, customer approvals, delivery reporting, transparent pricing and exit process.
 
 Phase gates require user research, security review and working acceptance tests. Do not infer completion from a roadmap entry.
