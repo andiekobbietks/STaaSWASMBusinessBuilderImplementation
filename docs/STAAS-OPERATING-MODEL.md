@@ -51,6 +51,14 @@ A possible managed engagement can combine:
 7. Optional implementation work, separately scoped where appropriate.
 8. A documented handover and exit path.
 
+## Conversational delivery and integrations
+
+The software may provide a chat-based interface for discovery, analysis, research and execution planning. A candidate implementation uses the Vercel AI SDK for streaming, model-provider abstraction, tool orchestration and React chat UI. MCP may expose approved capabilities to compatible external clients; MCP Apps may provide interactive interfaces for selected tools in compatible hosts.
+
+This is a delivery interface, not a transfer of accountability to the model. The customer remains in control of business decisions, connected accounts, external actions, budgets and approvals. Every integration must have a defined purpose, data scope, owner, access method, failure behaviour and revocation route.
+
+A managed STaaS engagement may use the chat workspace to capture requests, prepare recommendations, show evidence, coordinate approved work and report progress. Human delivery partners remain accountable for the agreed service work; AI-generated suggestions are not automatically approved instructions.
+
 ## Commercial hypotheses
 
 Possible commercial structures include:
