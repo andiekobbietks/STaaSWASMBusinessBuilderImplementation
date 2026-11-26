@@ -724,7 +724,8 @@ In another terminal:
 ~~~bash
 LLM_BASE_URL=http://127.0.0.1:11434/v1 \
 LLM_MODEL=qwen2.5:0.5b \
-npm run dev
+STAAS_DEMO_CHAT=true \\
+npx vercel dev
 ~~~
 
 Open the local URL printed by Vercel CLI and append `?demo=1` to explore the workspace without Supabase authentication. The demo query parameter is for local demonstration and screenshot journeys only. The unauthenticated chat endpoint is disabled unless `STAAS_DEMO_CHAT=true`; use that flag only in a local, isolated demo. Do not enable it on a public production deployment. A production chat endpoint must first enforce Supabase session verification, user/venture authorisation, rate limits and abuse controls. Configure `LLM_BASE_URL`, `LLM_MODEL` and (if required by the provider) `LLM_API_KEY` as server-side environment variables. Never expose provider credentials through `VITE_*` variables.
