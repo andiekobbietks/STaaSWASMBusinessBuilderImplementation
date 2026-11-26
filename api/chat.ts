@@ -9,7 +9,14 @@ const provider = createOpenAICompatible({
 const modelName = process.env.LLM_MODEL || "qwen2.5:0.5b";
 
 export default async function handler(req: any, res: any) {
-  if (process.env.STAAS_DEMO_CHAT !== "true") {\n    res.status(503).json({ error: "Chat inference is disabled until an authenticated production gateway is configured." });\n    return;\n  }\n\n  if (req.method !== "POST") {
+  // This unauthenticated route is deliberately demo-only. Production must add
+  // Supabase session verification, venture-level authorisation and rate limits.
+  if (process.env.STAAS_DEMO_CHAT !== "true") {
+    res.status(503).json({ error: "Chat inference is disabled until an authenticated production gateway is configured." });
+    return;
+  }
+
+  if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
