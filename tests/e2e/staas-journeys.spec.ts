@@ -23,8 +23,12 @@ test("capture interactive financial scenario controls", async ({ page }) => {
   await page.goto("/?demo=1");
   await page.getByRole("button", { name: "Business model" }).click();
   await expect(page.getByRole("heading", { name: "Business model studio" })).toBeVisible();
-  await page.getByRole("slider", { name: "Monthly customers" }).fill("200");
-  await page.getByRole("slider", { name: "Average monthly price" }).fill("49");
+  const customers = page.getByRole("slider", { name: "Monthly customers" });
+  await customers.focus();
+  for (let i = 0; i < 8; i++) await customers.press("ArrowRight");
+  const price = page.getByRole("slider", { name: "Average monthly price" });
+  await price.focus();
+  for (let i = 0; i < 10; i++) await price.press("ArrowRight");
   await expect(page.getByText("£9,800")).toBeVisible();
   await page.screenshot({ path: `${outputDir}/03-business-model.png`, fullPage: true });
 });
