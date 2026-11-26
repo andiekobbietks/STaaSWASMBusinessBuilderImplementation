@@ -32,6 +32,71 @@ STaaS is intended to close that gap. It should help a founder:
 
 The platform should not assume that a founder has access to a large local network, nearby incubator or obvious precedent. It should surface relevant knowledge across the US, UK, Europe, Africa, Asia and diaspora markets while making contextual differences explicit.
 
+## Case study: Darlington Akogo, minoHealth AI Labs and the work behind locally grounded AI
+
+> A founder should not have to discover every relevant dataset, research paper, company precedent, market constraint and validation requirement entirely through trial and error.
+
+The journey of Ghanaian AI entrepreneur **Darlington Akogo**, founder of [minoHealth AI Labs](https://www.minohealth.ai/), illustrates why. It is not a story of simply having an AI idea and finding a model. It is a story about recognising a real problem, revising an initial diagnosis of that problem, learning a new technical discipline, finding domain expertise, assembling data, earning institutional credibility and understanding that a working model is not automatically a deployable healthcare product.
+
+### From a frustrating experience to a better problem definition
+
+Akogo has described a hospital experience in Ghana that made him think about how technology might improve healthcare access. His first interpretation was that appointment systems and queues were part of the problem. As he read, investigated and spoke with people in healthcare, he came to see a more fundamental constraint: shortages of clinicians and specialist capacity, including radiologists.
+
+That change matters. The first problem he noticed was not necessarily the root problem worth solving. A scheduling tool might make queues more orderly without creating more diagnostic capacity. The venture direction changed as he learned more about the operating environment.
+
+In a 2017 interview, Akogo described minoHealth as a broader system combining medical prediction and diagnosis, cloud medical records and data analytics. He said he and a liaison consulted and interviewed healthcare professionals in Ghana and abroad. He also described spending around ten months building the system, reading medical and AI research papers, coding and developing interface designs. This early account shows the breadth of work behind the product: domain discovery, literature review, expert consultation, system design and engineering, not model selection alone.
+
+### From hand-written rules to data-driven methods
+
+Akogo initially explored writing rules for a pneumonia-focused diagnostic system. He found that symptoms and clinical presentations are not cleanly separable: a pattern associated with one condition may be caused by another. The complexity of the problem pushed him towards machine learning and deep learning.
+
+For medical imaging, the task became learning patterns from X-rays rather than attempting to encode every diagnostic rule manually. In a 2023 interview, he described collecting data and developing a system that could analyse X-ray images. The important lesson is not that data collection is a trivial replacement for rules. It is that the task required a different technical approach, suitable data, medical understanding and a way to establish whether the outputs were clinically meaningful.
+
+The journey also included setbacks. Akogo told Ghana Business News that he lost his computer and the work stored on it, subsequently spent time in Italy and returned to Ghana in 2016 to continue. He also described early difficulty getting healthcare professionals to engage because he and the project lacked credibility. Working with Professor Xavier-Lewis Palmer, undertaking research and testing, and publishing work on AI in health helped build the credibility needed for conversations with healthcare institutions.
+
+### Why a model is not the whole product
+
+Akogo's account makes a distinction that STaaS should preserve. Healthcare AI is not validated merely because it produces an answer quickly. He described learning about clinical validation, regulation and policy, and why the requirements differ from a comparatively bounded fintech transaction. In healthcare, errors can affect human lives, and clinicians and regulators have essential roles in determining whether a system is safe and acceptable.
+
+The 2024 Stanford Social Innovation Review profile places minoHealth in the wider context of diagnostic access and medical-imaging workflows. It describes the platform's work with chest X-rays, mammograms, CT scans and MRI, and its evolution beyond a single narrow diagnostic demonstration. These are reported descriptions of the company and its platform, not an independent clinical-effectiveness assessment by STaaS.
+
+### The international perspective: “ground zero” is where the problem is
+
+At the **World Bank Group's Global AI & Digital Summit in Seoul, Republic of Korea (19–22 October 2026)**, Akogo took part in the session *Closing the Gap: The Promise of Artificial Intelligence in Developing Economies*. He explained why minoHealth was deliberately built in Ghana rather than relocating the company to the United States. His argument was that Africa is “ground zero” for addressing major healthcare challenges: innovators need to be close to the people, institutions and conditions they are trying to serve.
+
+He also argued that African biological diversity can contribute valuable data for AI systems with relevance beyond the continent. The point is not that one dataset represents every population, or that geographic origin guarantees representativeness. It is that locally relevant data and proximity to the problem are strategic assets, and that systems developed without the right populations and contexts may fail to transfer.
+
+In the same summit discussion, Akogo described moving from diagnostic imaging models towards healthcare and biology foundation models, and discussed Moremi AI and its use in clinical decision support. He also stressed the importance of working with local experts, selecting real use cases, piloting and benchmarking systems before scaling. His contribution therefore connects local problem understanding, data, model development, deployment context and implementation discipline.
+
+This was a **World Bank summit panel/session**, rather than a lecture specifically about technical “grounding” or retrieval-augmented generation. The phrase “ground zero” refers to where innovation should be rooted. It is a useful strategic idea for STaaS, but should not be misrepresented as a technical claim about grounding an LLM.
+
+### What STaaS learns from this case
+
+The case demonstrates the founder's evidence burden. Relevant information is distributed across interviews, specialist knowledge, academic literature, datasets, institutional requirements, regulation, implementation partners and real-world feedback. A founder may not know which of these sources exist, which apply to their context, what rights govern their use or what evidence is sufficient to proceed.
+
+STaaS is intended to reduce that discovery and coordination burden through an evidence-led workflow:
+
+1. **Discover:** identify relevant datasets, research, company precedents, sector reports, standards, regulations, funders and potential domain experts.
+2. **Qualify:** record source identity, publisher, date, geography, population, methodology, licence, access conditions and limitations. Distinguish public metadata from access to the underlying data.
+3. **Connect:** map evidence to the founder's problem, customer, operating context, strategic assumptions and assessment parameters.
+4. **Challenge:** identify gaps, conflicting findings, transferability risks and claims that lack sufficient support.
+5. **Validate:** propose proportionate tests, expert conversations, pilots and measurable acceptance criteria. In regulated or safety-critical sectors, identify the relevant specialist and regulatory validation pathways rather than pretending the platform can replace them.
+6. **Preserve and learn:** retain provenance, decisions, outcomes and revisions so the founder does not have to rediscover the same context at every stage.
+
+For a healthcare AI founder, this might mean surfacing relevant medical-imaging research, dataset documentation, population and modality limitations, clinical evaluation guidance, regulatory pathways and comparable deployments. It must not imply that STaaS can grant access to restricted patient records, confer data-use rights, certify a model or replace clinicians, ethics review or regulators.
+
+**The strategic proposition:** STaaS should help founders find out what they need to know, understand why it matters, see what remains unknown and determine what evidence would justify the next decision. It is an evidence-discovery and strategic-learning layer, not an automated substitute for domain expertise or validation.
+
+**Sources and further reading**
+
+- [Tech Labari (15 August 2017): interview with Darlington Ahiale Akogo about minoHealth](https://techlabari.com/can-minohealth-revolutionize-health-care-industry-ghana-healthcare-system/) — early product scope, consultations with healthcare professionals in Ghana and abroad, research reading and development effort.
+- [Ghana Business News (24 February 2023): Darlington Akogo and MinoHealth transforming healthcare in Ghana with artificial intelligence](https://www.ghanabusinessnews.com/2023/02/24/darlington-akogo-and-minohealth-transforming-healthcare-in-ghana-with-artificial-intelligence/) — origin story, problem reframing, data collection, transition from rules to machine learning, credibility, validation and regulation.
+- [Stanford Social Innovation Review (Fall 2024): Using AI to Improve Medical Diagnostics in Africa](https://ssir.org/articles/entry/ai-medical-diagnostics-africa) — healthcare context and minoHealth's diagnostic-imaging work.
+- [World Bank Live: Global AI & Digital Summit – Closing the Gap](https://live.worldbank.org/en/event/2026/global-ai-digital-summit-artificial-intelligence-developing-economies) — Seoul summit session transcript, Akogo's “ground zero” argument, local data context, pilots and scaling.
+- [ITU: Darlington Akogo biography](https://www.itu.int/en/ITU-T/academia/kaleidoscope/2022/Pages/Darlington-Akogo.aspx) — his wider work on AI for radiology, data management and global health collaboration.
+
+*Case-study note: this section synthesises public interviews, profiles and an event transcript. Company capabilities and deployment statements are attributed to those sources; they are not presented as independently verified clinical performance findings.*
+
 ## Product at a glance
 
 ### Current application
