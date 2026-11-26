@@ -3,9 +3,10 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { AuthScreen } from "@/components/AuthScreen";
 import { Analyzer } from "@/components/Analyzer";
 import { ReportHistory } from "@/components/ReportHistory";
+import { ChatWorkspace } from "@/components/ChatWorkspace";
 import type { LangCode } from "@/lib/translations";
 
-type View = "analyzer" | "history";
+type View = "workspace" | "analyzer" | "history";
 
 function AppContent() {
   const { session, loading } = useAuth();
@@ -36,7 +37,9 @@ function AppContent() {
     return <AuthScreen lang={lang} onLangChange={handleLangChange} />;
   }
 
-  return view === "history" ? (
+  return view === "workspace" ? (
+    <ChatWorkspace onOpenAnalyzer={() => setView("analyzer")} />
+  ) : view === "history" ? (
     <ReportHistory
       lang={lang}
       onLangChange={handleLangChange}
@@ -47,11 +50,15 @@ function AppContent() {
       lang={lang}
       onLangChange={handleLangChange}
       onViewHistory={() => setView("history")}
+      onViewWorkspace={() => setView("workspace")}
     />
   );
 }
 
 export default function App() {
+  if (new URLSearchParams(window.location.search).get("demo") === "1") {
+    return <ChatWorkspace demo />;
+  }
   return (
     <AuthProvider>
       <AppContent />
