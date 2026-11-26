@@ -1,0 +1,88 @@
+name: STaaS CI, model smoke test and visual journeys
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: staas-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-visualise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project and browser test dependencies
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Build and typecheck
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run build
+
+      - name: Install and start Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null; then break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+
+      - name: Pull compact demo model
+        run: ollama pull qwen2.5:0.5b
+
+      - name: Verify real model inference
+        run: |
+          mkdir -p artifacts
+          curl --fail --silent --show-error http://127.0.0.1:11434/api/chat \
+            -H 'Content-Type: application/json' \
+            -d '{"model":"qwen2.5:0.5b","stream":false,"messages":[{"role":"user","content":"In one concise sentence, suggest a first validation experiment for a small subscription software business."}]}' \
+            | tee artifacts/model-inference.json
+          jq -er '.message.content | select(length > 10)' artifacts/model-inference.json > artifacts/model-response.txt
+          echo "Verified qwen2.5:0.5b generated $(wc -c < artifacts/model-response.txt) bytes."
+
+      - name: Capture founder journeys and rendered model response
+        env:
+          VITE_DEMO_MODEL_STATUS: "CI inference verified"
+        run: npm run test:e2e
+
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: staas-visual-evidence-${{ github.run_number }}
+          path: |
+            docs/screenshots/*.png
+            artifacts/model-inference.json
+            test-results/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish refreshed README screenshots on main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: refresh CI-generated STaaS screenshots [skip ci]"
+            git push
+          fi
