@@ -6,7 +6,7 @@ STaaS means **Strategy as a Service**. This project explores a founder-centred w
 
 The ambition is bigger than generating a business plan. STaaS should help founders build and continuously improve the mental models they use to make decisions. It connects business education, global company intelligence, founder-specific evidence, strategic frameworks and execution in one traceable workflow.
 
-**Current status:** an early React/TypeScript/Vite Business Idea Analyzer with deterministic browser-side analysis and Supabase-backed authentication/report persistence. The broader knowledge, learning, data-warehouse, catalogue and agent architecture described below is proposed, not implemented functionality.
+**Current status:** an early React/TypeScript/Vite prototype with a deterministic, browser-side four-stage business-idea analysis flow and Supabase-backed authentication/report persistence. The parameterised assessment framework, external evidence acquisition, OKF interchange, DWH, knowledge catalogue, persistent strategic state, learning loop and agent integrations are architectural or roadmap items unless explicitly marked as implemented. This repository distinguishes working code from proposed capabilities.
 
 - [Research contributions, bibliography and open questions](RESEARCH.md)
 - [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
@@ -32,6 +32,71 @@ STaaS is intended to close that gap. It should help a founder:
 
 The platform should not assume that a founder has access to a large local network, nearby incubator or obvious precedent. It should surface relevant knowledge across the US, UK, Europe, Africa, Asia and diaspora markets while making contextual differences explicit.
 
+## Case study: Darlington Akogo, minoHealth AI Labs and the work behind locally grounded AI
+
+> A founder should not have to discover every relevant dataset, research paper, company precedent, market constraint and validation requirement entirely through trial and error.
+
+The journey of Ghanaian AI entrepreneur **Darlington Akogo**, founder of [minoHealth AI Labs](https://www.minohealth.ai/), illustrates why. It is not a story of simply having an AI idea and finding a model. It is a story about recognising a real problem, revising an initial diagnosis of that problem, learning a new technical discipline, finding domain expertise, assembling data, earning institutional credibility and understanding that a working model is not automatically a deployable healthcare product.
+
+### From a frustrating experience to a better problem definition
+
+Akogo has described a hospital experience in Ghana that made him think about how technology might improve healthcare access. His first interpretation was that appointment systems and queues were part of the problem. As he read, investigated and spoke with people in healthcare, he came to see a more fundamental constraint: shortages of clinicians and specialist capacity, including radiologists.
+
+That change matters. The first problem he noticed was not necessarily the root problem worth solving. A scheduling tool might make queues more orderly without creating more diagnostic capacity. The venture direction changed as he learned more about the operating environment.
+
+In a 2017 interview, Akogo described minoHealth as a broader system combining medical prediction and diagnosis, cloud medical records and data analytics. He said he and a liaison consulted and interviewed healthcare professionals in Ghana and abroad. He also described spending around ten months building the system, reading medical and AI research papers, coding and developing interface designs. This early account shows the breadth of work behind the product: domain discovery, literature review, expert consultation, system design and engineering, not model selection alone.
+
+### From hand-written rules to data-driven methods
+
+Akogo initially explored writing rules for a pneumonia-focused diagnostic system. He found that symptoms and clinical presentations are not cleanly separable: a pattern associated with one condition may be caused by another. The complexity of the problem pushed him towards machine learning and deep learning.
+
+For medical imaging, the task became learning patterns from X-rays rather than attempting to encode every diagnostic rule manually. In a 2023 interview, he described collecting data and developing a system that could analyse X-ray images. The important lesson is not that data collection is a trivial replacement for rules. It is that the task required a different technical approach, suitable data, medical understanding and a way to establish whether the outputs were clinically meaningful.
+
+The journey also included setbacks. Akogo told Ghana Business News that he lost his computer and the work stored on it, subsequently spent time in Italy and returned to Ghana in 2016 to continue. He also described early difficulty getting healthcare professionals to engage because he and the project lacked credibility. Working with Professor Xavier-Lewis Palmer, undertaking research and testing, and publishing work on AI in health helped build the credibility needed for conversations with healthcare institutions.
+
+### Why a model is not the whole product
+
+Akogo's account makes a distinction that STaaS should preserve. Healthcare AI is not validated merely because it produces an answer quickly. He described learning about clinical validation, regulation and policy, and why the requirements differ from a comparatively bounded fintech transaction. In healthcare, errors can affect human lives, and clinicians and regulators have essential roles in determining whether a system is safe and acceptable.
+
+The 2024 Stanford Social Innovation Review profile places minoHealth in the wider context of diagnostic access and medical-imaging workflows. It describes the platform's work with chest X-rays, mammograms, CT scans and MRI, and its evolution beyond a single narrow diagnostic demonstration. These are reported descriptions of the company and its platform, not an independent clinical-effectiveness assessment by STaaS.
+
+### The international perspective: “ground zero” is where the problem is
+
+At the **World Bank Group's Global AI & Digital Summit in Seoul, Republic of Korea (19–22 October 2026)**, Akogo took part in the session *Closing the Gap: The Promise of Artificial Intelligence in Developing Economies*. He explained why minoHealth was deliberately built in Ghana rather than relocating the company to the United States. His argument was that Africa is “ground zero” for addressing major healthcare challenges: innovators need to be close to the people, institutions and conditions they are trying to serve.
+
+He also argued that African biological diversity can contribute valuable data for AI systems with relevance beyond the continent. The point is not that one dataset represents every population, or that geographic origin guarantees representativeness. It is that locally relevant data and proximity to the problem are strategic assets, and that systems developed without the right populations and contexts may fail to transfer.
+
+In the same summit discussion, Akogo described moving from diagnostic imaging models towards healthcare and biology foundation models, and discussed Moremi AI and its use in clinical decision support. He also stressed the importance of working with local experts, selecting real use cases, piloting and benchmarking systems before scaling. His contribution therefore connects local problem understanding, data, model development, deployment context and implementation discipline.
+
+This was a **World Bank summit panel/session**, rather than a lecture specifically about technical “grounding” or retrieval-augmented generation. The phrase “ground zero” refers to where innovation should be rooted. It is a useful strategic idea for STaaS, but should not be misrepresented as a technical claim about grounding an LLM.
+
+### What STaaS learns from this case
+
+The case demonstrates the founder's evidence burden. Relevant information is distributed across interviews, specialist knowledge, academic literature, datasets, institutional requirements, regulation, implementation partners and real-world feedback. A founder may not know which of these sources exist, which apply to their context, what rights govern their use or what evidence is sufficient to proceed.
+
+STaaS is intended to reduce that discovery and coordination burden through an evidence-led workflow:
+
+1. **Discover:** identify relevant datasets, research, company precedents, sector reports, standards, regulations, funders and potential domain experts.
+2. **Qualify:** record source identity, publisher, date, geography, population, methodology, licence, access conditions and limitations. Distinguish public metadata from access to the underlying data.
+3. **Connect:** map evidence to the founder's problem, customer, operating context, strategic assumptions and assessment parameters.
+4. **Challenge:** identify gaps, conflicting findings, transferability risks and claims that lack sufficient support.
+5. **Validate:** propose proportionate tests, expert conversations, pilots and measurable acceptance criteria. In regulated or safety-critical sectors, identify the relevant specialist and regulatory validation pathways rather than pretending the platform can replace them.
+6. **Preserve and learn:** retain provenance, decisions, outcomes and revisions so the founder does not have to rediscover the same context at every stage.
+
+For a healthcare AI founder, this might mean surfacing relevant medical-imaging research, dataset documentation, population and modality limitations, clinical evaluation guidance, regulatory pathways and comparable deployments. It must not imply that STaaS can grant access to restricted patient records, confer data-use rights, certify a model or replace clinicians, ethics review or regulators.
+
+**The strategic proposition:** STaaS should help founders find out what they need to know, understand why it matters, see what remains unknown and determine what evidence would justify the next decision. It is an evidence-discovery and strategic-learning layer, not an automated substitute for domain expertise or validation.
+
+**Sources and further reading**
+
+- [Tech Labari (15 August 2017): interview with Darlington Ahiale Akogo about minoHealth](https://techlabari.com/can-minohealth-revolutionize-health-care-industry-ghana-healthcare-system/) — early product scope, consultations with healthcare professionals in Ghana and abroad, research reading and development effort.
+- [Ghana Business News (24 February 2023): Darlington Akogo and MinoHealth transforming healthcare in Ghana with artificial intelligence](https://www.ghanabusinessnews.com/2023/02/24/darlington-akogo-and-minohealth-transforming-healthcare-in-ghana-with-artificial-intelligence/) — origin story, problem reframing, data collection, transition from rules to machine learning, credibility, validation and regulation.
+- [Stanford Social Innovation Review (Fall 2024): Using AI to Improve Medical Diagnostics in Africa](https://ssir.org/articles/entry/ai-medical-diagnostics-africa) — healthcare context and minoHealth's diagnostic-imaging work.
+- [World Bank Live: Global AI & Digital Summit – Closing the Gap](https://live.worldbank.org/en/event/2026/global-ai-digital-summit-artificial-intelligence-developing-economies) — Seoul summit session transcript, Akogo's “ground zero” argument, local data context, pilots and scaling.
+- [ITU: Darlington Akogo biography](https://www.itu.int/en/ITU-T/academia/kaleidoscope/2022/Pages/Darlington-Akogo.aspx) — his wider work on AI for radiology, data management and global health collaboration.
+
+*Case-study note: this section synthesises public interviews, profiles and an event transcript. Company capabilities and deployment statements are attributed to those sources; they are not presented as independently verified clinical performance findings.*
+
 ## Product at a glance
 
 ### Current application
@@ -48,6 +113,59 @@ The imported application is an early **Business Idea Analyzer**. It accepts a fr
 The documented application baseline includes React, TypeScript and Vite; responsive Tailwind CSS and Lucide icons; English and Italian interface/output language selection; deterministic browser-side analysis; Supabase authentication and user-scoped report persistence; report history, deletion and browser print-based PDF export; and progress feedback across the four stages.
 
 The current engine does **not** conduct live market research, validate demand, access authoritative financial data or provide professional legal, tax, accounting or investment advice. Outputs are hypotheses and prompts for founder validation, not verified facts or guaranteed outcomes.
+
+### The intended parameter-based business assessment
+
+The four-stage flow is the presentation and workflow structure. The next analytical step is to make the underlying assessment parameter-driven: every business is examined against a consistent set of dimensions, while the depth and relevance of each dimension adapt to the venture's sector, stage, geography and business model.
+
+| Assessment dimension | Questions the platform should investigate |
+|---|---|
+| Problem and need | Is the problem specific, consequential and evidenced? Who experiences it, and how is it addressed today? |
+| Customer and segment | Who is the buyer, user and decision-maker? Which segment is reachable first? |
+| Market and context | What is the addressable market, geography, demand context and timing? Which claims have reliable sources? |
+| Value proposition | What measurable value is offered, to whom, and compared with which alternatives? |
+| Competition and positioning | What direct, indirect and substitute solutions exist? What is genuinely differentiated? |
+| Business and revenue model | How is value delivered and captured? Are pricing, purchasing behaviour and recurring revenue assumptions credible? |
+| Financial viability | What are the cost drivers, gross margin, cash requirements, break-even assumptions and unit economics? |
+| Operations and delivery | What people, partners, processes, supply chains and service capabilities are required? |
+| Technology and data | What must be built or integrated? What data, infrastructure, security and maintenance requirements apply? |
+| Regulation, rights and risk | Which legal, regulatory, privacy, IP, safety and contractual obligations need specialist review? |
+| Feasibility and resources | What capabilities, funding, time and dependencies are available or missing? |
+| Growth and resilience | What could constrain scale? How sensitive is the model to market, supplier, platform or funding changes? |
+
+A parameter assessment should not collapse these dimensions into an unexplained pass/fail score. The intended record for each parameter is:
+
+- **Assessment:** what the current information suggests.
+- **Evidence:** source-linked facts, founder-provided information and relevant case comparisons.
+- **Evidence quality:** provenance, date, rights, relevance and validation status.
+- **Confidence:** how strongly the available evidence supports the assessment, with uncertainty stated.
+- **Assumptions and gaps:** what is unknown, disputed or not yet tested.
+- **Validation action:** the smallest useful research task or experiment to reduce uncertainty.
+- **Strategic implication:** how the finding affects the founder's choices and priorities.
+
+The assessment framework is a product design target, not a claim that the current heuristic engine already performs these checks. Until evidence ingestion and validation exist, the current prototype can structure an initial diagnostic but cannot substantiate market, financial, regulatory or competitive conclusions.
+
+### Can a language model perform this analysis on its own?
+
+A capable language model can produce a useful first-pass diagnosis, explain established frameworks, identify assumptions, compare options and draft structured recommendations. That is not the same as independently delivering reliable business strategy. The distinction is supported by published strategy evaluations:
+
+- **Doshi et al. (Strategic Management Journal, first published 14 November 2024):** across two studies using 60 business models each, LLM evaluations were often inconsistent and biased at the individual-comparison level. Aggregated rankings tended to resemble human-expert rankings. This supports using model output as decision support, with structured comparison and human judgement, rather than treating one answer as an authoritative verdict. [Paper and DOI](https://doi.org/10.1002/smj.3677).
+- **Allen and McDonald (Strategy Science, published online 11 March 2026):** benchmarked 21 proprietary and 13 open models in the Back Bay Battery strategy simulation. Performance varied by model generation; some reasoning-focused models exceeded historical MBA cohort averages, while several later frontier models regressed. The simulation highlights long-horizon trade-offs between exploiting a profitable core and investing in emerging opportunities. This is evidence that some models can perform strongly in a bounded strategic simulation, not proof that any model can independently advise a real founder. [Paper and DOI](https://doi.org/10.1287/stsc.2025.0444).
+- **Stoeber et al. (Journal of Business Research, July 2026):** compared 2,400 model-generated strategic recommendations across ten cases and four models with a human benchmark of 218 managers. The authors report a tendency towards strategic conformity under institutional pressure. This warns that fluent recommendations may reproduce prevailing assumptions instead of identifying when a business should diverge. [Paper and DOI](https://doi.org/10.1016/j.jbusres.2026.116227).
+
+**STaaS interpretation:** the model is a reasoning component, not the entire intelligence system. It can interpret a parameter framework and help a founder reason, but reliable analysis also requires current and relevant evidence, source provenance, deterministic calculations and checks, explicit uncertainty, contextual comparison, and founder or expert review for consequential decisions. A model should be able to say that evidence is missing, ask for it, and abstain from unsupported conclusions.
+
+### Model capability assessment and local inference
+
+The project is investigating compact models because deployment cost, latency, privacy and hardware accessibility matter to the STaaS delivery model. Current evidence must be separated into three categories:
+
+1. **Published model research:** Microsoft’s Phi-3, Phi-4 and Phi-4-reasoning technical reports explain how data curation, synthetic data, supervised fine-tuning, preference optimisation and reasoning-focused post-training contribute to model capability. Parameter count alone does not determine reasoning quality. These reports do not establish that a small model automatically matches a larger model on STaaS tasks. See the [Phi-3 report](https://arxiv.org/abs/2404.14219), [Phi-4 report](https://arxiv.org/abs/2412.08905) and [Phi-4-reasoning report](https://arxiv.org/abs/2504.21318).
+2. **Local runtime observation:** the project owner reported approximately 40.96 tokens/second for Liquid AI LFM2.5-1.2B-Instruct using OpenVINO INT4 CPU inference on an Intel Core i5-1135G7 system with 8 GB RAM. Other reported observations include approximately 38.3 tokens/second with Ollama Q4, 15.28 tokens/second with OpenVINO on Iris Xe, and 28.0 tokens/second with Ollama Q8 CPU. These are owner-reported runtime measurements, not independently reproduced benchmark results. They measure throughput, not reasoning quality.
+3. **STaaS-specific reasoning evaluation:** no controlled, held-out comparison has yet been recorded here that establishes LFM2.5, Phi-4 Mini Reasoning or another model's score on the STaaS business-analysis rubric. Phi-4 Mini Reasoning is a candidate for comparison, not a model result claimed by this repository. No percentile or human-equivalence claim is justified.
+
+The next evaluation should compare the same tasks, prompts, evidence pack and scoring rubric across (a) a base compact model, (b) the same model with retrieval and structured STaaS workflow, and (c) a stronger reasoning-model reference. The rubric should be anchored in the user's USW Strategic Information Systems Management learning outcomes and cover problem diagnosis, technique/framework selection and application, critical evaluation, alternatives and trade-offs, implementation feasibility, measures/KPIs, and reflective justification. Add evidence accuracy, citation support, numerical correctness, uncertainty calibration, contextual transfer, consistency and abstention. Use independently scored examples, held-out businesses/sectors/geographies, multiple runs where appropriate, and report raw scores and uncertainty rather than unsupported percentiles.
+
+The key question is therefore not simply whether a model can write a convincing analysis. It is whether it can repeatedly produce defensible, evidence-linked assessments and recognise the limits of its knowledge.
 
 ### Intended STaaS service cycle
 
@@ -94,6 +212,22 @@ The diagrams distinguish the current application from the proposed knowledge and
 ~~~
 
 This is the documented current baseline. It is not a live research agent, DWH, vector database, knowledge catalogue or managed strategy service.
+
+### Why browser-first, and why consider WebAssembly (WASM)?
+
+The current prototype executes its deterministic TypeScript/JavaScript analysis in the browser. That is a deliberate low-friction starting point, but it is important not to overstate the implementation: **the current repository does not establish that the analysis engine is compiled to or running as a WebAssembly module.**
+
+The browser-first direction is useful because it can provide:
+
+- **Fast feedback:** deterministic analysis can run locally without a model-inference round trip.
+- **Lower service dependency:** the basic diagnostic does not need a continuously available analysis API.
+- **Cost control:** routine rule-based processing does not incur per-request hosted-model inference costs.
+- **Data minimisation:** initial idea text can be processed in the browser before any optional persistence or external processing, subject to the actual application flow and user consent.
+- **Portability:** a browser-delivered application can run across supported operating systems without a native desktop installation.
+
+WASM is a potential next step where profiling shows a concrete benefit. It can provide a portable, sandboxed execution target for computationally intensive or reusable modules, and may allow selected components written in languages such as Rust to run in supported browsers. It is not automatically faster than JavaScript, does not itself provide offline persistence, and is not a substitute for application security, permissions, privacy controls or server-side authorisation.
+
+The implementation decision should therefore be evidence-led: benchmark representative workloads, bundle size, startup time, memory use and browser compatibility before introducing WASM. Keep ordinary UI and workflow code in TypeScript unless a measured use case justifies a WASM module. Supabase remains a separate persistence/authentication dependency in the current prototype; browser-side execution does not mean all data stays on the device.
 
 ### Target STaaS architecture (proposed)
 
@@ -231,17 +365,44 @@ AKCloud may help founders assess deployment readiness, hosting options and appli
 
 **Known security blocker:** the imported project includes a demo-account setup Edge Function described as having JWT verification disabled and privileged Supabase administrative operations. Review, redesign or remove it before public production use. Do not expose a service-role secret or allow unauthenticated callers to delete/recreate accounts. Rotate credentials if exposure is suspected. The demo sign-in flow also requires abuse and access-control review.
 
-## Roadmap and maturity
+## Phased development approach
 
-| Phase | Outcome | Status |
-|---|---|---|
-| 0. Imported baseline | Four-stage Business Idea Analyzer | Present in imported source; local build/test verification still required |
-| 1. Product foundation | Requirements, research register, architecture, ADRs and security review | Documentation in progress; security blocker outstanding |
-| 2. Founder workspace | Business profile, evidence register, assumption ledger and decision log | Planned |
-| 3. Knowledge foundation | Rights-cleared ingestion, verified OKF, DWH and catalogue | Proposed; not implemented |
-| 4. Learning and reasoning | Retrieval, reflective dialogue, spaced recall and applied assessment | Research-informed hypothesis; not implemented end to end |
-| 5. Execution loop | Experiments, roadmap, metrics and recurring strategy reviews | Planned |
-| 6. Interoperability and service | Permissioned agent adapters and optional managed STaaS delivery | Exploratory |
+The phases are deliberately sequenced so that STaaS earns its intelligence claims through data quality, traceability and user validation. Each phase has an outcome and an evidence gate. Phases may overlap where useful, but later capabilities must not be presented as delivered before their gates are met.
+
+| Phase | Focus | Intended deliverables | Exit evidence / status |
+|---|---|---|---|
+| 0. Prototype baseline | Establish the current application | React/TypeScript/Vite interface; Clarity → Niche → Action → Strategy flow; browser-side deterministic analysis; Supabase authentication and report history; PDF export | **Existing source baseline.** Reproducible build, lint, typecheck, RLS isolation and end-to-end tests still need to be run and recorded. |
+| 1. Parameterised business diagnostic | Turn the four-stage flow into a transparent assessment model | Versioned parameter catalogue; sector/stage-aware applicability; structured assessments; explicit assumptions, evidence gaps, confidence and validation actions; explainable scoring only where justified | **Next product-engineering priority.** Unit tests for parameter coverage, deterministic outputs, edge cases and language handling; expert/founder review of assessment quality. |
+| 2. Founder and venture workspace | Give each assessment context and continuity | Business profile; founder goals and constraints; evidence register; assumption ledger; decision log; consent and data controls; report versioning | User-scoped persistence, access-control tests, export/deletion tests and a usable founder workflow. |
+| 3. Evidence acquisition and governance | Acquire information responsibly and make it inspectable | Source register; rights/licence and privacy review; source capture where lawful; document/table extraction; entity and event resolution; provenance; deduplication; validation and human review | Rights-cleared sample corpus, extraction-quality evaluation, lineage audit and repeatable refresh process. |
+| 4. Knowledge foundation | Make evidence reusable across tools and analysis | Verified OKF interchange; governed DWH; knowledge catalogue; rebuildable keyword/vector retrieval projections | Canonical OKF schema/version linked and conformance tests passed; DWH lineage and quality checks; catalogue retrieval and export/import tests. |
+| 5. Evidence-grounded reasoning and learning | Use evidence to challenge and improve founder understanding | Retrieval-augmented analysis; source-linked parameter assessments; comparable-case reasoning; counterexamples; reflective dialogue; spaced recall and applied scenarios | Held-out evaluation for factuality, citation quality, calibration, contextual transfer and learning outcomes; founder pilot. |
+| 6. Strategy-to-execution loop | Turn decisions into measured work | Prioritised roadmap; experiments; owners; milestones; metrics; review cadence; outcome capture; strategy updates | Pilot evidence that founders complete experiments, record outcomes and make better-informed revisions; no unsupported business-success claims. |
+| 7. Interoperability and managed STaaS | Make the platform portable and deliverable as a continuing service | Permissioned MCP/agent adapters; portable exports; operational controls; service onboarding, review and handover processes | Compatibility, security, backup/restore, provider-exit and service-delivery tests; repeatable customer outcomes. |
+
+### How the phases fit together
+
+~~~text
+PHASE 0  Prototype
+   ↓
+PHASE 1  Parameterised diagnostic
+   ↓
+PHASE 2  Founder and venture context
+   ↓
+PHASE 3  Evidence acquisition + governance
+   ↓
+PHASE 4  OKF + DWH + knowledge catalogue
+   ↓
+PHASE 5  Evidence-grounded reasoning + learning
+   ↓
+PHASE 6  Strategy + experiments + measured outcomes
+   ↓
+PHASE 7  Interoperability + managed service
+   ↺
+New evidence and outcomes continuously update the founder's strategic state.
+~~~
+
+**Important sequencing principle:** do not use a language model to make an unsupported answer appear authoritative. First establish the assessment parameters, source rights, provenance, evidence quality and validation workflow. Then use retrieval and model-assisted reasoning to interpret that governed knowledge. Deterministic code should handle schemas, calculations, permissions and workflow rules; founders retain approval of consequential decisions.
 
 See [ARCHITECTURE-AND-TRL.md](docs/ARCHITECTURE-AND-TRL.md) for component-level provisional TRLs and evidence gates. Do not represent the integrated product at the highest TRL of any individual component.
 

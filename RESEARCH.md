@@ -173,6 +173,35 @@ This work examined AI-facilitated reflection on uncertainty and reported that ch
 | [World Bank Enterprise Surveys: data portal](https://www.enterprisesurveys.org/en/data) | Indicators and microdata across enterprise surveys, including formal, micro and informal enterprise surveys. | Inspect dataset-level metadata, terms, sampling and permitted uses. |
 | [FSRS](https://github.com/open-spaced-repetition/fsrs4anki) | Spaced-repetition scheduling based on memory stability and retrievability. | Recall scheduling does not prove applied business competence. |
 
+
+### 4. Empirical evidence on LLM strategic-analysis capability
+
+The following studies are used to define STaaS's model-evaluation problem. They assess different tasks and populations; their results should not be collapsed into a single general intelligence score.
+
+#### Doshi, Bell, Mirzayev and Vanneste (2024/2025)
+
+**Paper:** “Generative artificial intelligence and evaluating strategic decisions,” *Strategic Management Journal*, 46(3), 583–610. First published 14 November 2024. [Publisher DOI](https://doi.org/10.1002/smj.3677) · [UCL repository record](https://discovery.ucl.ac.uk/id/eprint/10198793/).
+
+Across two studies, the researchers examined 60 business models in each study and compared LLM rankings with human-expert rankings. Individual model evaluations could be inconsistent and biased; aggregation tended to produce rankings more similar to expert judgements. For STaaS, this supports structured multi-criteria assessment, comparison and review rather than trusting a single unchallenged model response. It does not demonstrate that a model can independently validate a real venture.
+
+#### Allen and McDonald (2026)
+
+**Paper:** “How Well Can AI Do Strategy? Empirical Benchmarking Using Strategy Simulations,” *Strategy Science*, 11(1), 93–117. Published online 11 March 2026. [Publisher DOI](https://doi.org/10.1287/stsc.2025.0444).
+
+The study assessed 21 proprietary and 13 open-source models using the Back Bay Battery simulation, which tests multi-period strategic choices, uncertainty and the balance between exploiting an existing business and investing in emerging opportunities. Results varied across model generations: some reasoning-focused models exceeded historical MBA cohort averages, while several later frontier models underperformed earlier models and the historical MBA average. This demonstrates that strategic capability is task- and model-dependent and that model version changes can matter. It is not a direct benchmark of STaaS, its compact model candidates or real-world founder outcomes.
+
+#### Stoeber et al. (2026)
+
+**Paper:** “AI strategy under institutional pressure: strategic conformity and decision-making in large language models,” *Journal of Business Research*, 212, 116227 (July 2026). [Publisher DOI](https://doi.org/10.1016/j.jbusres.2026.116227).
+
+The authors generated 2,400 strategic recommendations across ten business cases and four models, with a human benchmark involving 218 managers. They report that models tend towards strategic acquiescence under institutional pressure, introducing the concept of “Synthetic Optimism”. For STaaS, this motivates tests for conformity, unexamined industry assumptions, counterexamples and strategic alternatives. A recommendation that sounds reasonable may still fail to challenge the prevailing approach.
+
+#### Implications for STaaS model selection
+
+Together, these studies do not show that an LLM is incapable of strategic analysis. They show that performance varies by model and task, single evaluations can be biased or inconsistent, and model recommendations can converge on institutional norms. STaaS should therefore use models as bounded reasoning components inside an evidence-governed workflow, not as autonomous sources of truth.
+
+No model percentile, MBA-equivalence claim or STaaS business-analysis score is asserted by these publications for LFM2.5 or Phi-4 Mini Reasoning. Those claims require a separate, reproducible STaaS benchmark.
+
 ---
 
 ## Dataset and source acquisition register
