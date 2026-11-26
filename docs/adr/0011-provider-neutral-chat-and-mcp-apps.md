@@ -1,6 +1,6 @@
 # ADR-0011: Provider-neutral conversational orchestration and MCP Apps
 
-- **Status:** Accepted architectural direction; implementation deferred
+- **Status:** Accepted; partial demo implementation (AI SDK chat and native UI); production integrations deferred
 - **Date:** 2026-11-26
 
 ## Context
@@ -11,7 +11,7 @@ The Vercel AI SDK provides TypeScript APIs for model-provider abstraction, strea
 
 OpenAI's Apps SDK also uses MCP servers with optional UI. The MCP Apps protocol provides a portable UI/host interaction mechanism for compatible clients. ChatGPT-specific extensions remain optional host-specific additions and are not required for MCP Apps interoperability.
 
-The current STaaS prototype is documented as a React/TypeScript/Vite application with deterministic analysis and Supabase authentication/report persistence. The AI SDK and MCP Apps host are not currently evidenced as implemented in this repository.
+The STaaS baseline is a React/TypeScript/Vite application with deterministic analysis and Supabase authentication/report persistence. This implementation adds AI SDK 7 React chat UI, an OpenAI-compatible server endpoint and native interactive React workspace views. The endpoint is deliberately gated for local demo use until production authentication and venture-level authorisation are implemented. MCP clients, MCP Apps rendering and production-grade tool governance are not yet implemented.
 
 ## Decision
 
@@ -29,7 +29,7 @@ The current STaaS prototype is documented as a React/TypeScript/Vite application
 
 ## Consequences
 
-- The chat can evolve into a multi-capability workspace with tool calls, structured data, native components and MCP Apps; these are target capabilities, not current claims.
+- The chat now provides a partial multi-capability workspace with streamed model text and native React components. Typed tool calls, MCP connectors and MCP Apps remain target capabilities, not current implementation claims.
 - STaaS can expose selected services to compatible MCP hosts without duplicating domain logic in every chat client.
 - MCP does not automatically provide identity, permissions, billing, tenant isolation, durable jobs or trust. STaaS must implement these.
 - A Vercel AI SDK MCP Apps host does not automatically reproduce every ChatGPT Apps feature or gain access to ChatGPT-specific extensions.
