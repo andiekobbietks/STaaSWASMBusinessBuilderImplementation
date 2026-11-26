@@ -24,5 +24,9 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    files: ['api/**/*.ts', 'playwright.config.ts', 'tests/**/*.ts'],
+    languageOptions: { globals: globals.node },
   }
 );
