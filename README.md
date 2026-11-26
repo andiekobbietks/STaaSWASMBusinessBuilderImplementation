@@ -9,6 +9,7 @@ The ambition is bigger than generating a business plan. STaaS should help founde
 **Current status:** an early React/TypeScript/Vite prototype with a deterministic, browser-side four-stage business-idea analysis flow and Supabase-backed authentication/report persistence. The parameterised assessment framework, external evidence acquisition, OKF interchange, DWH, knowledge catalogue, persistent strategic state, learning loop and agent integrations are architectural or roadmap items unless explicitly marked as implemented. This repository distinguishes working code from proposed capabilities.
 
 - [The STaaS Manifesto](MANIFESTO.md)
+- [3Blue1Brown: learning, LLMs, compression and the STaaS principle](docs/3BLUE1BROWN-AND-STAAS.md)
 - [Research contributions, bibliography and open questions](RESEARCH.md)
 - [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
 - [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
