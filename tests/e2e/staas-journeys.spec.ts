@@ -29,7 +29,7 @@ test("capture interactive financial scenario controls", async ({ page }) => {
   const price = page.getByRole("slider", { name: "Average monthly price" });
   await price.focus();
   for (let i = 0; i < 10; i++) await price.press("ArrowRight");
-  await expect(page.getByText("£9,800")).toBeVisible();
+  await expect(page.getByText("£9,800").first()).toBeVisible();
   await page.screenshot({ path: `${outputDir}/03-business-model.png`, fullPage: true });
 });
 
