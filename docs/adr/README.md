@@ -21,7 +21,7 @@ An accepted ADR is not proof that the capability has shipped. The README and arc
 | [0007](0007-interoperable-agent-harnesses.md) | Harness-neutral adapters; MCP as candidate protocol | Accepted architectural direction | Define scopes and test at least two independent clients |
 | [0008](0008-model-adaptation-and-evaluation.md) | Staged model adaptation and evaluation | Deferred | Complete ADR-0010 benchmark and demonstrate an unresolved capability gap |
 | [0009](0009-evidence-led-reflective-founder-learning.md) | Evidence-led reflective dialogue for founder learning | Accepted design direction; effectiveness unvalidated | Run consent-based STaaS-specific evaluation |
-| [0010](0010-model-reasoning-evaluation-and-runtime.md) | Separate strategic reasoning evaluation from runtime performance | Accepted evaluation principle | Build reproducible benchmark and publish scored results |
+| [0010](0010-model-reasoning-evaluation-and-runtime.md) | Separate strategic reasoning evaluation from runtime performance | Accepted evaluation principle | Build reproducible benchmark and publish scored results |\n| [0011](0011-provider-neutral-chat-and-mcp-apps.md) | Provider-neutral conversational orchestration and MCP Apps | Accepted architectural direction; implementation deferred | Verify SDK/framework fit; pass streaming, MCP, sandbox, approval, audit and interoperability tests |
 
 ## Decision review
 
