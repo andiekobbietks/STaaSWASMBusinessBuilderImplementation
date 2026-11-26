@@ -53,6 +53,17 @@ This trilogy is particularly relevant to the line “Don't start from scratch. S
 
 **Recommended sequence:** watch 1–4 to understand learning; 5–8 to understand LLM architecture; then 9–11 to explore the deeper relationship between prediction, information and compression. The trilogy can also be watched on its own after the short LLM introduction.
 
+
+
+### D. Further talks: communicating and teaching difficult ideas
+
+These are not additional chapters in the neural-network playlist, but they help explain the teaching philosophy and provide a companion LLM explanation.
+
+| Video | Why it matters |
+|---|---|
+| [What Makes People Engage With Math | Grant Sanderson | TEDxBerkeley](https://www.youtube.com/watch?v=s_L-fp8gDzY) | Sanderson discusses the role of story and application in motivating engagement with mathematics. Useful context for STaaS's aim to make learning meaningful rather than deliver disconnected information. |
+| [Visualizing transformers and attention | Talk for TNG Big Tech Day '24](https://www.youtube.com/watch?v=KJtZARuO3JY) | A longer talk by Sanderson covering transformers and attention. It complements the short LLM introduction and the Deep Learning chapters. |
+
 ## How the videos were received
 
 The clearest public reception signal is sustained audience reach. At the time of the research for this note (November 2026), YouTube search snapshots showed the channel at roughly 8.7 million subscribers. The first neural-network lesson had more than 25 million views; the transformer lesson more than 11 million; and the short LLM introduction more than 8 million. The 2026 first part of the compression trilogy had passed 1.6 million views, while the third part had only just been published. Counts change and should be treated as snapshots, not fixed facts.
