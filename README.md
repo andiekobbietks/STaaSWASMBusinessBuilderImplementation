@@ -724,7 +724,7 @@ In another terminal:
 ~~~bash
 LLM_BASE_URL=http://127.0.0.1:11434/v1 \
 LLM_MODEL=qwen2.5:0.5b \
-STAAS_DEMO_CHAT=true \\
+STAAS_DEMO_CHAT=true \
 npx vercel dev
 ~~~
 
