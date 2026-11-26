@@ -1,7 +1,8 @@
 # ADR-0009: Evidence-led reflective dialogue for founder learning
 
-- **Status:** Proposed; requires STaaS-specific evaluation
-- **Date:** 2026-11-25
+- **Status:** Accepted design direction; effectiveness unvalidated
+- **Decision date:** 2026-11-25
+- **Last reviewed:** 2026-11-26
 
 ## Context
 
@@ -9,9 +10,18 @@ Research on personalised LLM dialogue and belief revision suggests that conversa
 
 ## Decision
 
-Explore a founder-learning interaction pattern that elicits assumptions and confidence, retrieves source-linked evidence and counterexamples, explains contextual limits, invites the founder to reflect, and records any revised decision and rationale. The platform must preserve disagreement and founder agency. It must not optimise for persuasion, agreement or a predetermined strategy.
+Adopt evidence-led reflective dialogue as a design direction to test, not as a proven educational intervention. The interaction should:
 
-For African founders and founders operating without close precedents, the knowledge catalogue should support geographically and institutionally contextualised comparisons, including local and diaspora cases. It must make missing evidence visible and avoid assuming that a strategy transfers across markets.
+1. Elicit the founder's current assumption, rationale and confidence.
+2. Retrieve relevant, source-linked evidence and credible counterexamples.
+3. Explain what is comparable, what differs and what remains unknown.
+4. Invite the founder to reflect, revise, retain or reject the original view.
+5. Record the founder's decision and rationale, including disagreement.
+6. Revisit the assumption after new evidence or an experiment.
+
+For African founders and founders operating without close precedents, the catalogue should support geographically and institutionally contextualised comparisons, including local and diaspora cases. It must make missing evidence visible and avoid assuming that a strategy transfers across markets.
+
+The platform must not optimise for persuasion, agreement or a predetermined strategy. The founder retains agency and the ability to inspect sources and challenge the analysis.
 
 ## Consequences
 
@@ -21,6 +31,7 @@ For African founders and founders operating without close precedents, the knowle
 - Evaluate comprehension, calibration, decision quality and follow-through, not conversion or agreement.
 - Run a consent-based pilot with appropriate comparison groups and independent review before claiming educational effectiveness.
 - Keep spaced-repetition recall measures separate from applied strategic competence.
+- This decision does not establish that the dialogue pattern is implemented or that it improves founder outcomes.
 
 ## References
 
