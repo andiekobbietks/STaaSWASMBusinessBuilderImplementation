@@ -15,11 +15,12 @@ The project owner has reported local inference measurements for Liquid AI LFM2.5
 
 1. Treat the language model as one component of STaaS, not the complete business-analysis system.
 2. Separate model quality evaluation from runtime profiling. Report reasoning scores, factual/evidence quality, calibration and consistency separately from latency, throughput, memory and footprint.
-3. Compare at least:
-   - a compact base model (initial candidate: LFM2.5-1.2B-Instruct);
-   - the same model with STaaS retrieval, parameter framework and deterministic workflow;
-   - a stronger reasoning reference (candidate: Phi-4 Mini Reasoning, subject to availability and reproducible setup).
-4. Use identical business cases, prompts, evidence packs and output schemas wherever possible. Include repeated runs for stochastic configurations and record exact model IDs/revisions, quantisation, runtime, decoding settings, hardware and software versions.
+3. Separate model-alone capability from platform contribution. For each candidate, evaluate:
+   - **model-only:** identical business problem and prompt, with no browsing, retrieval or supplied research pack;
+   - **model with fixed evidence:** identical prompt and curated evidence pack, but no live retrieval;
+   - **evidence-enabled workflow:** the same model with STaaS retrieval, parameter framework, provenance and deterministic checks.
+   Include a stronger reasoning reference (candidate: Phi-4 Mini Reasoning, subject to availability and reproducible setup).
+4. Use identical business cases, prompts, evidence packs and output schemas wherever possible. Attribute supplied facts to the evidence pack, not to model intelligence. Attribute retrieval and deterministic-check gains to the workflow, not to the base model. Include repeated runs for stochastic configurations and record exact model IDs/revisions, quantisation, runtime, decoding settings, hardware and software versions.
 5. Anchor the STaaS task rubric in the user's USW Strategic Information Systems Management learning outcomes and assess:
    - problem and context diagnosis;
    - selection and application of relevant techniques/frameworks;
@@ -36,7 +37,8 @@ The project owner has reported local inference measurements for Liquid AI LFM2.5
 
 - The current deterministic four-stage browser analyzer remains the implemented baseline; this ADR does not claim that an LLM is currently integrated into the application.
 - LFM2.5's reported throughput is evidence of promising local execution performance, not evidence that it can independently perform reliable business strategy.
-- Phi-4 Mini Reasoning remains a candidate, not a verified STaaS benchmark winner.
+- A model can perform useful first-pass analysis from a well-specified prompt and can reason over a supplied evidence pack; neither establishes that it can discover or verify current external facts, or deliver dependable end-to-end business intelligence alone.
+- The repository currently records no controlled model-only quality scores or scored output examples. Phi-4 Mini Reasoning remains a candidate, not a verified STaaS benchmark winner.
 - No percentile, human-equivalence, MBA-equivalence or business-outcome claim may be made without a suitable reference distribution and reproducible evaluation.
 - A model may support first-pass diagnosis, framework explanation, assumption discovery and option generation, but STaaS's target capability depends on evidence acquisition, provenance, retrieval, deterministic validation and human judgement.
 - If a compact model performs well on bounded tasks, prefer targeted workflow/RAG improvements before assuming fine-tuning is required. If fine-tuning is later tested, follow ADR-0008 and retain held-out evaluation.
