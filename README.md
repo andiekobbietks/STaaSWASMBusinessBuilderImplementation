@@ -16,6 +16,82 @@ The ambition is bigger than generating a business plan. STaaS should help founde
 - [Architecture and provisional TRL assessment](docs/ARCHITECTURE-AND-TRL.md)
 - [Architecture decision records](docs/adr/README.md)
 
+## Repository guide
+
+This README is the product and architecture overview. Use the linked documents for detailed requirements, operating procedures, research evidence and individual architectural decisions.
+
+- [Product proposition and founder problem](#why-build-staas)
+- [Founder case study: minoHealth AI Labs](#case-study-darlington-akogo-minohealth-ai-labs-and-the-work-behind-locally-grounded-ai)
+- [Current prototype and assessment framework](#product-at-a-glance)
+- [Model capability and evaluation approach](#can-a-language-model-perform-this-analysis-on-its-own)
+- [Knowledge acquisition and source ecosystem](#knowledge-acquisition-and-source-ecosystem)
+- [System architecture and WASM rationale](#proposed-system-architecture)
+- [Global intelligence and contextual transfer](#global-business-intelligence-and-contextual-transfer)
+- [Security, privacy and trust](#security-privacy-and-trust)
+- [Phased roadmap and evidence gates](#phased-development-approach)
+- [Development and research notes](#development)
+
+**Document map**
+
+| Document | Use it for |
+|---|---|
+| [Manifesto](MANIFESTO.md) | Product philosophy and founding proposition |
+| [Product requirements](docs/PRODUCT-REQUIREMENTS.md) | User needs, functional scope and acceptance criteria |
+| [Operating model](docs/STAAS-OPERATING-MODEL.md) | How the service is intended to work |
+| [Architecture and TRL](docs/ARCHITECTURE-AND-TRL.md) | Component boundaries, dependencies and provisional readiness |
+| [Research register](RESEARCH.md) | Sources, research claims, evaluation questions and limitations |
+| [Architecture decision records](docs/adr/README.md) | Decision history, status and reconsideration triggers |
+| [3Blue1Brown and STaaS](docs/3BLUE1BROWN-AND-STAAS.md) | Learning design and conceptual teaching precedent |
+
+---
+
+## Product and architecture at a glance
+
+~~~text
+                  STaaS: STRATEGY AS A SERVICE
+       Discover what exists. Understand what it means.
+       Validate what is true. Apply it. Learn from outcomes.
+
++----------------------+  +----------------------+  +----------------------+
+| KNOWLEDGE DISCOVERY  |  | CONCEPTUAL LEARNING  |  | FOUNDER EXPERIENCE   |
+| HackerTube approach  |  | 3Blue1Brown          |  | Simon Squibb         |
+| signal mining        |  | visual explanation  |  | HelpBnk / community  |
++----------+-----------+  +----------+-----------+  +----------+-----------+
+           \                       |                         /
+            +----------------------+------------------------+
+                                   |
+                                   v
+                    +-----------------------------+
+                    | SOURCE + RIGHTS GOVERNANCE  |
+                    | provenance, quality, context|
+                    +--------------+--------------+
+                                   |
+                                   v
+                    +-----------------------------+
+                    | KNOWLEDGE FOUNDATION        |
+                    | records, catalogue, DWH,    |
+                    | searchable evidence         |
+                    +--------------+--------------+
+                                   |
+                                   v
+                    +-----------------------------+
+                    | STRATEGIC INTELLIGENCE      |
+                    | parameters, retrieval,      |
+                    | models, deterministic checks|
+                    +--------------+--------------+
+                                   |
+                                   v
+                    +-----------------------------+
+                    | FOUNDER DECISIONS           |
+                    | experiments, milestones,    |
+                    | outcomes and learning       |
+                    +-----------------------------+
+                                   ^ 
+                                   +------ feedback loop
+~~~
+
+The three named creator/platform examples are complementary precedents, not integrations, endorsements or evidence that the STaaS backend already exists. The current application remains the prototype described below; the larger pipeline is a proposed architecture.
+
 ---
 
 ## Why build STaaS?
@@ -202,6 +278,97 @@ Three connected ideas shape the proposed product:
 3. **Learning is not the same as recall.** Spaced retrieval may help founders remember concepts, but applied competence must be evaluated separately through scenarios, decisions, experiments and observed follow-through.
 
 The ethical objective is informed founder agency, not persuasion or agreement with the model. Founders must be able to disagree, inspect sources and retain control of consequential decisions.
+
+## Knowledge acquisition and source ecosystem
+
+STaaS should not depend on one creator, platform, search engine or content format. Its knowledge foundation needs a source-adapter architecture that can discover and qualify different kinds of material while preserving the original context and rights.
+
+### Complementary precedents
+
+| Precedent | What it demonstrates | What STaaS should learn | What it does not prove |
+|---|---|---|---|
+| [Andrej Karpathy's HackerTube](https://github.com/karpathy/hn) | A discovery approach that mines community signals and recommendations to surface useful video material. | Discover candidate knowledge from existing signals rather than relying only on manually curated lists. Preserve the original recommendation context and rank signals. | Popularity or repeated recommendation does not establish accuracy, completeness, suitability or permission to reuse content. |
+| [3Blue1Brown](https://www.3blue1brown.com/) | Carefully structured visual explanations that build intuition about difficult technical ideas. | Help founders understand concepts and mechanisms, not merely receive a generated answer. | A clear explanation is not automatically a complete business framework or proof of commercial applicability. |
+| [Simon Squibb and HelpBnk](https://www.simonsquibb.com/helpbnk) | A founder-facing ecosystem combining public educational content, interviews, mentorship, practical resources and community participation. See also the [HelpBnk video channel](https://www.youtube.com/@HelpBnk). | Include practitioner experience, founder questions, mentor perspectives and practical routes to action. Treat Simon's public content and HelpBnk's own public resources as a source family, not just a single YouTube channel. | Personal stories, mentor opinions, promotional claims and community anecdotes are not interchangeable with independently corroborated evidence. |
+| TED/TEDx, universities and open research | Research-led talks, lectures, specialist perspectives and documented methods. | Connect founder questions to deeper concepts, domain expertise and primary research. | A talk is not a substitute for the underlying paper, dataset, standard or current regulation. |
+
+These examples define different functions in the knowledge system: **discover**, **explain**, **contextualise** and **apply**. STaaS combines those functions with evidence governance and founder-specific strategic analysis.
+
+### Source classes and evidence treatment
+
+The source registry should distinguish at least:
+
+1. **Primary evidence:** datasets, official statistics, filings, standards, regulations, peer-reviewed research and original documentation.
+2. **Expert interpretation:** lectures, interviews, specialist analysis and professional guidance.
+3. **Founder and operator experience:** first-person accounts, case studies, post-mortems and practical lessons.
+4. **Community signals:** questions, recommendations, discussions and recurring reported problems.
+5. **Promotional material:** product pages, sponsored content, marketing claims and platform announcements.
+
+Community and popularity signals are useful for discovering topics and recurring needs. They must not be promoted to factual evidence without corroboration. Record conflicts of interest and distinguish the speaker's own claims from independently verified outcomes.
+
+### Proposed acquisition and qualification pipeline
+
+~~~text
+DISCOVER
+  Search, recommendations, public catalogues, APIs, user submissions
+    |
+    v
+IDENTIFY
+  Canonical URL, creator, publisher, content type, date, source family
+    |
+    v
+CHECK RIGHTS AND ACCESS
+  Licence, terms, privacy, public/member-only status, permitted purpose
+    |
+    v
+CAPTURE PERMITTED MATERIAL
+  Metadata, links, authorised transcripts, open documents, user uploads
+    |
+    v
+NORMALISE AND DEDUPLICATE
+  Stable source identity, versions, timestamps, language, entities
+    |
+    v
+CLASSIFY
+  Topic, business parameter, founder stage, sector, geography
+    |
+    v
+EXTRACT WITH PROVENANCE
+  Claims, frameworks, examples, questions, limitations, source anchors
+    |
+    v
+QUALIFY AND CORROBORATE
+  Evidence type, expertise, recency, methodology, conflicts, contradictions
+    |
+    v
+RETRIEVE IN CONTEXT
+  Match to founder problem, assumptions, constraints and decision
+    |
+    v
+ANALYSE, TEST AND LEARN
+  Options, trade-offs, experiments, outcomes and refreshed evidence
+~~~
+
+### Minimum source record
+
+Each source record should preserve, where available:
+
+- canonical URL and stable source identifier;
+- author, speaker, publisher and organisation;
+- title, content type, language, publication/event date and retrieval date;
+- source family and discovery method, including recommendation context where relevant;
+- licence, terms, access classification, permission status and permitted use;
+- capture method, transcript/document provenance and extraction-tool version;
+- topic taxonomy, business-parameter tags, founder stage, sector and geography;
+- extracted claims and frameworks with page, section or timestamp anchors;
+- evidence category, quality rationale, corroborating sources and conflicting evidence;
+- limitations, uncertainty, review status and last-checked date.
+
+### Rights, privacy and platform boundaries
+
+Publicly viewable does not mean freely reusable, downloadable, modifiable or suitable for model training. Use official APIs and permitted metadata access where available. Do not scrape private/member-only HelpBnk material, collect personal community data without a lawful basis, bypass access controls or assume that a platform's public video grants commercial reuse rights. Where rights do not permit copying or transcript storage, retain only permitted metadata and a link to the original.
+
+The initial corpus should prioritise public, rights-cleared or user-authorised sources. A source adapter should be replaceable without changing the canonical STaaS knowledge model. Retrieval indexes are rebuildable projections, not the authoritative record.
 
 ## Proposed system architecture
 
