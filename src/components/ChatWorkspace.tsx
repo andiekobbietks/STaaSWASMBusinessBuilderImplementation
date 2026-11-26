@@ -2,9 +2,9 @@ import { useMemo, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import {
-  Activity, ArrowUpRight, BarChart3, BookOpen, Bot, Check, ChevronDown,
-  CircleHelp, Command, FileSearch, Gauge, Layers3, Lightbulb, Menu,
-  MessageSquare, Plus, Search, Send, ShieldCheck, Sparkles, Target,
+  Activity, ArrowUpRight, BookOpen, Bot, Check,
+  CircleHelp, FileSearch, Gauge, Layers3, Menu,
+  Plus, Search, Send, ShieldCheck, Sparkles, Target,
   TrendingUp, Wallet, Workflow, X
 } from "lucide-react";
 
@@ -170,7 +170,7 @@ export function ChatWorkspace({ demo = false, onOpenAnalyzer }: Props) {
 
             <aside className="min-w-0">
               <div className="flex h-[calc(100vh-112px)] min-h-[620px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_4px_20px_rgba(15,23,42,.04)] xl:sticky xl:top-[96px]">
-                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4"><div className="flex items-center gap-2.5"><div className="grid h-9 w-9 place-items-center rounded-xl bg-cyan-50 text-cyan-700"><Bot size={19}/></div><div><div className="text-sm font-semibold">STaaS copilot</div><div className="text-[10px] text-slate-400">Evidence-led founder assistant</div></div></div><span className="rounded-full bg-emerald-50 px-2 py-1 text-[9px] font-semibold text-emerald-700">MODEL READY</span></div>
+                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4"><div className="flex items-center gap-2.5"><div className="grid h-9 w-9 place-items-center rounded-xl bg-cyan-50 text-cyan-700"><Bot size={19}/></div><div><div className="text-sm font-semibold">STaaS copilot</div><div className="text-[10px] text-slate-400">Evidence-led founder assistant</div></div></div><span className="rounded-full bg-emerald-50 px-2 py-1 text-[9px] font-semibold text-emerald-700">LOCAL MODEL · {import.meta.env.VITE_DEMO_MODEL_STATUS || "endpoint configured"}</span></div>
                 <div className="flex-1 space-y-4 overflow-y-auto p-4" data-testid="chat-thread">
                   <div className="rounded-2xl rounded-tl-sm bg-slate-50 p-3.5"><div className="mb-2 flex items-center gap-2 text-[10px] font-semibold text-cyan-800"><Sparkles size={12}/> STaaS INSIGHT</div><p className="text-xs leading-5 text-slate-600">I can help you investigate an opportunity, challenge assumptions and turn evidence into a practical next step. I will distinguish supplied facts from hypotheses.</p></div>
                   {messages.map(message=><div key={message.id} className={`rounded-2xl p-3.5 text-xs leading-5 ${message.role === "user" ? "ml-7 rounded-tr-sm bg-slate-950 text-white" : "mr-2 rounded-tl-sm bg-cyan-50 text-slate-700"}`}><div className="mb-1 text-[9px] font-semibold uppercase tracking-wider opacity-60">{message.role === "user" ? "You" : "STaaS copilot"}</div>{message.parts.map((part,i)=>part.type === "text" ? <p key={i} className="whitespace-pre-wrap">{part.text}</p> : null)}</div>)}
