@@ -44,7 +44,7 @@ export default async function handler(req: ChatRequest, res: ChatResponse) {
     const prompt = messages
       .map((message) => {
         const text = Array.isArray(message.parts)
-          ? message.parts.filter((part) => part.type === "text").map((part: any) => part.text).join("\n")
+          ? message.parts.filter((part) => part.type === "text").map((part) => part.text).join("\n")
           : "";
         return text ? `${message.role}: ${text}` : "";
       })
