@@ -216,7 +216,7 @@ The current engine is deterministic and runs in the browser. Future AI-assisted 
 
 ## 12.1 Conversational workspace and connected capabilities
 
-The target conversational interface should support more than free-form text. It may coordinate first-party STaaS tools, approved external integrations and interactive components while preserving the founder's control over business data and consequential actions.
+The target conversational interface supports more than free-form text. The current demo implements AI SDK streaming chat and native React workspace views, with a local-model endpoint gated for isolated demonstrations. First-party typed tools, MCP integrations, MCP Apps UI, tenant authorisation and approval-controlled external actions remain future acceptance items. The founder must retain control over business data and consequential actions.
 
 ### Functional requirements
 
