@@ -26,3 +26,18 @@ dist-ssr
 artifacts/
 test-results/
 playwright-report/
+
+# Environment and deployment secrets
+.env.*
+!.env.example
+!.env.template
+!.env.sample
+.vercel
+
+# Local project-generator state and credentials
+.bolt/
+
+# Build and release outputs
+release-assets/
+*.tgz
+*.tar.gz
