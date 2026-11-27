@@ -738,6 +738,16 @@ This is an independent product direction. References to public research, framewo
 
 Keep implementation claims aligned with the code. For substantial changes, update requirements, architecture, threat/data-flow notes, tests and the research register together. Mark proposed capabilities as proposed until code and validation evidence demonstrate otherwise.
 
-## Licence
+## Licence, provenance and releases
 
-No licence is specified yet. A public repository is not automatically open source. Confirm ownership and reuse terms before adding a licence.
+Original STaaS materials are reserved to their applicable rights holders under
+[LICENSE](LICENSE). Third-party components retain their own terms; see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The package is marked
+`UNLICENSED`; public visibility does not grant permission to reuse original
+code or documentation.
+
+See [IP and provenance register](docs/IP-AND-PROVENANCE-REGISTER.md), [private repository migration runbook](PRIVATE-REPOSITORY-MIGRATION.md),
+[security policy](SECURITY.md), [release policy](RELEASE.md), and
+[CHANGELOG.md). The current development marker is `0.1.0-alpha.1`, not a
+production-readiness claim. A tagged release is created only after the
+validation and rights checks in the release workflow.

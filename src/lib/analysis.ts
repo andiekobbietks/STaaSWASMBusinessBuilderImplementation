@@ -98,8 +98,8 @@ function generateClarity(ctx: IdeaContext, idea: string): string {
     : t(ctx, "mixed distribution channels", "canali di distribuzione misti");
 
   sections.push(t(ctx,
-    `Based on your idea, your business centers on **${offering}**. The concept can be defined as follows:`,
-    `In base alla tua idea, il tuo business si concentra su **${offering}**. Il concetto può essere definito come segue:`));
+    `Based on your idea, your business centers on **${offering}**. The concept can be defined as follows, with distribution through ${channel}:`,
+    `In base alla tua idea, il tuo business si concentra su **${offering}**. Il concetto può essere definito come segue, con distribuzione attraverso ${channel}:`));
   sections.push("");
   sections.push(`> ${idea.trim()}`);
   sections.push("");
