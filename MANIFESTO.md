@@ -14,6 +14,8 @@ It is a founder-centred approach to strategic learning and decision support: bri
 
 The [intellectual foundations of STaaS](docs/INTELLECTUAL-FOUNDATIONS-OF-STAAS.md) explain the project's origin in reflective LLM dialogue, and the subsequent connection to accumulated knowledge, compression, composition, provenance and continuity. They distinguish the motivating ideas from established research and from capabilities that remain proposed.
 
+The companion research note, [Continuity Without Sameness: Transmission, Transformation and the Preservation of Meaning](docs/CONTINUITY-WITHOUT-SAMENESS.md), develops the wider argument across biblical teaching and intergenerational memory, Paul's recontextualisation at Athens, Shannon information theory, computer-science practices, embodied cultural memory and archival recovery. It makes the boundaries between these domains explicit: the comparisons are conceptual, not claims that theology is information theory or that analogy is technical proof.
+
 ## Learning from visual explanations and accumulated knowledge
 
 The educational approach of 3Blue1Brown offers a useful parallel: make difficult ideas understandable by revealing their structure, then help learners build intuition rather than merely memorise answers. STaaS applies that principle to strategy by making the links between evidence, context, assumptions and decisions inspectable. The comparison is methodological; no endorsement or affiliation is implied. See the [3Blue1Brown learning path and STaaS analysis](docs/3BLUE1BROWN-AND-STAAS.md).
