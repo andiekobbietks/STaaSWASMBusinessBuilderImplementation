@@ -57,6 +57,14 @@ In **Settings → Code security and analysis**:
 - Enable private vulnerability reporting.
 - Review code scanning results and dependency alerts before releases.
 
+In **Settings → Environments**, create an environment named `release` before the first tagged release:
+
+- Add the repository owner as a required reviewer.
+- Keep deployment branch/tag restrictions limited to approved `v*` tags where supported.
+- Do not add unnecessary environment secrets; the release workflow should use the minimum permissions required.
+- The workflow pauses for environment approval and also checks `RELEASE_APPROVED=true` as a separate owner-controlled release gate.
+- Do not consider the environment protected until its required-reviewer rule is saved and verified.
+
 In **Settings → Actions → General**:
 
 - Set default workflow permissions to read-only.
