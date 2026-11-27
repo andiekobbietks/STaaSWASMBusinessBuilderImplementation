@@ -18,4 +18,6 @@ If the former shared demo password or service-role key was ever exposed, rotate 
 
 Do not restore either capability until there is tested server-side Supabase JWT validation, resource-level authorisation, rate limiting, abuse controls, request-size and token limits, safe error handling, audit logging, and tests covering unauthenticated, cross-user and excessive-request cases. The provider endpoint must not be reachable directly from an untrusted client.
 
+The branch also contains `supabase/functions-deploy-state.json` with an earlier function hash and `hasChanged: false`. Treat that file as stale deployment metadata, not evidence that this remediation has been deployed. Regenerate or update deployment state through the actual Supabase deployment process and verify the live function after deployment.
+
 This is a source-level mitigation, not a security certification or confirmation of live deployment state.
