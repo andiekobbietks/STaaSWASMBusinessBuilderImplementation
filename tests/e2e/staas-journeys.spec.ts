@@ -33,15 +33,10 @@ test("capture interactive financial scenario controls", async ({ page }) => {
   await page.screenshot({ path: `${outputDir}/03-business-model.png`, fullPage: true });
 });
 
-test("capture a live AI SDK response generated through the local model API", async ({ page }) => {
-  test.setTimeout(90_000);
+test("confirm chat remains disabled until the authenticated gateway exists", async ({ page }) => {
   await page.goto("/?demo=1");
-  await page.getByRole("textbox", { name: "Ask STaaS" }).fill("Suggest one first validation experiment for this opportunity.");
-  await page.getByRole("button", { name: "Send message" }).click();
-
-  const assistantReply = page.locator('[data-testid="chat-thread"] > div').filter({ hasText: "STaaS copilot" }).last();
-  await expect(assistantReply).toBeVisible({ timeout: 60_000 });
-  await expect(assistantReply.locator("p").last()).toContainText(/\w{20,}/, { timeout: 60_000 });
-  await expect(page.getByText("Model is generating a response…")).toHaveCount(0);
-  await page.screenshot({ path: `${outputDir}/04-live-model-chat.png`, fullPage: true });
+  await expect(page.getByText("Chat inference is disabled until an authenticated gateway is available.")).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "Ask STaaS" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Send message" })).toBeDisabled();
+  await page.screenshot({ path: `${outputDir}/04-chat-disabled.png`, fullPage: true });
 });
