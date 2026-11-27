@@ -37,6 +37,17 @@ jobs:
         run: npm run build
       - name: Dependency vulnerability audit
         run: npm audit --audit-level=high
+      - name: Guard retired demo credentials and flags
+        shell: bash
+        run: |
+          if grep -RInE 'demo123456|DEMO_PASSWORD|demo@businessbuilder\\.app|STAAS_DEMO_CHAT' src supabase; then
+            echo "Retired demo credentials or chat flags must not return to current source."
+            exit 1
+          fi
+          if [ -d api ] && grep -RInE 'demo123456|DEMO_PASSWORD|demo@businessbuilder\\.app|STAAS_DEMO_CHAT' api; then
+            echo "Retired demo credentials or chat flags must not return to current source."
+            exit 1
+          fi
       - name: Scan every Git ref and commit for secrets
         shell: bash
         run: |
