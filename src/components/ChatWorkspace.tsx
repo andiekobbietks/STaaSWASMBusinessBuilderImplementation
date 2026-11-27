@@ -59,13 +59,15 @@ export function ChatWorkspace({ demo = false, onOpenAnalyzer }: Props) {
   const [price, setPrice] = useState(39);
   const [input, setInput] = useState("");
   const active = journeys[journey];
+  // Keep inference unavailable until the authenticated server-side gateway is implemented.
+  const chatEnabled = false;
   const monthlyRevenue = customers * price;
   const transport = useMemo(() => new DefaultChatTransport({ api: "/api/chat" }), []);
   const { messages, sendMessage, status, error } = useChat({ transport });
   const busy = status === "submitted" || status === "streaming";
 
   const submit = (text = input) => {
-    if (!text.trim() || busy) return;
+    if (!chatEnabled || !text.trim() || busy) return;
     sendMessage({ text: text.trim() });
     setInput("");
   };
@@ -164,14 +166,15 @@ export function ChatWorkspace({ demo = false, onOpenAnalyzer }: Props) {
 
               <div className="rounded-2xl border border-slate-200 bg-white p-5">
                 <div className="flex items-center gap-2 text-sm font-semibold"><Sparkles size={16} className="text-cyan-600"/> Start with a question</div>
-                <div className="mt-3 flex flex-wrap gap-2">{starters.map(s=><button key={s} onClick={()=>submit(s)} className="rounded-full border border-slate-200 px-3 py-2 text-left text-[11px] text-slate-600 hover:border-cyan-300 hover:bg-cyan-50">{s}</button>)}</div>
+                <div className="mt-3 flex flex-wrap gap-2">{starters.map(s=><button key={s} onClick={()=>submit(s)} disabled={!chatEnabled} className="rounded-full border border-slate-200 px-3 py-2 text-left text-[11px] text-slate-600 hover:border-cyan-300 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-50">{s}</button>)}</div>
               </div>
             </section>
 
             <aside className="min-w-0">
               <div className="flex h-[calc(100vh-112px)] min-h-[620px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_4px_20px_rgba(15,23,42,.04)] xl:sticky xl:top-[96px]">
-                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4"><div className="flex items-center gap-2.5"><div className="grid h-9 w-9 place-items-center rounded-xl bg-cyan-50 text-cyan-700"><Bot size={19}/></div><div><div className="text-sm font-semibold">STaaS copilot</div><div className="text-[10px] text-slate-400">Evidence-led founder assistant</div></div></div><span className="rounded-full bg-emerald-50 px-2 py-1 text-[9px] font-semibold text-emerald-700">LOCAL MODEL · {import.meta.env.VITE_DEMO_MODEL_STATUS || "endpoint configured"}</span></div>
+                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4"><div className="flex items-center gap-2.5"><div className="grid h-9 w-9 place-items-center rounded-xl bg-cyan-50 text-cyan-700"><Bot size={19}/></div><div><div className="text-sm font-semibold">STaaS copilot</div><div className="text-[10px] text-slate-400">Evidence-led founder assistant</div></div></div><span className="rounded-full bg-amber-50 px-2 py-1 text-[9px] font-semibold text-amber-800">CHAT DISABLED · AUTH GATE REQUIRED</span></div>
                 <div className="flex-1 space-y-4 overflow-y-auto p-4" data-testid="chat-thread">
+                  {!chatEnabled && <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900">Chat inference is disabled until an authenticated gateway is available. This workspace preview does not send prompts to a model.</div>}
                   <div className="rounded-2xl rounded-tl-sm bg-slate-50 p-3.5"><div className="mb-2 flex items-center gap-2 text-[10px] font-semibold text-cyan-800"><Sparkles size={12}/> STaaS INSIGHT</div><p className="text-xs leading-5 text-slate-600">I can help you investigate an opportunity, challenge assumptions and turn evidence into a practical next step. I will distinguish supplied facts from hypotheses.</p></div>
                   {messages.map(message=><div key={message.id} className={`rounded-2xl p-3.5 text-xs leading-5 ${message.role === "user" ? "ml-7 rounded-tr-sm bg-slate-950 text-white" : "mr-2 rounded-tl-sm bg-cyan-50 text-slate-700"}`}><div className="mb-1 text-[9px] font-semibold uppercase tracking-wider opacity-60">{message.role === "user" ? "You" : "STaaS copilot"}</div>{message.parts.map((part,i)=>part.type === "text" ? <p key={i} className="whitespace-pre-wrap">{part.text}</p> : null)}</div>)}
                   {busy && <div className="mr-8 flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-xs text-slate-500"><span className="h-2 w-2 animate-pulse rounded-full bg-cyan-600"/> Model is generating a response…</div>}
@@ -180,8 +183,8 @@ export function ChatWorkspace({ demo = false, onOpenAnalyzer }: Props) {
                 <div className="border-t border-slate-100 p-3">
                   <div className="mb-2 flex items-center justify-between text-[9px] text-slate-400"><span className="flex items-center gap-1"><ShieldCheck size={11}/> Responses require evidence review</span><span>AI SDK streaming</span></div>
                   <form onSubmit={e=>{e.preventDefault();submit();}} className="flex items-end gap-2 rounded-xl border border-slate-200 bg-white p-2 focus-within:border-cyan-400">
-                    <textarea aria-label="Ask STaaS" rows={2} value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();submit();}}} placeholder="Ask about your opportunity…" className="max-h-28 min-h-[42px] flex-1 resize-none bg-transparent px-2 py-2 text-xs outline-none placeholder:text-slate-400"/>
-                    <button aria-label="Send message" type="submit" disabled={!input.trim()||busy} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-950 text-white transition hover:bg-cyan-800 disabled:opacity-30"><Send size={15}/></button>
+                    <textarea aria-label="Ask STaaS" rows={2} disabled={!chatEnabled} value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();submit();}}} placeholder="Ask about your opportunity…" className="max-h-28 min-h-[42px] flex-1 resize-none bg-transparent px-2 py-2 text-xs outline-none placeholder:text-slate-400"/>
+                    <button aria-label="Send message" type="submit" disabled={!chatEnabled||!input.trim()||busy} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-slate-950 text-white transition hover:bg-cyan-800 disabled:opacity-30"><Send size={15}/></button>
                   </form>
                   <div className="mt-2 text-center text-[9px] text-slate-400">AI output can be incomplete or incorrect. Verify important claims.</div>
                 </div>
