@@ -1,0 +1,42 @@
+name: Feature proposal
+description: Propose an improvement to the STaaS prototype or research roadmap
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or user need
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Suggested approach and alternatives
+    validations:
+      required: false
+  - type: dropdown
+    id: status
+    attributes:
+      label: Expected delivery category
+      options:
+        - Current prototype defect
+        - Prototype enhancement
+        - Research question
+        - Proposed architecture
+        - Longer-term roadmap
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Data, third-party and rights considerations
+      description: Identify any external sources, assets, datasets, models or licences involved.
+    validations:
+      required: false
