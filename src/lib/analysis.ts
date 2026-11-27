@@ -100,6 +100,7 @@ function generateClarity(ctx: IdeaContext, idea: string): string {
   sections.push(t(ctx,
     `Based on your idea, your business centers on **${offering}**. The concept can be defined as follows:`,
     `In base alla tua idea, il tuo business si concentra su **${offering}**. Il concetto può essere definito come segue:`));
+  sections.push(t(ctx, `Your likely route to customers is through ${channel}.`, `Il tuo probabile canale per raggiungere i clienti è ${channel}.`));
   sections.push("");
   sections.push(`> ${idea.trim()}`);
   sections.push("");

@@ -95,7 +95,7 @@ A 3,000–5,000-example pilot is a proposed experiment for narrow task adaptatio
 
 ### 6.1 Role of the Vercel AI SDK
 
-The Vercel AI SDK is a candidate application-layer toolkit for a future STaaS conversational workspace. Its Core APIs provide model-provider abstraction, streaming generation, structured outputs, tool calling and agent/tool-loop patterns. AI SDK UI provides React-oriented chat state and streaming UI primitives. Its MCP package provides clients for connecting to MCP servers and using their tools, resources and prompts.
+The Vercel AI SDK 7 is now the implemented application-layer toolkit for the initial STaaS conversational workspace proof of concept. Its Core APIs provide model-provider abstraction, streaming generation, structured outputs, tool calling and agent/tool-loop patterns. AI SDK UI provides React-oriented chat state and streaming UI primitives. Its MCP package provides clients for connecting to MCP servers and using their tools, resources and prompts.
 
 The SDK does not replace the STaaS domain model, database, policy enforcement, identity, tenancy, audit, durable workflow engine or source governance. STaaS-owned business tools should generally be implemented as typed application tools where this gives the project stronger schema control, predictable behaviour and lower latency. MCP is useful for interoperable external capabilities and user-selected integrations.
 
@@ -184,16 +184,16 @@ The AI SDK can pass supported content to compatible providers, but modality supp
 - Text/structured fallback if an interactive app cannot render.
 - Export, connector revocation, deletion and provider exit procedures.
 
-### 6.7 Adoption sequence
+### 6.7 Adoption sequence and current implementation status
 
-1. Verify the existing app framework and package manifest; do not assume a Next.js migration is necessary.
-2. Introduce a server-side AI SDK proof of concept for streaming text and typed message parts, with no external tools.
-3. Add one or two first-party, read-only STaaS tools with schemas and server-side authorisation.
-4. Add structured outputs and first-party React generative UI for an evidence card, parameter scorecard and comparison view.
-5. Connect one test MCP server using a restricted identity and read-only tools.
-6. Prototype an MCP Apps host using the documented Vercel integration; assess the experimental renderer, sandbox and fallback.
-7. Add explicit approval workflows and audit events before enabling any write-capable connector.
-8. Evaluate provider switching, multimodal input and long-running workflows only against validated user needs.
+1. **Complete for the demo:** retain the React/Vite runtime and add AI SDK 7 chat UI plus a server-side OpenAI-compatible model adapter.
+2. **Complete for the demo:** stream model responses into the React chat surface; CI verifies inference using a compact Ollama model.
+3. **Partially complete:** add first-party native React rendering for opportunity, market, evidence-gap and business-model views; the current figures are illustrative and not evidence-backed assessments.
+4. **Not yet implemented:** typed, tenant-authorised STaaS domain tools and dynamic structured UI returned from tool calls.
+5. **Not yet implemented:** connect a restricted MCP server and validate identity, scopes and revocation.
+6. **Not yet implemented:** prototype an MCP Apps host using the documented Vercel integration; assess renderer maturity, sandbox and fallback.
+7. **Not yet implemented:** add explicit approval workflows and audit events before enabling write-capable connectors.
+8. **Future evaluation:** provider switching, multimodal input and durable long-running workflows only where validated user needs justify them.
 
 No production capability should be marked implemented until its acceptance tests and security controls pass.
 

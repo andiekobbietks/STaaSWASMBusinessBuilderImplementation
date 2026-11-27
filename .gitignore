@@ -21,3 +21,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# CI and browser-test outputs
+artifacts/
+test-results/
+playwright-report/
