@@ -11,7 +11,7 @@ Initial governance prerelease designation for the existing prototype.
 - Establishes package identity and prerelease version.
 - Records initial upstream MIT provenance and third-party notice.
 - Adds IP/provenance and security registers.
-- Adds CI and tagged-release workflows.
+- Adds CI and tagged-release workflows, SemVer release checks, release artefact provenance, checksums, contributor policy, issue forms and release-readiness checklist.
 - Retires the unsafe Supabase demo-provisioning endpoint on `main` and the AI workspace feature branch; requires JWT verification and returns HTTP 410.
 - Disables unauthenticated feature-branch chat inference with HTTP 503.
 - Removes the hard-coded demo-login shortcut from the authentication screen and adds CI/release guards against reintroducing demo credentials and flags.
