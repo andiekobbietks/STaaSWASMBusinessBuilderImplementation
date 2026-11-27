@@ -118,8 +118,6 @@ export function AuthScreen({ lang, onLangChange }: Props) {
             {mode === "login" ? texts.switchToSignup : texts.switchToLogin}
           </button>
         </div>
-
-}
       </div>
     </div>
   );
