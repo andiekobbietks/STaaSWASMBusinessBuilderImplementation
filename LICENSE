@@ -1,20 +1,27 @@
 STaaS Business Builder
-Copyright (c) 2026 Andrea Enning
 
-ALL RIGHTS RESERVED.
+RIGHTS NOTICE — NOT AN OPEN-SOURCE LICENCE
 
-Except for third-party materials expressly identified in THIRD_PARTY_NOTICES.md,
-no permission is granted to copy, modify, distribute, sublicense, publish,
-make available, or create derivative works from the original STaaS Business
-Builder source code, documentation, product design, prompts, and other original
-materials in this repository without prior written permission from the
-applicable rights holder.
+Original STaaS materials authored by Andrea Enning are reserved to their
+applicable rights holder(s). Except for rights expressly granted by an
+applicable third-party licence or separate written permission from the
+relevant rights holder, no permission is granted to copy, modify, distribute,
+sublicense, publish, make available, or create derivative works from those
+original materials.
 
-This notice does not replace, restrict, or remove licences granted by third-party
-rights holders. Third-party components remain governed by their respective
-licences and notices. Where ownership, authorship, or licensing status is
-unverified, no additional rights are asserted by this notice.
+This notice applies only to material for which the relevant rights holder has
+the necessary rights. It does not claim ownership of:
+- third-party code, libraries, frameworks, models, datasets, media or other
+  assets;
+- material inherited from upstream projects;
+- contributions made by other authors or contributors;
+- material whose ownership or licensing status has not been established.
 
-This file is a repository-level rights notice, not a legal opinion, patent
-notice, trademark registration, or warranty of ownership. See
-THIRD_PARTY_NOTICES.md and docs/IP-AND-PROVENANCE-REGISTER.md.
+Third-party materials remain governed by their own licences and notices.
+See THIRD_PARTY_NOTICES.md and docs/IP-AND-PROVENANCE-REGISTER.md. Preserve
+all required notices and comply with each applicable licence.
+
+This is a rights notice, not an open-source licence, legal opinion, patent
+notice, trademark registration, or warranty of ownership. The repository is
+currently public and forkable; this notice does not make its contents
+confidential and cannot undo prior public disclosure.
