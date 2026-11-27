@@ -363,3 +363,32 @@ The reported tokens/second figure is not an accuracy, latency distribution, cost
 - MIT Martin Trust Center. [Disciplined Entrepreneurship](https://diymtc.mit.edu/education/deframework/).
 - World Bank. [Enterprise Surveys methodology](https://www.enterprisesurveys.org/en/methodology) and [data portal](https://www.enterprisesurveys.org/en/data).
 - FSRS. [Free Spaced Repetition Scheduler](https://github.com/open-spaced-repetition/fsrs4anki).
+
+
+### 5. Knowledge continuity, manuscript transmission and reliability properties
+
+The companion research note [Continuity Without Sameness](docs/CONTINUITY-WITHOUT-SAMENESS.md) develops a comparative framework for transmission, transformation and preservation. Its historical discussion of biblical manuscript witnesses is not presented as a modern distributed-storage implementation. It motivates distinctions that are directly relevant to system design:
+
+- **Redundancy:** independent witnesses make comparison possible; duplicated copies from one source do not constitute independent corroboration.
+- **Integrity:** hashes and version histories can detect changes under defined assumptions, but cannot establish that the initial content was true.
+- **Authenticity:** signatures and provenance can support verification of origin, but depend on trusted keys, identities and processes.
+- **Recoverability:** backups must be restorable, and recovery also depends on schemas, dependencies, metadata, relationships and context.
+- **Transformability:** migration, translation and summarisation should preserve lineage and expose material changes in meaning.
+
+The manuscript analogy is bounded: Dead Sea Scrolls, Masoretic, Septuagint and Samaritan textual witnesses are historical sources assessed through textual criticism, dating, palaeography, provenance and related methods. Masoretic annotations are not cryptographic checksums. The engineering principle is that resilience requires the ability to identify change, not merely to prevent it.
+
+### 6. African-language AI, data quality and edge adaptation
+
+These examples provide empirical context for the proposition that practical AI capability depends on data, task, language variety, evaluation and deployment conditions, not model size alone.
+
+| Work | Reported contribution | Interpretation and limitation |
+|---|---|---|
+| Hadgu, Azunre and Gebru, *Combating Harmful Hype in Natural Language Processing* (2023) | Critiques inflated claims about NLP for underrepresented languages and highlights evaluation and data problems. | Nominal language support is not evidence of robust dialectal, colloquial or domain performance. Report exact language variety, direction, task and dataset. [Publication search](https://aclanthology.org/search/?q=Combating%20Harmful%20Hype%20in%20Natural%20Language%20Processing) |
+| Azunre, *DONDO: Open w2v-BERT Speech-Recognition Base Models for African Languages* (2026) | 21 monolingual and five multilingual ASR models spanning 27 language varieties; multilingual families report average WER of 10–13%. Uses w2v-BERT 2.0 and describes read religious-text speech as a major source because it can be orthographically consistent and available for under-resourced languages. [arXiv](https://arxiv.org/abs/2607.21540) | Read speech does not establish spontaneous, noisy, code-switched or conversational performance. Religious-text use is a data-source choice, not evidence that a model captures an entire language or culture. Verify licence and dataset terms at the source before reuse. |
+| Crane AI Labs / Google DeepMind, *Swahili Gemma 1B* (case study) | Adapts Gemma 3 1B with QLoRA, expert-reviewed synthetic data and LiteRT mobile deployment. The case study reports 94% of Gemma 3 27B performance on its selected translation comparison and on-device inference. [DeepMind case study](https://deepmind.google/models/gemma/gemmaverse/craneai/) · [model card](https://huggingface.co/CraneAILabs/swahili-gemma-1b) | This is a task- and benchmark-specific result, not a universal equivalence between 1B and 27B models, nor proof that base Gemma natively supports every African language. |
+| Adelani et al., *IrokoBench* (NAACL 2025) | Human-translated benchmark for 17 African languages covering natural-language inference, mathematical reasoning and knowledge QA. Reports a significant high-resource/low-resource gap; in its setup, Gemma 2 27B achieved 63% of GPT-4o's performance. [NAACL paper](https://aclanthology.org/2025.naacl-long.139/) | The reported comparison is specific to the models, tasks and benchmark version tested; it is not a current universal model ranking. |
+| *The African Languages Lab: A Collaborative Approach to Advancing Low-Resource African NLP* (ACL 2026) | Reports curated resources across 40 languages, 19B text tokens and 12,628 hours of aligned speech; targeted fine-tuning gains across 31 evaluated languages and selected 1B-model results matching or surpassing Google Translate for Yoruba and Twi tasks. [ACL paper](https://aclanthology.org/2026.acl-long.1965/) | Results are task- and language-specific. Dataset scale does not remove the need for consent, licensing, dialect representation, independent evaluation and error analysis. |
+
+**Research implication:** evaluate translation, ASR, speech synthesis and conversational reasoning separately. Record language variety, dialect, task direction, dataset lineage, rights, annotation method, benchmark version, model version, error categories, compute, latency and offline behaviour. Do not infer educational effectiveness from translation scores or cultural competence from language identification.
+
+**STaaS hypotheses:** (a) targeted adaptation can reduce resource barriers for defined tasks; (b) provenance and evaluation lineage improve reproducibility and transfer; (c) community-informed evaluation improves relevance and accountability. These require independent testing and are not claims of implemented STaaS functionality.
