@@ -57,3 +57,28 @@ A release must not be labelled production-ready or commercially cleared unless:
 - Generate branch-specific dependency SBOMs, especially for the AI workspace branch.
 - Confirm whether any third-party datasets, logos, icons, fonts or model assets are included.
 - Obtain legal advice before any patent filing or broad commercial distribution.
+
+## 6. Preliminary upstream comparison (27 November 2026)
+
+A first-pass source comparison was performed against the public `JeffvonD-coder/business-builder` repository at upstream commit `77e8214380ad3d4a4da939405fa73c6ef9e3206e` (main). The current STaaS feature branch was examined at commit `606ffe96cd4e3876e48870abea883e248cc4843b` before subsequent security-only changes.
+
+Candidate file pairs and normalized exact-line overlap:
+
+| Upstream file | STaaS candidate | Shared normalized lines | Jaccard of unique non-comment lines |
+|---|---|---:|---:|
+| `streamlit_business_builder/app.py` | `src/App.tsx` | 1 | 0.006 |
+| `streamlit_business_builder/main.py` | `src/lib/analysis.ts` | 1 | 0.002 |
+| `streamlit_business_builder/prompts.py` | `src/lib/analysis.ts` | 0 | 0.000 |
+| `streamlit_business_builder/translations.py` | `src/lib/translations.ts` | 2 | 0.006 |
+| `streamlit_business_builder/utils/security.py` | `src/context/AuthContext.tsx` | 0 | 0.000 |
+| `streamlit_business_builder/utils/database.py` | `src/lib/supabase.ts` | 1 | 0.006 |
+| `streamlit_business_builder/utils/file_manager.py` | `src/lib/pdf.ts` | 0 | 0.000 |
+| `streamlit_business_builder/utils/rate_limiter.py` | `api/chat.ts` | 0 | 0.000 |
+| `streamlit_business_builder/pages/01_user_management.py` | `src/components/AuthScreen.tsx` | 1 | 0.004 |
+| `streamlit_business_builder/pages/02_report_history.py` | `src/components/ReportHistory.tsx` | 0 | 0.000 |
+
+### Interpretation and limits
+
+The measured overlap is low at the literal-line level for these selected pairs, consistent with a substantial rewrite from a Streamlit/Python application into a React/TypeScript browser application. It does **not** establish independent creation, eliminate possible reuse of structure or expression elsewhere, resolve the recorded port/adaptation provenance, or determine copyright ownership. This was a targeted comparison, not a complete repository-wide AST/token, commit-history, UI asset, prompt, documentation or semantic comparison. The upstream MIT licence and notice must remain documented wherever upstream code or substantial portions are incorporated.
+
+Before commercial distribution, complete a full tree-wide comparison (including all branches and historical commits), trace each reused or adapted component, inspect screenshots/assets and generated materials, and have the resulting provenance record reviewed by a qualified IP professional.
