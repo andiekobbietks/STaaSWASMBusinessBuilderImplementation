@@ -807,7 +807,7 @@ This is an independent product direction. References to public research, framewo
 
 ## Contributing
 
-Keep implementation claims aligned with the code. For substantial changes, update requirements, architecture, threat/data-flow notes, tests and the research register together. Mark proposed capabilities as proposed until code and validation evidence demonstrate otherwise.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes. External code contributions require prior written approval. Keep implementation claims aligned with the code. For substantial changes, update requirements, architecture, threat/data-flow notes, tests and the research register together. Mark proposed capabilities as proposed until code and validation evidence demonstrate otherwise.
 
 ## Licence, provenance and releases
 
