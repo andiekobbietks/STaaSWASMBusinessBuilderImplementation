@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { Building2, Mail, Lock, User, AlertCircle, Loader2, Sparkles } from "lucide-react";
+import { Building2, Mail, Lock, User, AlertCircle, Loader2 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { UI_TRANSLATIONS, type LangCode, type UITranslations } from "@/lib/translations";
-
-const DEMO_EMAIL = "demo@businessbuilder.app";
-const DEMO_PASSWORD = "demo123456";
 
 interface Props {
   lang: LangCode;
@@ -28,16 +25,6 @@ export function AuthScreen({ lang, onLangChange }: Props) {
     const result = mode === "login"
       ? await signIn(email, password)
       : await signUp(email, password, name);
-    setBusy(false);
-    if (result.error) {
-      setError(result.error);
-    }
-  };
-
-  const handleDemoLogin = async () => {
-    setError(null);
-    setBusy(true);
-    const result = await signIn(DEMO_EMAIL, DEMO_PASSWORD);
     setBusy(false);
     if (result.error) {
       setError(result.error);
@@ -132,22 +119,7 @@ export function AuthScreen({ lang, onLangChange }: Props) {
           </button>
         </div>
 
-        {/* Demo account */}
-        {mode === "login" && (
-          <div className="mt-6 pt-6 border-t border-slate-100">
-            <div className="text-center mb-3">
-              <span className="text-xs text-slate-400">{texts.demoDescription}</span>
-            </div>
-            <button
-              onClick={handleDemoLogin}
-              disabled={busy}
-              className="w-full flex items-center justify-center gap-2 text-sm font-medium text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 py-2.5 rounded-xl transition disabled:opacity-60"
-            >
-              <Sparkles className="w-4 h-4" />
-              {texts.demoAccount}
-            </button>
-          </div>
-        )}
+}
       </div>
     </div>
   );
