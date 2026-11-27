@@ -10,6 +10,7 @@ The ambition is bigger than generating a business plan. STaaS should help founde
 
 - [The STaaS Manifesto](MANIFESTO.md)
 - [3Blue1Brown: learning, LLMs, compression and the STaaS principle](docs/3BLUE1BROWN-AND-STAAS.md)
+- [Compression, intelligence and cryptographic discovery](docs/COMPRESSION-INTELLIGENCE-AND-CRYPTOGRAPHY.md)
 - [Research contributions, bibliography and open questions](RESEARCH.md)
 - [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
 - [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
