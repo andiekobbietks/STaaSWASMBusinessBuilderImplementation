@@ -6,7 +6,9 @@ This branch applies fail-closed source changes to the AI workspace feature branc
 
 - The Supabase `setup-demo` function now requires JWT verification.
 - The function is retired and returns HTTP 410. It no longer reads the service-role key, provisions users, resets passwords, lists users or deletes accounts.
+- The login screen's hard-coded demo email/password shortcut has been removed from the current source.
 - The `api/chat.ts` route always returns HTTP 503. It cannot be re-enabled with a demo environment flag.
+- The login screen's hard-coded demo email/password shortcut has been removed from the current source.
 
 ## Deployment actions still required
 
