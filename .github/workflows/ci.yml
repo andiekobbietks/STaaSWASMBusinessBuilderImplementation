@@ -45,7 +45,7 @@ jobs:
       - name: Generate third-party licence inventory
         run: npx --yes license-checker --production --json > third-party-licenses.json
       - name: Upload licence inventory
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: third-party-licenses-${{ github.sha }}
           path: third-party-licenses.json
