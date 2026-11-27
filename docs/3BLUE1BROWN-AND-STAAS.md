@@ -132,6 +132,10 @@ The 3Blue1Brown example suggests several concrete design principles for STaaS:
 
 These are product proposals, not claims that the current prototype already implements them.
 
+## Further reading: AI-assisted cryptographic discovery and compression
+
+A companion research note records the cryptography developments discussed on 27 November 2026 and explains their connection to compression, mathematical discovery and the STaaS learning loop: [Compression, intelligence and cryptographic discovery](COMPRESSION-INTELLIGENCE-AND-CRYPTOGRAPHY.md). It carefully distinguishes unverified RSA-factoring rumours from published theoretical work and the separate DeepMind RSA-1024 computation.
+
 ## Sources
 
 ### Primary sources
