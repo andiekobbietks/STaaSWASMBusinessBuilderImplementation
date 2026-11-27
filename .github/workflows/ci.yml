@@ -44,10 +44,14 @@ jobs:
           /tmp/gitleaks git --redact --exit-code 2 --log-opts="--all --full-history" .
       - name: Generate third-party licence inventory
         run: npx --yes license-checker --production --json > third-party-licenses.json
+      - name: Generate CycloneDX SBOM
+        run: npm sbom --sbom-format cyclonedx > staas-sbom.cdx.json
       - name: Upload licence inventory
         uses: actions/upload-artifact@v7
         with:
           name: third-party-licenses-${{ github.sha }}
-          path: third-party-licenses.json
+          path: |
+            third-party-licenses.json
+            staas-sbom.cdx.json
           if-no-files-found: error
           retention-days: 90
