@@ -42,6 +42,8 @@ jobs:
           npm audit --audit-level=high
       - name: Generate licence inventory
         run: npx --yes license-checker --production --json > third-party-licenses.json
+      - name: Generate CycloneDX SBOM
+        run: npm sbom --sbom-format cyclonedx > staas-sbom.cdx.json
       - name: Create source and application bundles
         shell: bash
         run: |
@@ -49,6 +51,7 @@ jobs:
           git archive --format=tar.gz --prefix="staas-${GITHUB_REF_NAME}/" "$GITHUB_SHA" > "release-assets/staas-source-${GITHUB_REF_NAME}.tar.gz"
           tar -czf "release-assets/staas-build-${GITHUB_REF_NAME}.tar.gz" -C dist .
           cp third-party-licenses.json release-assets/
+          cp staas-sbom.cdx.json release-assets/
           sha256sum release-assets/* > release-assets/SHA256SUMS
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
