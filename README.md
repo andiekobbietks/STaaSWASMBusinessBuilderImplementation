@@ -34,6 +34,9 @@ This README is the product and architecture overview. Use the linked documents f
 - [Phased roadmap and evidence gates](#phased-development-approach)
 - [Development and research notes](#development)
 
+<details>
+<summary><strong>Explore the documentation map</strong> — requirements, research, operating model and architecture</summary>
+
 **Document map**
 
 | Document | Use it for |
@@ -46,6 +49,8 @@ This README is the product and architecture overview. Use the linked documents f
 | [Continuity without sameness](docs/CONTINUITY-WITHOUT-SAMENESS.md) | Biblical memory, recontextualisation, information theory, computing and cultural knowledge transmission |
 | [Architecture decision records](docs/adr/README.md) | Decision history, status and reconsideration triggers |
 | [3Blue1Brown and STaaS](docs/3BLUE1BROWN-AND-STAAS.md) | Learning design and conceptual teaching precedent |
+
+</details>
 
 ---
 
@@ -116,6 +121,10 @@ The platform should not assume that a founder has access to a large local networ
 
 ## Case study: Darlington Akogo, minoHealth AI Labs and the work behind locally grounded AI
 
+<details>
+<summary>Expand this section: Case study: Darlington Akogo, minoHealth AI Labs and the work behind locally grounded AI</summary>
+
+
 > A founder should not have to discover every relevant dataset, research paper, company precedent, market constraint and validation requirement entirely through trial and error.
 
 The journey of Ghanaian AI entrepreneur **Darlington Akogo**, founder of [minoHealth AI Labs](https://www.minohealth.ai/), illustrates why. It is not a story of simply having an AI idea and finding a model. It is a story about recognising a real problem, revising an initial diagnosis of that problem, learning a new technical discipline, finding domain expertise, assembling data, earning institutional credibility and understanding that a working model is not automatically a deployable healthcare product.
@@ -178,6 +187,8 @@ For a healthcare AI founder, this might mean surfacing relevant medical-imaging 
 - [ITU: Darlington Akogo biography](https://www.itu.int/en/ITU-T/academia/kaleidoscope/2022/Pages/Darlington-Akogo.aspx) — his wider work on AI for radiology, data management and global health collaboration.
 
 *Case-study note: this section synthesises public interviews, profiles and an event transcript. Company capabilities and deployment statements are attributed to those sources; they are not presented as independently verified clinical performance findings.*
+
+</details>
 
 ## Product at a glance
 
@@ -275,6 +286,10 @@ Each recommendation should have a visible rationale, evidence basis, owner, next
 
 ## Research-informed design
 
+<details>
+<summary>Expand this section: Research-informed design</summary>
+
+
 Three connected ideas shape the proposed product:
 
 1. **Business intelligence as reusable knowledge.** Preserve source provenance and context so a founder can learn from companies beyond their immediate geography or network. Do not reduce a business to a success/failure label: preserve events, constraints, decisions, pivots and outcomes over time.
@@ -283,7 +298,13 @@ Three connected ideas shape the proposed product:
 
 The ethical objective is informed founder agency, not persuasion or agreement with the model. Founders must be able to disagree, inspect sources and retain control of consequential decisions.
 
+</details>
+
 ## Knowledge acquisition and source ecosystem
+
+<details>
+<summary>Expand this section: Knowledge acquisition and source ecosystem</summary>
+
 
 STaaS should not depend on one creator, platform, search engine or content format. Its knowledge foundation needs a source-adapter architecture that can discover and qualify different kinds of material while preserving the original context and rights.
 
@@ -374,7 +395,13 @@ Publicly viewable does not mean freely reusable, downloadable, modifiable or sui
 
 The initial corpus should prioritise public, rights-cleared or user-authorised sources. A source adapter should be replaceable without changing the canonical STaaS knowledge model. Retrieval indexes are rebuildable projections, not the authoritative record.
 
+</details>
+
 ## Conversational workspace, tools and interactive apps
+
+<details>
+<summary>Expand this section: Conversational workspace, tools and interactive apps</summary>
+
 
 The chat interface is intended to become a multi-capability workspace, not just a text box connected to one model. The Vercel AI SDK is a candidate TypeScript foundation for streaming, provider abstraction, structured outputs, tool calling, agent loops and React chat state. Its MCP integration can connect compatible external tools and resources. Its documented MCP Apps host pattern can also render interactive interfaces returned by MCP tools.
 
@@ -458,7 +485,13 @@ This is a proposed architecture. The current repository describes a React/TypeSc
 
 The MCP Apps renderer documented by Vercel is marked experimental in the referenced integration guide. Pin and test compatible versions, isolate the renderer behind an adapter and retain a fallback before relying on it in a production workflow.
 
+</details>
+
 ## Proposed system architecture
+
+<details>
+<summary>Expand this section: Proposed system architecture</summary>
+
 
 The diagrams distinguish the current application from the proposed knowledge and intelligence services.
 
@@ -596,13 +629,25 @@ Evidence and outcome captured; strategy reviewed
 
 Every knowledge item should distinguish observed facts, attributed claims, founder assertions, model-generated interpretation and unresolved hypotheses. Preserve source identifiers, publisher, publication/event date, retrieval date, licence/terms, extraction method/version, validation status and lawful links to originals.
 
+</details>
+
 ## Global business intelligence and contextual transfer
+
+<details>
+<summary>Expand this section: Global business intelligence and contextual transfer</summary>
+
 
 The catalogue is intended to learn from businesses across the US, UK, Europe, Africa, Asia and diaspora communities. It should include businesses that grew, survived, stalled or closed; pivots and failed experiments; acquisitions, mergers and ownership changes; funding rounds, bootstrapping and financing constraints; operational challenges, infrastructure constraints and regulatory changes; and customer discovery, distribution, pricing and business-model changes.
 
 A case from another market is a comparison, not a prescription. Capture the conditions that shape transferability: infrastructure, capital access, regulation, purchasing power, informality, language, distribution, institutions, supply chains and customer behaviour. When no close precedent exists, say so rather than inventing one.
 
+</details>
+
 ## Founder learning and mental-model development
+
+<details>
+<summary>Expand this section: Founder learning and mental-model development</summary>
+
 
 A proposed learning loop:
 
@@ -617,13 +662,25 @@ A proposed learning loop:
 
 Potential measures include comprehension, calibration, quality of reasoning, experiment design, decision quality and follow-through. Do not optimise for agreement, confidence inflation or a predetermined business outcome.
 
+</details>
+
 ## Agent interoperability and infrastructure
+
+<details>
+<summary>Expand this section: Agent interoperability and infrastructure</summary>
+
 
 The longer-term architecture may expose permissioned capabilities through MCP or other adapters so compatible agent harnesses (for example, OpenCode) can read approved knowledge and update authorised work items. The platform must own durable strategic state; provider-specific conversation formats and thought signatures are not portable business memory.
 
 AKCloud may help founders assess deployment readiness, hosting options and applications for third-party startup programmes. It cannot guarantee Google Cloud credits or any provider award. External integrations must be optional, scoped, auditable and revocable.
 
+</details>
+
 ## Security, privacy and trust
+
+<details>
+<summary>Expand this section: Security, privacy and trust</summary>
+
 
 - Enforce authorisation server-side and test Supabase Row Level Security for every user-owned record.
 - Treat business ideas, uploaded documents, interviews and financial data as confidential.
@@ -636,7 +693,13 @@ AKCloud may help founders assess deployment readiness, hosting options and appli
 
 **Known security blocker:** the imported project includes a demo-account setup Edge Function described as having JWT verification disabled and privileged Supabase administrative operations. Review, redesign or remove it before public production use. Do not expose a service-role secret or allow unauthenticated callers to delete/recreate accounts. Rotate credentials if exposure is suspected. The demo sign-in flow also requires abuse and access-control review.
 
+</details>
+
 ## Phased development approach
+
+<details>
+<summary>Expand this section: Phased development approach</summary>
+
 
 The phases are deliberately sequenced so that STaaS earns its intelligence claims through data quality, traceability and user validation. Each phase has an outcome and an evidence gate. Phases may overlap where useful, but later capabilities must not be presented as delivered before their gates are met.
 
@@ -677,6 +740,8 @@ New evidence and outcomes continuously update the founder's strategic state.
 
 See [ARCHITECTURE-AND-TRL.md](docs/ARCHITECTURE-AND-TRL.md) for component-level provisional TRLs and evidence gates. Do not represent the integrated product at the highest TRL of any individual component.
 
+</details>
+
 ## Success measures to validate
 
 - time from idea submission to a founder-approved next action;
@@ -713,6 +778,10 @@ Configure the Supabase project URL and public anon key using the variable names 
 
 ## Research and evidence
 
+<details>
+<summary>Expand this section: Research and evidence</summary>
+
+
 The [research register](RESEARCH.md) documents model-training literature, data-source leads, evidence on reflective LLM dialogue, evaluation design, open problems and limitations. It distinguishes published findings from STaaS hypotheses and engineering observations.
 
 Important limits:
@@ -723,6 +792,8 @@ Important limits:
 - Public availability does not automatically grant commercial reuse or model-training rights.
 - Belief-revision studies do not validate entrepreneurship education or outcomes for African founders.
 - No OKF conformance claim is justified until the canonical specification, version and round-trip tests are verified.
+
+</details>
 
 ## Manifesto
 
@@ -744,10 +815,12 @@ Original STaaS materials are reserved to their applicable rights holders under
 [LICENSE](LICENSE). Third-party components retain their own terms; see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The package is marked
 `UNLICENSED`; public visibility does not grant permission to reuse original
-code or documentation.
+code or documentation. Repository visibility and GitHub forking controls are
+separate from copyright licensing; see the private-migration runbook before
+relying on this public repository for confidentiality.
 
 See [IP and provenance register](docs/IP-AND-PROVENANCE-REGISTER.md), [private repository migration runbook](PRIVATE-REPOSITORY-MIGRATION.md),
 [security policy](SECURITY.md), [release policy](RELEASE.md), and
-[CHANGELOG.md). The current development marker is `0.1.0-alpha.1`, not a
+[CHANGELOG.md](CHANGELOG.md). The current development marker is `0.1.0-alpha.1`, not a
 production-readiness claim. A tagged release is created only after the
 validation and rights checks in the release workflow.
