@@ -17,6 +17,8 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    environment:
+      name: release
     steps:
       - name: Check out tagged source and full history
         uses: actions/checkout@v7
