@@ -65,3 +65,7 @@ The following assistant-created working branches were retained as additive branc
 - `fix/main-disable-unsafe-demo` (main-branch security change merged by PR #20)
 
 Dependabot also created short-lived update branches while the new configuration was active. At the time of this remediation, 21 branch refs were visible: the nine original branches, these three working branches, and nine Dependabot branches. A mirror clone/push preserves the current refs; verify the source list at migration time rather than relying on this historical count. Review and close any obsolete Dependabot PRs before choosing the canonical branch set.
+
+## Updated branch inventory after governance/security merges
+
+After merging the action-runtime and compatible dependency updates (PRs #11–#15), GitHub removed those completed Dependabot heads. The current inventory is 16 branches: the nine original branches, the three retained governance/security working branches listed above, and four open Dependabot major-upgrade branches (TypeScript 7, Tailwind CSS 4, ESLint 10, and React/types). The four major-upgrade PRs remain draft because their CI checks failed; they are not part of the approved release baseline. Re-run `git ls-remote --heads` at migration time for the authoritative list.
