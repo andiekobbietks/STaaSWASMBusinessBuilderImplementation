@@ -149,6 +149,39 @@ This connects to the wider engineering principle behind federated infrastructure
 
 Portability does not mean every system should share every record. Privacy, confidentiality, consent, licensing and access control remain essential. Federation is controlled interoperability, not indiscriminate disclosure.
 
+
+## 7.1 Reliability properties: redundancy, integrity, authenticity and recovery
+
+The historical transmission of biblical manuscripts provides a comparative case for studying resilience. Multiple witnesses, including the Dead Sea Scrolls and later textual traditions, allow scholars to compare readings, identify variants and investigate textual history. This is not equivalent to a distributed database, and manuscript copying is not cryptographic verification. The analogy is that independent witnesses can make loss or alteration more detectable than a single surviving copy would allow.
+
+For a knowledge system, distinguish five properties:
+
+- **Redundancy:** retain independent witnesses or representations; duplicated copies from one compromised source are not independent corroboration.
+- **Integrity:** detect unintended or unauthorised changes and retain version history. A hash detects change relative to a trusted digest; it does not prove the content was true.
+- **Authenticity and provenance:** establish who or what produced a record, when, under what authority and through which transformations. Digital signatures authenticate under key and trust assumptions; they do not prove factual correctness.
+- **Recoverability:** demonstrate that records, schemas, dependencies, relationships and context can be restored after loss or provider failure. A backup that has never been restored is not demonstrated recovery.
+- **Transformability:** support migration, translation, summarisation and schema evolution while preserving lineage and making material semantic changes visible.
+
+Masoretic marginal annotations and counting conventions are useful examples of historical human textual-control practices, not cryptographic checksums. Historical manuscript authenticity is assessed through provenance, palaeography, codicology, material and linguistic analysis, dating and textual comparison. These methods differ from modern cryptography but address related questions about origin, alteration and trust.
+
+The key design principle is: **a resilient knowledge system must preserve the ability to identify change, not merely attempt to prevent change.** Immutability alone can obstruct correction; unrestricted transformation can erase history. STaaS should aim for controlled transformation with recoverable provenance.
+
+## 7.2 African-language AI: empirical evidence for local adaptation and knowledge reuse
+
+Recent African-language AI research provides a practical test of the relationship between data, model scale, language coverage and deployment. It supports a bounded conclusion: model size alone does not determine usefulness. Dataset quality, local expertise, task definition, language variety and evaluation design matter substantially. It does not establish that every African language is now adequately supported.
+
+- **DONDO (Paul Azunre, 2026):** 21 monolingual and five multilingual speech-recognition models across 27 language varieties, built on w2v-BERT 2.0. The paper reports 10–13% average word error rates for its multilingual families and describes training primarily on read religious-text speech because of its availability and orthographic consistency. This is an example of reusing an existing speech representation and a culturally established source of recordings. Read speech does not establish performance on spontaneous, noisy, code-switched conversation.
+- **Swahili Gemma 1B (Crane AI Labs / Google DeepMind case study):** a Gemma 3 1B model adapted with QLoRA, synthetic material reviewed and corrected by local language experts, and a LiteRT mobile deployment path. The case study reports 94% of Gemma 3 27B performance on its selected translation comparison and on-device operation. This is task-specific, not evidence that base Gemma natively speaks every African language or that 1B models universally match 27B models.
+- **IrokoBench (NAACL 2025):** human-translated evaluation across 17 African languages and three task families found significant gaps between high-resource and African languages in the models tested. Its reported 63% comparison between the strongest open model and GPT-4o is specific to that benchmark and evaluation setup.
+- **African Languages Lab (ACL 2026):** reports a curated dataset spanning 40 languages, 19 billion text tokens and 12,628 hours of aligned speech, with targeted fine-tuning gains across 31 evaluated languages and selected 1B-model results matching or surpassing Google Translate for Yoruba and Twi tasks.
+- **Khaya AI and harmful-hype research:** the work by Hadgu, Azunre and Gebru cautions against equating nominal language support with adequate performance. Claims should be evaluated by language variety, direction, domain, dialect and real user needs.
+
+These cases support three research questions for STaaS: whether targeted representations reduce resource barriers for defined tasks; whether provenance and evaluation lineage improve reproducibility; and whether community-informed evaluation improves relevance and accountability. Text translation, speech recognition, speech synthesis and conversational reasoning require separate evaluation. Performance on one task cannot be generalised to the others.
+
+**STaaS implication:** retain dataset provenance, language variety, rights, annotation method, benchmark version, model version, evaluation population, error categories, compute requirements and deployment conditions alongside every model-performance claim. Local-language capability is not simply a model feature; it is an evidence and stewardship commitment.
+
+Sources: [DONDO (Azunre, 2026)](https://arxiv.org/abs/2607.21540); [IrokoBench (NAACL 2025)](https://aclanthology.org/2025.naacl-long.139/); [African Languages Lab (ACL 2026)](https://aclanthology.org/2026.acl-long.1965/); [Swahili Gemma 1B case study](https://deepmind.google/models/gemma/gemmaverse/craneai/); [Swahili Gemma model card](https://huggingface.co/CraneAILabs/swahili-gemma-1b); [Harmful Hype in NLP](https://aclanthology.org/search/?q=Combating%20Harmful%20Hype%20in%20Natural%20Language%20Processing).
+
 ## 8. The proposed STaaS intelligence cycle
 
 The preceding ideas can be expressed as a proposed cycle. It is a conceptual model for the product and research programme, not a claim that the current prototype implements every stage.
