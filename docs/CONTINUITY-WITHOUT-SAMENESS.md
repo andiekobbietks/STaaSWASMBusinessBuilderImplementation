@@ -219,6 +219,102 @@ This is analogous to the STaaS problem: storing a source is not the same as maki
 
 The point is not to force all these forms into one database. It is to recognise that different knowledge types need different carriers, stewardship practices and interpretive methods.
 
+
+## 5.4 Redundancy, integrity, authenticity and recoverability: lessons from manuscript transmission
+
+The historical transmission of biblical texts offers a particularly useful comparative case for examining how knowledge can survive loss, copying, migration and change. It should not be described as a modern distributed database, nor should manuscript practices be equated with cryptographic mechanisms. The comparison is valuable because the surviving textual record makes visible several enduring preservation problems.
+
+### Multiple witnesses and meaningful redundancy
+
+Biblical texts survive through manuscript witnesses produced in different periods, places, languages and textual traditions. The Dead Sea Scrolls, the Masoretic tradition, the Septuagint and the Samaritan Pentateuch provide evidence that can be compared to investigate earlier readings and textual development. The Great Isaiah Scroll, for example, can be compared with later Masoretic witnesses. Such comparison reveals substantial continuity as well as variants.
+
+The engineering analogy is replication and independent evidence. If only one copy survives, damage or alteration to that copy may be impossible to detect from the record alone. Multiple witnesses can make comparison and reconstruction possible. But redundancy is useful only when the relationships and independence of witnesses are understood: several copies derived from one corrupted exemplar do not provide the same evidential strength as genuinely independent witnesses. Repetition can preserve an error as easily as a truth.
+
+### Integrity is not immutability
+
+Integrity concerns whether a record has been altered, corrupted or manipulated in ways that matter. Immutability describes restrictions on changing a stored record or the preservation of changes as new versions. Neither guarantees that the original record was accurate. A cryptographic hash can detect a change relative to a trusted digest; it cannot prove that the initial content was true. A digital signature can authenticate a record relative to a trusted key; it cannot establish the wisdom or factual correctness of its contents.
+
+Masoretic scribal practices, including marginal annotations and counting conventions, can be compared with human-developed quality-control and metadata practices. They were not cryptographic checksums and should not be described as such. Their value lies in the disciplined attention given to textual transmission and in the evidence they leave for later study.
+
+### Authenticity and unforgeability
+
+Preserving a record and proving its authenticity are separate problems. Modern systems can use cryptographic hashes, digital signatures, trusted timestamps, append-only logs and Merkle structures to make certain forms of alteration detectable and to authenticate records under explicit trust assumptions. These mechanisms do not prove that a source is honest, that a statement is true or that a signing key was never compromised.
+
+Historical manuscript authenticity is assessed through different methods: provenance, palaeography, codicology, material analysis, linguistic study, dating, textual comparison and historical context. The methods are not interchangeable, but both domains ask who produced a record, when, under what conditions and how its history can be evaluated.
+
+### Recoverability when originals are lost
+
+The original manuscripts of biblical books generally do not survive. Scholars work with surviving witnesses and other historical evidence to investigate earlier textual forms. This is not perfect restoration of a lost original; it is disciplined reconstruction with uncertainty and variants made visible.
+
+The systems analogy is disaster recovery and forensic reconstruction. A backup alone may not be enough if schemas, keys, dependencies, metadata, provenance or application logic are missing. Recoverability requires tested restoration, documented formats, independent copies, known dependencies and a way to identify what remains uncertain or irretrievable.
+
+### Five properties of knowledge continuity
+
+For STaaS, the comparison suggests five related design properties:
+
+1. **Redundancy:** preserve independent witnesses or representations so that one lost or compromised source does not erase all evidence.
+2. **Integrity:** detect unauthorised or accidental changes and retain version history.
+3. **Authenticity and provenance:** establish who or what produced a record, when, under which authority and through which transformations.
+4. **Recoverability:** demonstrate that records, relationships and context can be restored after loss, migration or provider failure.
+5. **Transformability:** allow knowledge to move across languages, schemas, models and generations while retaining enough lineage to understand what changed and why.
+
+These properties are complementary, not synonyms. Redundancy does not guarantee integrity; integrity does not prove truth; authenticity does not guarantee completeness; a backup does not prove recoverability; and a technically valid transformation may still lose semantic meaning.
+
+The resulting principle is: **a resilient knowledge system must preserve the ability to identify change, not merely attempt to prevent change.** Freezing records can obstruct legitimate correction. Uncontrolled transformation can erase history. The objective is controlled transformation with recoverable provenance.
+
+## 5.5 African-language AI as an empirical case of knowledge reuse and local adaptation
+
+The African-language AI landscape provides a contemporary empirical setting in which model scale, data quality, linguistic coverage, local expertise and deployment constraints can be examined together. It is not evidence that every African language is now well supported. Rather, the research shows both persistent gaps and practical gains from targeted data and adaptation.
+
+### Khaya AI and the limits of aggregate multilingual claims
+
+The paper *Combating Harmful Hype in Natural Language Processing* examines the gap between claims about language support and the realities of low-resource language performance, including African languages. It is a reminder that a language appearing in a model's supported-language list does not establish robust performance across dialects, colloquial speech, domains or real-world use. The appropriate response is language- and task-specific evaluation, transparent reporting and meaningful participation by speakers and local experts.
+
+Khaya AI's work is relevant as an example of African-language research and infrastructure. Results should be reported with their exact language variety, direction, domain, dataset and metric. A score in one translation direction or news domain must not be generalised to all Twi, all tasks or all speakers.
+
+### DONDO: reuse of speech representations and religious-text recordings
+
+Paul Azunre's 2026 paper, *DONDO: Open w2v-BERT Speech-Recognition Base Models for African Languages*, presents 21 monolingual and five multilingual automatic speech-recognition models spanning 27 language varieties across Ghana, Sierra Leone, Nigeria, Senegal, Kenya and Zimbabwe. The work builds on the w2v-BERT 2.0 self-supervised speech encoder and describes multilingual fine-tuning with learning-rate annealing and language conditioning. The paper reports average word error rates of 10–13% across five multilingual model families. It reports that models were fine-tuned primarily on read speech from religious texts, chosen for broad, license-clear and orthographically consistent coverage where transcribed audio is scarce. The models are released under Apache-2.0 according to the paper.
+
+This creates a striking but carefully bounded connection to the biblical transmission discussion: religious reading traditions can provide structured speech material that helps develop contemporary language technology. The model does not thereby learn the full language, culture or spontaneous speech community. Read speech is not a substitute for conversational, dialectal, code-switched, noisy and domain-diverse evaluation. Data rights and community consent still require explicit attention.
+
+### Swahili Gemma 1B: task-specific adaptation and edge deployment
+
+Google DeepMind's published case study describes Crane AI Labs adapting Gemma 3 1B for Swahili translation and conversational use. The team used QLoRA fine-tuning, a dataset combining synthetic material with validation and corrections from local language experts, and a mobile deployment pipeline using LiteRT. The case study reports on-device operation and a translation comparison in which the adapted 1B model achieved 94% of the reported Gemma 3 27B performance on the selected benchmark. This is a task- and benchmark-specific result, not proof that a 1B model generally equals a 27B model or that Gemma natively supports every African language. The team's model documentation identifies its focus as English-to-Swahili translation and Swahili conversational AI.
+
+The important systems lesson is that a smaller general model, adapted with suitable local data and expertise, can be practically useful on devices with limited connectivity and compute. Edge deployment also changes the operating model: inference can occur locally, but model updates, evaluation, security, consent and support still need governance.
+
+### IrokoBench and the continuing performance gap
+
+IrokoBench introduces human-translated evaluation sets for 17 typologically diverse African languages across natural-language inference, mathematical reasoning and knowledge-based question answering. Its evaluation found significant gaps between high-resource and African languages in the models tested. The paper reported that the strongest open model in its comparison, Gemma 2 27B, reached 63% of the best-performing proprietary model's GPT-4o performance under the benchmark's reported setup. Translating evaluation material into English improved results for some English-centric models. This is evidence of a measured benchmark gap in that study, not a timeless ranking of all current models.
+
+### African Languages Lab: data quality and scale
+
+The 2026 ACL paper *The African Languages Lab: A Collaborative Approach to Advancing Low-Resource African NLP* reports a quality-controlled collection spanning 40 languages, 19 billion text tokens and 12,628 hours of aligned speech. It reports average gains across 31 evaluated languages from targeted fine-tuning, and a 1B-parameter model matching or surpassing Google Translate on selected tasks and languages including Yoruba and Twi. These findings support the importance of curated, expert-validated data; they do not imply uniform performance across all dialects or use cases.
+
+### What these cases establish for STaaS
+
+Taken together, these studies support a bounded proposition: model size alone does not determine practical usefulness. Data quality, language-specific adaptation, local expertise, evaluation design, task definition and deployment constraints can materially affect outcomes. They do not prove a universal law that compression creates intelligence or that small models always outperform large ones.
+
+For STaaS, this suggests three research hypotheses:
+
+1. **Representation and efficiency:** targeted adaptation and suitable representations can reduce compute or access barriers for defined tasks without unacceptable loss of quality.
+2. **Continuity and provenance:** retaining dataset lineage, language variety, annotation process, rights and evaluation conditions makes model claims more reproducible and transferable.
+3. **Localisation and agency:** community-informed evaluation and deployment can improve practical relevance while making limitations visible to the people affected.
+
+A responsible evaluation should report language and dialect, task, direction, dataset provenance, consent and licensing, benchmark version, human evaluation, error categories, compute and latency, offline behaviour, and failure modes. Translation, speech recognition, speech synthesis and conversational reasoning must be evaluated separately. A model that translates text is not thereby demonstrated to understand speech or teach a subject effectively.
+
+### Sources
+
+- Azunre, P. (2026). *DONDO: Open w2v-BERT Speech-Recognition Base Models for African Languages*. [arXiv:2607.21540](https://arxiv.org/abs/2607.21540).
+- Adelani, D. I. et al. (2025). *IrokoBench: A New Benchmark for African Languages in the Age of Large Language Models*. [NAACL 2025 proceedings](https://aclanthology.org/2025.naacl-long.139/).
+- *The African Languages Lab: A Collaborative Approach to Advancing Low-Resource African NLP* (ACL 2026). [ACL Anthology](https://aclanthology.org/2026.acl-long.1965/).
+- Google DeepMind. *Swahili Gemma 1B from Crane AI Labs bridges the gap with powerful on-device performance*. [Case study](https://deepmind.google/models/gemma/gemmaverse/craneai/).
+- Crane AI Labs. *Swahili Gemma 1B model documentation*. [Hugging Face model card](https://huggingface.co/CraneAILabs/swahili-gemma-1b).
+- Hadgu, A. T., Azunre, P. and Gebru, T. (2023). *Combating Harmful Hype in Natural Language Processing*. [ACL Anthology search / publication record](https://aclanthology.org/search/?q=Combating%20Harmful%20Hype%20in%20Natural%20Language%20Processing).
+- Dead Sea Scrolls Digital Library, Israel Antiquities Authority. [Manuscript collection](https://www.deadseascrolls.org.il/).
+- The Leon Levy Dead Sea Scrolls Digital Library and associated scholarly resources provide manuscript images and descriptions for direct comparison. Interpretive claims should be checked against specialist textual-critical publications.
+
 ## 7. The recurring pattern and the careful use of “fractal”
 
 A recurring structure can appear at multiple scales: an individual learns from a teacher; a community transmits cultural practice; an institution preserves its decisions; a software system migrates records; a civilisation maintains texts and traditions.
