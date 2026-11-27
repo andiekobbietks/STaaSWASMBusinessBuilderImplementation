@@ -10,6 +10,7 @@ The ambition is bigger than generating a business plan. STaaS should help founde
 
 - [The STaaS Manifesto](MANIFESTO.md)
 - [Intellectual foundations of STaaS](docs/INTELLECTUAL-FOUNDATIONS-OF-STAAS.md)
+- [Continuity without sameness: transmission, transformation and the preservation of meaning](docs/CONTINUITY-WITHOUT-SAMENESS.md)
 - [3Blue1Brown: learning, LLMs, compression and the STaaS principle](docs/3BLUE1BROWN-AND-STAAS.md)
 - [Compression, intelligence and cryptographic discovery](docs/COMPRESSION-INTELLIGENCE-AND-CRYPTOGRAPHY.md)
 - [Research contributions, bibliography and open questions](RESEARCH.md)
@@ -42,6 +43,7 @@ This README is the product and architecture overview. Use the linked documents f
 | [Operating model](docs/STAAS-OPERATING-MODEL.md) | How the service is intended to work |
 | [Architecture and TRL](docs/ARCHITECTURE-AND-TRL.md) | Component boundaries, dependencies and provisional readiness |
 | [Research register](RESEARCH.md) | Sources, research claims, evaluation questions and limitations |
+| [Continuity without sameness](docs/CONTINUITY-WITHOUT-SAMENESS.md) | Biblical memory, recontextualisation, information theory, computing and cultural knowledge transmission |
 | [Architecture decision records](docs/adr/README.md) | Decision history, status and reconsideration triggers |
 | [3Blue1Brown and STaaS](docs/3BLUE1BROWN-AND-STAAS.md) | Learning design and conceptual teaching precedent |
 
