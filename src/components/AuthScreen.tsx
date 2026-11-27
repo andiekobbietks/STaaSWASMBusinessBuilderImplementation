@@ -179,7 +179,7 @@ function Field({ icon, label, children }: { icon: React.ReactNode; label: string
   );
 }
 
-export function LangToggle({ lang, onLangChange, texts }: { lang: LangCode; onLangChange: (l: LangCode) => void; texts: UITranslations }) {
+export function LangToggle({ lang, onLangChange }: { lang: LangCode; onLangChange: (l: LangCode) => void; texts: UITranslations }) {
   return (
     <div className="inline-flex bg-slate-100 rounded-full p-1">
       {(["en", "it"] as LangCode[]).map(code => (
