@@ -55,3 +55,13 @@ If any actual credentials were committed, rotate them immediately. Rewriting his
 - Required settings and secrets have been recreated securely.
 - Public source disposition and historical-disclosure risks are documented.
 - The private destination is the agreed canonical implementation repository.
+
+## Additional working branches present during this remediation
+
+The following assistant-created working branches were retained as additive branches:
+
+- `chore/repository-governance-v0.1.0-alpha.1` (governance merged by PR #9)
+- `fix/disable-unsafe-demo-and-chat-endpoints` (security changes merged into the feature branch by PR #10)
+- `fix/main-disable-unsafe-demo` (main-branch security change merged by PR #20)
+
+Dependabot also created short-lived update branches while the new configuration was active. At the time of this remediation, 21 branch refs were visible: the nine original branches, these three working branches, and nine Dependabot branches. A mirror clone/push preserves the current refs; verify the source list at migration time rather than relying on this historical count. Review and close any obsolete Dependabot PRs before choosing the canonical branch set.
