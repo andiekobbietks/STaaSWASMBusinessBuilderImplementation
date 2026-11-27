@@ -10,6 +10,10 @@ The knowledge needed to build a company already exists in fragments: academic re
 
 It is a founder-centred approach to strategic learning and decision support: bringing relevant knowledge together, helping people reason with it, and making the path from uncertainty to a testable decision clearer.
 
+## Where the reasoning comes from
+
+The [intellectual foundations of STaaS](docs/INTELLECTUAL-FOUNDATIONS-OF-STAAS.md) explain the project's origin in reflective LLM dialogue, and the subsequent connection to accumulated knowledge, compression, composition, provenance and continuity. They distinguish the motivating ideas from established research and from capabilities that remain proposed.
+
 ## Learning from visual explanations and accumulated knowledge
 
 The educational approach of 3Blue1Brown offers a useful parallel: make difficult ideas understandable by revealing their structure, then help learners build intuition rather than merely memorise answers. STaaS applies that principle to strategy by making the links between evidence, context, assumptions and decisions inspectable. The comparison is methodological; no endorsement or affiliation is implied. See the [3Blue1Brown learning path and STaaS analysis](docs/3BLUE1BROWN-AND-STAAS.md).
