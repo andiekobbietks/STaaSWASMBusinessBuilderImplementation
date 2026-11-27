@@ -29,6 +29,7 @@ jobs:
       - name: Refresh and audit compatible lockfile updates
         run: |
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          npm update --save --ignore-scripts --no-audit --no-fund
           npm audit fix --ignore-scripts --no-fund
           if ! git diff --quiet -- package.json package-lock.json; then
             if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
