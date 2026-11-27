@@ -57,12 +57,22 @@ jobs:
         run: npx --yes license-checker --production --json > third-party-licenses.json
       - name: Generate CycloneDX SBOM
         run: npm sbom --sbom-format cyclonedx > staas-sbom.cdx.json
-      - name: Upload licence inventory
+      - name: Create non-publishing release bundle preview
+        shell: bash
+        run: |
+          mkdir -p release-assets
+          git archive --format=tar.gz --prefix="staas-${GITHUB_SHA}/" "${GITHUB_SHA}" > "release-assets/staas-source-${GITHUB_SHA}.tar.gz"
+          tar -czf "release-assets/staas-build-${GITHUB_SHA}.tar.gz" -C dist .
+          cp third-party-licenses.json release-assets/
+          cp staas-sbom.cdx.json release-assets/
+          sha256sum release-assets/* > release-assets/SHA256SUMS
+      - name: Upload supply-chain and release-preview artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: third-party-licenses-${{ github.sha }}
+          name: supply-chain-release-preview-${{ github.sha }}
           path: |
             third-party-licenses.json
             staas-sbom.cdx.json
+            release-assets/*
           if-no-files-found: error
           retention-days: 90
