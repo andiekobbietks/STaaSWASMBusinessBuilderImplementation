@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -26,6 +26,19 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Refresh and audit compatible lockfile updates
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          npm audit fix --package-lock-only --ignore-scripts --no-fund
+          if ! git diff --quiet -- package-lock.json; then
+            if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add package-lock.json
+              git commit -m "chore(deps): refresh audited npm lockfile"
+              git push
+            fi
+          fi
       - name: Install locked dependencies
         run: npm ci
       - name: Lint
