@@ -18,7 +18,7 @@ designation, not a claim of production readiness.
 2. Update CHANGELOG.md with user-visible changes and known limitations.
 3. Ensure CI passes on the exact commit.
 4. Generate dependency SBOM and third-party licence inventory.
-5. Review secrets, security findings, provenance and release permissions.
+5. Review secrets, security findings, provenance and release permissions. Complete legal and security sign-off, then set the repository Actions variable `RELEASE_APPROVED=true`; the workflow blocks tagged releases until this explicit gate is set.
 6. Create an annotated Git tag matching package.json, e.g. `v0.1.0-alpha.1`.
 7. Push the tag. The tagged-release workflow builds and attaches source and
    application bundles.
@@ -47,4 +47,5 @@ a substitute for Git history.
 The package is marked UNLICENSED and the repository-level rights notice
 reserves rights in original material. Third-party components retain their own
 licences. Do not distribute a bundle commercially until the provenance and
-licence review is complete.
+licence review is complete. The tagged-release workflow enforces an explicit
+`RELEASE_APPROVED=true` repository variable before it will build or publish.
