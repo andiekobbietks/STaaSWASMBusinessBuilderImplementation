@@ -29,12 +29,12 @@ jobs:
       - name: Refresh and audit compatible lockfile updates
         run: |
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund
-          npm audit fix --package-lock-only --ignore-scripts --no-fund
-          if ! git diff --quiet -- package-lock.json; then
+          npm audit fix --ignore-scripts --no-fund
+          if ! git diff --quiet -- package.json package-lock.json; then
             if [ "${GITHUB_EVENT_NAME}" = "push" ]; then
               git config user.name "github-actions[bot]"
               git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-              git add package-lock.json
+              git add package.json package-lock.json
               git commit -m "chore(deps): refresh audited npm lockfile"
               git push
             fi
