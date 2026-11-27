@@ -31,10 +31,17 @@ mitigation. Allow reasonable time for investigation and remediation.
 - Test backup, restore, export and deletion controls.
 - Review dependency alerts and generated SBOMs before releases.
 
-## Known review item
+## Known remediation and remaining deployment work
 
-The historical demo setup function was previously identified as having JWT
-verification disabled while using privileged Supabase operations. Verify the
-current deployment state, disable or redesign the function, and rotate
-potentially exposed demo credentials. This policy does not certify that the
-issue has been remediated.
+On 27 November 2026, the source-level remediation for the former Supabase
+`setup-demo` function was merged into `main`: JWT verification is required and
+the handler is retired with HTTP 410. The same remediation is present on the
+AI workspace feature branch. The unauthenticated feature-branch chat route is
+also disabled with HTTP 503.
+
+**Live deployment state remains unverified.** These Git changes do not deploy
+the Edge Function or Vercel route, rotate credentials, or invalidate sessions.
+Disable/redeploy the live function, verify its responses, and rotate/delete the
+former shared demo account credentials. Rotate any potentially exposed provider
+secrets and invalidate sessions where appropriate. Do not treat source merge or
+CI success as proof of live remediation.
