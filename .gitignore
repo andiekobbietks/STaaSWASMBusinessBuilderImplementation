@@ -21,3 +21,23 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Environment and deployment secrets
+.env.*
+!.env.example
+!.env.template
+!.env.sample
+.vercel
+
+# Test and coverage output
+coverage
+playwright-report
+test-results
+
+# Local project-generator state and credentials
+.bolt/
+
+# Build and release outputs
+release-assets
+*.tgz
+*.tar.gz
