@@ -40,11 +40,11 @@ jobs:
       - name: Guard retired demo credentials and flags
         shell: bash
         run: |
-          if grep -RInE 'demo123456|DEMO_PASSWORD|demo@businessbuilder\\.app|STAAS_DEMO_CHAT' src supabase; then
+          if grep -RInE 'demo123456|DEMO_PASSWORD|demo@businessbuilder\.app|STAAS_DEMO_CHAT' src supabase; then
             echo "Retired demo credentials or chat flags must not return to current source."
             exit 1
           fi
-          if [ -d api ] && grep -RInE 'demo123456|DEMO_PASSWORD|demo@businessbuilder\\.app|STAAS_DEMO_CHAT' api; then
+          if [ -d api ] && grep -RInE 'demo123456|DEMO_PASSWORD|demo@businessbuilder\.app|STAAS_DEMO_CHAT' api; then
             echo "Retired demo credentials or chat flags must not return to current source."
             exit 1
           fi
