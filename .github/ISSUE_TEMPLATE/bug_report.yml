@@ -1,0 +1,41 @@
+name: Bug report
+description: Report a reproducible defect in the current prototype
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include credentials, personal data, private customer information or security exploit details."
+  - type: input
+    id: version
+    attributes:
+      label: Commit, branch or version
+      description: Identify the exact code being tested.
+      placeholder: main @ commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and evidence
+      description: Browser, OS, logs with secrets removed, and relevant screenshots.
+    validations:
+      required: false
