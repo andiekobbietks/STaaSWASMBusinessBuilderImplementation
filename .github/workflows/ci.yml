@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "chore/**", "feat/**", "fix/**", "docs/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
+      - name: Generate third-party licence inventory
+        run: npx --yes license-checker --production --json > third-party-licenses.json
+      - name: Upload licence inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: third-party-licenses-${{ github.sha }}
+          path: third-party-licenses.json
+          if-no-files-found: error
+          retention-days: 90
