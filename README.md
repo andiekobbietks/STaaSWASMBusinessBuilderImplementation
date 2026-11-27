@@ -746,7 +746,7 @@ Original STaaS materials are reserved to their applicable rights holders under
 `UNLICENSED`; public visibility does not grant permission to reuse original
 code or documentation.
 
-See [IP and provenance register](docs/IP-AND-PROVENANCE-REGISTER.md),
+See [IP and provenance register](docs/IP-AND-PROVENANCE-REGISTER.md), [private repository migration runbook](PRIVATE-REPOSITORY-MIGRATION.md),
 [security policy](SECURITY.md), [release policy](RELEASE.md), and
 [CHANGELOG.md). The current development marker is `0.1.0-alpha.1`, not a
 production-readiness claim. A tagged release is created only after the
