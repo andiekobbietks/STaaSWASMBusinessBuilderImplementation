@@ -23,6 +23,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Enforce explicit release approval
+        env:
+          RELEASE_APPROVED: ${{ vars.RELEASE_APPROVED }}
+        run: |
+          if [ "$RELEASE_APPROVED" != "true" ]; then
+            echo "Release blocked. Complete the provenance, licence and security review, then set repository variable RELEASE_APPROVED=true."
+            exit 1
+          fi
       - name: Install locked dependencies
         run: npm ci
       - name: Verify tag matches package version
@@ -40,6 +48,12 @@ jobs:
           npm run typecheck
           npm run build
           npm audit --audit-level=high
+      - name: Scan every Git ref and commit for secrets
+        shell: bash
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          /tmp/gitleaks git --redact --exit-code 2 --log-opts="--all --full-history" .
       - name: Generate licence inventory
         run: npx --yes license-checker --production --json > third-party-licenses.json
       - name: Generate CycloneDX SBOM
@@ -57,4 +71,6 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          make_latest: ${{ !contains(github.ref_name, '-') }}
           files: release-assets/*
