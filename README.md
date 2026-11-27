@@ -807,7 +807,7 @@ This is an independent product direction. References to public research, framewo
 
 ## Contributing
 
-Keep implementation claims aligned with the code. For substantial changes, update requirements, architecture, threat/data-flow notes, tests and the research register together. Mark proposed capabilities as proposed until code and validation evidence demonstrate otherwise.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes. External code contributions require prior written approval. Keep implementation claims aligned with the code. For substantial changes, update requirements, architecture, threat/data-flow notes, tests and the research register together. Mark proposed capabilities as proposed until code and validation evidence demonstrate otherwise.
 
 ## Licence, provenance and releases
 
@@ -820,7 +820,7 @@ separate from copyright licensing; see the private-migration runbook before
 relying on this public repository for confidentiality.
 
 See [IP and provenance register](docs/IP-AND-PROVENANCE-REGISTER.md), [private repository migration runbook](PRIVATE-REPOSITORY-MIGRATION.md),
-[security policy](SECURITY.md), [release policy](RELEASE.md), and
+[security policy](SECURITY.md), [release policy](RELEASE.md), [repository settings runbook](docs/REPOSITORY-SETTINGS.md), and
 [CHANGELOG.md](CHANGELOG.md). The current development marker is `0.1.0-alpha.1`, not a
 production-readiness claim. A tagged release is created only after the
 validation and rights checks in the release workflow.
