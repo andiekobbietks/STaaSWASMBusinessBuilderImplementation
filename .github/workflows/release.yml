@@ -54,7 +54,7 @@ jobs:
             echo "Release tag must point to a commit reachable from main."
             exit 1
           }
-          node -e "const v=process.env.TAG_VERSION.replace(/^v/, ""); if (!/^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$/.test(v)) process.exit(1)" 
+          node -e 'const v=process.env.TAG_VERSION.replace(/^v/, ""); if (!/^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$/.test(v)) process.exit(1)'
         env:
           TAG_VERSION: ${{ github.ref_name }}
       - name: Install locked dependencies
