@@ -1,0 +1,9 @@
+# Default ownership for repository changes
+* @andiekobbietks
+
+# Require owner review for governance, security and release policy
+/LICENSE @andiekobbietks
+/THIRD_PARTY_NOTICES.md @andiekobbietks
+/SECURITY.md @andiekobbietks
+/docs/IP-AND-PROVENANCE-REGISTER.md @andiekobbietks
+/.github/workflows/ @andiekobbietks
