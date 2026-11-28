@@ -103,6 +103,7 @@ def validate_bundle(bundle: Path) -> tuple[int, list[str]]:
 
     checked = 0
     errors: list[str] = []
+    profile_documents: list[tuple[Path, dict[str, Any]]] = []
     for path in sorted(bundle.rglob("*.md")):
         if path.name in {"index.md", "log.md"}:
             continue
@@ -116,8 +117,41 @@ def validate_bundle(bundle: Path) -> tuple[int, list[str]]:
         if not isinstance(document, dict) or document.get("type") not in PROFILE_TYPES:
             continue
         checked += 1
+        profile_documents.append((path, document))
         for message in validate_concept(document, validator):
             errors.append(f"{path.relative_to(bundle)}: {message}")
+
+    concepts_by_id: dict[str, dict[str, Any]] = {}
+    for path, document in profile_documents:
+        extension = document.get("x-staas")
+        if not isinstance(extension, dict):
+            continue
+        concept_id = extension.get("id")
+        if not isinstance(concept_id, str):
+            continue
+        if concept_id in concepts_by_id:
+            errors.append(
+                f"{path.relative_to(bundle)}: duplicate x-staas.id {concept_id}"
+            )
+        else:
+            concepts_by_id[concept_id] = document
+
+    for path, document in profile_documents:
+        if document.get("type") != "Decision":
+            continue
+        extension = document.get("x-staas")
+        if not isinstance(extension, dict):
+            continue
+        selected_id = extension.get("selected_option_id")
+        selected = concepts_by_id.get(selected_id)
+        if selected is None:
+            errors.append(
+                f"{path.relative_to(bundle)}: selected_option_id does not resolve"
+            )
+        elif selected.get("type") != "Strategic Option":
+            errors.append(
+                f"{path.relative_to(bundle)}: selected_option_id must reference a Strategic Option"
+            )
 
     return checked, errors
 
