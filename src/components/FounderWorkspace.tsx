@@ -68,6 +68,7 @@ const COPY = {
     export: "Export OKF bundle",
     exporting: "Preparing export…",
     exportReady: "OKF bundle prepared",
+    exportUnsaved: "The export includes current unsaved edits; save the workspace separately to keep them in version history.",
     history: "Reports",
     analyzer: "Idea analyser",
     signOut: "Sign out",
@@ -238,6 +239,7 @@ const COPY = {
     export: "Esporta bundle OKF",
     exporting: "Preparazione esportazione…",
     exportReady: "Bundle OKF preparato",
+    exportUnsaved: "L’esportazione include le modifiche non salvate; salva separatamente lo spazio di lavoro per conservarle nella cronologia.",
     history: "Report",
     analyzer: "Analizzatore di idee",
     signOut: "Esci",
@@ -884,9 +886,9 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
   const exportBundle = () => {
     if (!snapshot) return;
     try {
-      const result = buildOkfBundle(snapshot, Math.max(version, 1));
+      const result = buildOkfBundle(snapshot, Math.max(version + (dirty ? 1 : 0), 1));
       downloadOkfBundle(result);
-      setNotice(text("exportReady") + ": " + result.conceptCount + " " + text("exportCount"));
+      setNotice((dirty ? text("exportUnsaved") + " " : "") + text("exportReady") + ": " + result.conceptCount + " " + text("exportCount"));
       setError("");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Export failed.");
