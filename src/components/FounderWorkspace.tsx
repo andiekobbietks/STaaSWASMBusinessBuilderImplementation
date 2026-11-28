@@ -88,6 +88,15 @@ const COPY = {
     clean: "All changes saved",
     nextAction: "Suggested next action",
     nextActionText: "Identify one high-impact assumption and decide what evidence could change your mind.",
+    completeContext: "Complete the customer, problem and offer context before building strategy.",
+    recordAssumption: "Record one assumption that could materially change the venture.",
+    recordEvidence: "Attach a source or clearly label a founder assertion; record limitations and rights.",
+    createOption: "Compare at least two plausible strategic options.",
+    recordDecision: "Record a founder-owned decision and the reason for choosing it.",
+    planExperiment: "Design a bounded experiment with success and failure criteria.",
+    recordOutcome: "Record what the experiment actually produced, including negative results.",
+    createLearning: "Create a learning concept that supports the next decision.",
+    allDone: "You have a complete first learning-and-decision cycle. Review the evidence and revisit your assumptions.",
     assumptionTitle: "Add an assumption",
     assumptionStatement: "Assumption",
     impact: "Impact",
@@ -263,6 +272,15 @@ const COPY = {
     clean: "Tutte le modifiche sono salvate",
     nextAction: "Prossima azione suggerita",
     nextActionText: "Individua un'ipotesi ad alto impatto e stabilisci quali prove potrebbero farti cambiare idea.",
+    completeContext: "Completa il contesto relativo al cliente, al problema e all'offerta prima di definire la strategia.",
+    recordAssumption: "Registra un'ipotesi che potrebbe cambiare in modo significativo l'impresa.",
+    recordEvidence: "Collega una fonte o indica chiaramente un'affermazione del fondatore; registra limiti e diritti.",
+    createOption: "Confronta almeno due opzioni strategiche plausibili.",
+    recordDecision: "Registra una decisione del fondatore e la motivazione della scelta.",
+    planExperiment: "Progetta un esperimento circoscritto con criteri di successo e insuccesso.",
+    recordOutcome: "Registra il risultato effettivo dell'esperimento, compresi gli esiti negativi.",
+    createLearning: "Crea un concetto di apprendimento utile per la prossima decisione.",
+    allDone: "Hai completato un primo ciclo di apprendimento e decisione. Rivedi le evidenze e le ipotesi.",
     assumptionTitle: "Aggiungi un'ipotesi",
     assumptionStatement: "Ipotesi",
     impact: "Impatto",
@@ -921,6 +939,18 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     }
   }, [snapshot?.contributionMetric]);
 
+  const nextActionMessage = useMemo(() => {
+    if (!snapshot || !snapshot.context.customer || !snapshot.context.problem || !snapshot.context.offer) return text("completeContext");
+    if (snapshot.assumptions.length === 0) return text("recordAssumption");
+    if (snapshot.evidence.length === 0) return text("recordEvidence");
+    if (snapshot.options.length < 2) return text("createOption");
+    if (snapshot.decisions.length === 0) return text("recordDecision");
+    if (snapshot.experiments.length === 0) return text("planExperiment");
+    if (snapshot.outcomes.length === 0) return text("recordOutcome");
+    if (snapshot.learning.length === 0) return text("createLearning");
+    return text("allDone");
+  }, [snapshot, text]);
+
   const sections: Array<{ id: Section; label: string; icon: ReactNode }> = [
     { id: "overview", label: text("overview"), icon: <Target className="h-4 w-4" /> },
     { id: "assumptions", label: text("assumptions"), icon: <Lightbulb className="h-4 w-4" /> },
@@ -1081,7 +1111,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                     ))}
                   </div>
                   <SectionCard title={text("nextAction")}>
-                    <p className="text-sm text-muted-foreground">{text("nextActionText")}</p>
+                    <p className="text-sm text-muted-foreground">{nextActionMessage}</p>
                   </SectionCard>
                 </div>
               )}
