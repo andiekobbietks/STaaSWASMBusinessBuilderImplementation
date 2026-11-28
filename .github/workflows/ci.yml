@@ -32,6 +32,8 @@ jobs:
         run: npm run lint
       - name: Type check
         run: npm run typecheck
+      - name: Verify ZIP archive writer
+        run: npm run test:zip
       - name: Build
         run: npm run build
       - name: Dependency vulnerability audit
