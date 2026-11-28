@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import shutil
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -80,6 +82,47 @@ class ProfileTests(unittest.TestCase):
         self.assertTrue(module.attest(receipt, BUNDLE)["ok"])
         receipt["result"]["contribution_margin_pct"] = "99.00"
         self.assertFalse(module.attest(receipt, BUNDLE)["ok"])
+
+    def test_attester_rejects_modified_computation_file(self) -> None:
+        attester_path = (
+            BUNDLE / "references" / "attesters" / "verify_contribution_margin.py"
+        )
+        spec = importlib.util.spec_from_file_location(
+            "sample_contribution_margin_attester_pinned", attester_path
+        )
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        with tempfile.TemporaryDirectory() as directory:
+            copied_bundle = Path(directory) / "bundle"
+            shutil.copytree(BUNDLE, copied_bundle)
+            computation_path = (
+                copied_bundle / "references" / "computations" / "contribution_margin.py"
+            )
+            computation_path.write_text(
+                computation_path.read_text(encoding="utf-8") + "\n# altered\n",
+                encoding="utf-8",
+            )
+            receipt = {
+                "inputs": {
+                    "units_sold": 20,
+                    "selling_price_gbp": "8.00",
+                    "variable_cost_gbp": "3.20",
+                },
+                "result": {
+                    "revenue_gbp": "160.00",
+                    "variable_cost_total_gbp": "64.00",
+                    "contribution_gbp": "96.00",
+                    "contribution_margin_pct": "60.00",
+                },
+                "computation_sha256": hashlib.sha256(
+                    computation_path.read_bytes()
+                ).hexdigest(),
+            }
+            result = module.attest(receipt, copied_bundle)
+            self.assertFalse(result["ok"])
 
 
 if __name__ == "__main__":
