@@ -157,6 +157,58 @@ export interface WorkspaceVersion {
   created_at?: string;
 }
 
+export function normalizeWorkspaceSnapshot(
+  raw: unknown,
+  fallbackName: string,
+): WorkspaceSnapshot {
+  const base = createEmptySnapshot(fallbackName);
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return base;
+
+  const candidate = raw as Partial<WorkspaceSnapshot>;
+  if (candidate.schemaVersion !== undefined && candidate.schemaVersion !== 1) {
+    throw new Error("This workspace snapshot version is not supported by this application.");
+  }
+
+  return {
+    ...base,
+    ...candidate,
+    schemaVersion: 1,
+    context: {
+      ...base.context,
+      ...(candidate.context || {}),
+      name: candidate.context?.name || fallbackName,
+    },
+    assumptions: Array.isArray(candidate.assumptions)
+      ? candidate.assumptions.map((item) => ({
+          ...item,
+          evidenceIds: Array.isArray(item.evidenceIds) ? item.evidenceIds : [],
+        }))
+      : [],
+    evidence: Array.isArray(candidate.evidence) ? candidate.evidence : [],
+    options: Array.isArray(candidate.options) ? candidate.options : [],
+    decisions: Array.isArray(candidate.decisions)
+      ? candidate.decisions.map((item) => ({
+          ...item,
+          decisionState: item.decisionState || "provisional",
+        }))
+      : [],
+    experiments: Array.isArray(candidate.experiments)
+      ? candidate.experiments.map((item) => ({
+          ...item,
+          recordVersion: item.recordVersion || 1,
+        }))
+      : [],
+    outcomes: Array.isArray(candidate.outcomes) ? candidate.outcomes : [],
+    learning: Array.isArray(candidate.learning) ? candidate.learning : [],
+    contributionMetric: candidate.contributionMetric
+      ? {
+          ...candidate.contributionMetric,
+          recordVersion: candidate.contributionMetric.recordVersion || 1,
+        }
+      : null,
+  };
+}
+
 export function createId(): string {
   return crypto.randomUUID();
 }
