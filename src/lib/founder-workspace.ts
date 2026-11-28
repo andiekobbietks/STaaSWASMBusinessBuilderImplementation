@@ -92,6 +92,17 @@ export interface ExperimentRecord {
   createdAt: string;
 }
 
+export interface OutcomeRecord {
+  id: string;
+  experimentId: string;
+  summary: string;
+  measuredAt: string;
+  metricValue: string;
+  metricUnit: string;
+  limitations: string;
+  createdAt: string;
+}
+
 export interface LearningRecord {
   id: string;
   concept: string;
@@ -121,6 +132,7 @@ export interface WorkspaceSnapshot {
   options: StrategicOption[];
   decisions: DecisionRecord[];
   experiments: ExperimentRecord[];
+  outcomes: OutcomeRecord[];
   learning: LearningRecord[];
   contributionMetric: ContributionMetric | null;
 }
@@ -162,6 +174,7 @@ export function createEmptySnapshot(name: string): WorkspaceSnapshot {
     options: [],
     decisions: [],
     experiments: [],
+    outcomes: [],
     learning: [],
     contributionMetric: null,
   };
