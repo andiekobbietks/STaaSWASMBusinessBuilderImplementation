@@ -7,6 +7,7 @@ These records describe architectural choices for STaaS. Status applies to the de
 - **Accepted design direction; effectiveness unvalidated:** the interaction pattern is selected for evaluation, not proven to work.
 - **Deferred:** a decision has deliberately been postponed until a named dependency or evidence gate is met.
 - **Proposed:** a decision is still awaiting approval.
+- **Recommended direction; implementation and licensing release deferred:** the strategy is recommended, but code publication and licence application remain gated.
 
 An accepted ADR is not proof that the capability has shipped. The README and architecture document remain the source of truth for implementation status.
 
@@ -21,7 +22,9 @@ An accepted ADR is not proof that the capability has shipped. The README and arc
 | [0007](0007-interoperable-agent-harnesses.md) | Harness-neutral adapters; MCP as candidate protocol | Accepted architectural direction | Define scopes and test at least two independent clients |
 | [0008](0008-model-adaptation-and-evaluation.md) | Staged model adaptation and evaluation | Deferred | Complete ADR-0010 benchmark and demonstrate an unresolved capability gap |
 | [0009](0009-evidence-led-reflective-founder-learning.md) | Evidence-led reflective dialogue for founder learning | Accepted design direction; effectiveness unvalidated | Run consent-based STaaS-specific evaluation |
-| [0010](0010-model-reasoning-evaluation-and-runtime.md) | Separate strategic reasoning evaluation from runtime performance | Accepted evaluation principle | Build reproducible benchmark and publish scored results |\n| [0011](0011-provider-neutral-chat-and-mcp-apps.md) | Provider-neutral conversational orchestration and MCP Apps | Accepted architectural direction; implementation deferred | Verify SDK/framework fit; pass streaming, MCP, sandbox, approval, audit and interoperability tests |
+| [0010](0010-model-reasoning-evaluation-and-runtime.md) | Separate strategic reasoning evaluation from runtime performance | Accepted evaluation principle | Build reproducible benchmark and publish scored results |
+| [0011](0011-provider-neutral-chat-and-mcp-apps.md) | Provider-neutral conversational orchestration and MCP Apps | Accepted architectural direction; implementation deferred | Verify SDK/framework fit; pass streaming, MCP, sandbox, approval, audit and interoperability tests |
+| [0012](0012-open-foundation-commercial-business-builder.md) | Open STaaS Foundation with commercial Business Builder and Strategy Service | Recommended direction; implementation and licensing release deferred | Complete provenance and OKF compatibility gates; create separately governed repositories |
 
 ## Decision review
 
