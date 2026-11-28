@@ -689,6 +689,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
       }
     }
     const now = new Date().toISOString();
+    const reviewState = (form.reviewState || "unreviewed") as WorkspaceSnapshot["evidence"][number]["reviewState"];
     updateSnapshot((current) => ({
       ...current,
       evidence: [
@@ -705,7 +706,8 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           accessBasis: (form.accessBasis || "other") as WorkspaceSnapshot["evidence"][number]["accessBasis"],
           redistribution: (form.redistribution || "unknown") as WorkspaceSnapshot["evidence"][number]["redistribution"],
           limitations: form.limitations || "",
-          reviewState: (form.reviewState || "unreviewed") as WorkspaceSnapshot["evidence"][number]["reviewState"],
+          reviewState,
+          ...(reviewState === "human_reviewed" ? { reviewedBy: "human:workspace-owner", reviewedAt: now } : {}),
           createdAt: now,
         },
       ],
