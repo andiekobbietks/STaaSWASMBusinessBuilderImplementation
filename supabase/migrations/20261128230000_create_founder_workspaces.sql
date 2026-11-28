@@ -53,7 +53,7 @@ create index if not exists founder_workspace_versions_latest_idx
 alter table public.founder_workspace_versions enable row level security;
 
 revoke all on table public.founder_workspace_versions from anon, public;
-grant select, insert on table public.founder_workspace_versions to authenticated;
+grant select on table public.founder_workspace_versions to authenticated;
 
 create policy "Users can read their founder workspace versions"
   on public.founder_workspace_versions
@@ -87,7 +87,7 @@ create or replace function public.save_founder_workspace_version(
 )
 returns integer
 language plpgsql
-security invoker
+security definer
 set search_path = public, pg_temp
 as $$
 declare
