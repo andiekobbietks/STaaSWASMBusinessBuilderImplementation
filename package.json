@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "test:zip": "node scripts/verify-zip.mjs",
+    "check": "npm run lint && npm run typecheck && npm run test:zip && npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.2",
