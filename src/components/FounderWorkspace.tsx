@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   AlertCircle,
   ArrowLeft,
@@ -171,6 +171,9 @@ const COPY = {
     exportCount: "concepts included",
     noExport: "Add venture context and records before exporting.",
     required: "Complete the required fields.",
+    sourceRequired: "Provide a source URL for source-based claims. Use founder assertion or hypothesis when no external source is available.",
+    confidenceNote: "This is your subjective belief, not evidence quality or a calibrated probability.",
+    learningNote: "These prompts support learning; they do not prove recall, understanding or transfer.",
     delete: "Delete",
     planned: "Planned",
     running: "Running",
@@ -333,6 +336,9 @@ const COPY = {
     exportCount: "concetti inclusi",
     noExport: "Aggiungi contesto e record prima di esportare.",
     required: "Completa i campi obbligatori.",
+    sourceRequired: "Inserisci un URL per le affermazioni basate su fonti. Se non hai una fonte esterna, usa affermazione del fondatore o ipotesi.",
+    confidenceNote: "È una valutazione soggettiva, non la qualità delle prove né una probabilità calibrata.",
+    learningNote: "Queste domande supportano l’apprendimento, ma non ne dimostrano richiamo, comprensione o trasferimento.",
     delete: "Elimina",
     planned: "Pianificato",
     running: "In corso",
@@ -455,7 +461,7 @@ function SelectField(props: SelectProps) {
   );
 }
 
-function SectionCard(props: { title: string; children: React.ReactNode }) {
+function SectionCard(props: { title: string; children: ReactNode }) {
   return (
     <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
       <h2 className="mb-4 text-base font-semibold">{props.title}</h2>
@@ -632,6 +638,11 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
       setError(text("required"));
       return;
     }
+    const confidence = Number(form.confidence || "0.5");
+    if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) {
+      setError(text("required"));
+      return;
+    }
     const now = new Date().toISOString();
     updateSnapshot((current) => ({
       ...current,
@@ -642,7 +653,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           statement: form.assumptionStatement.trim(),
           impact: (form.impact || "high") as "low" | "medium" | "high",
           uncertainty: (form.uncertainty || "high") as "low" | "medium" | "high",
-          confidence: Math.max(0, Math.min(1, Number(form.confidence || "0.5"))),
+          confidence,
           validationMethod: form.validationMethod || "",
           reviewAt: form.reviewAt || "",
           createdAt: now,
@@ -659,11 +670,17 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
       return;
     }
     const sourceUrl = (form.sourceUrl || "").trim();
+    const claimKind = form.claimKind || "founder_assertion";
+    if (!sourceUrl && (claimKind === "observed_fact" || claimKind === "source_claim")) {
+      setError(text("sourceRequired"));
+      return;
+    }
     if (sourceUrl) {
       try {
-        new URL(sourceUrl);
+        const parsed = new URL(sourceUrl);
+        if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("Unsupported protocol");
       } catch {
-        setError("Enter a valid absolute source URL or leave it blank.");
+        setError("Enter a valid HTTP or HTTPS source URL, or leave it blank.");
         return;
       }
     }
@@ -675,7 +692,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
         {
           id: createId(),
           claim: form.claim.trim(),
-          claimKind: (form.claimKind || "founder_assertion") as WorkspaceSnapshot["evidence"][number]["claimKind"],
+          claimKind: claimKind as WorkspaceSnapshot["evidence"][number]["claimKind"],
           sourceUrl,
           sourceTitle: form.sourceTitle || "",
           author: form.author || "",
@@ -743,7 +760,13 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
   };
 
   const addExperiment = () => {
-    if (!snapshot || !form.hypothesis?.trim() || !form.method?.trim() || !form.assumptionId) {
+    if (!snapshot || !form.hypothesis?.trim() || !form.method?.trim() || !form.assumptionId || !form.successCriteria?.trim()) {
+      setError(text("required"));
+      return;
+    }
+    const durationDays = Number(form.durationDays || "7");
+    const budgetPence = toPence(form.budget || "0");
+    if (!Number.isSafeInteger(durationDays) || durationDays < 1 || !Number.isSafeInteger(budgetPence) || budgetPence < 0) {
       setError(text("required"));
       return;
     }
@@ -757,8 +780,8 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           hypothesis: form.hypothesis.trim(),
           method: form.method.trim(),
           target: form.target || "",
-          durationDays: Math.max(1, Number(form.durationDays || "7")),
-          budgetPence: toPence(form.budget || "0"),
+          durationDays,
+          budgetPence,
           successCriteria: form.successCriteria || "",
           failureCriteria: form.failureCriteria || "",
           status: (form.status || "planned") as "planned" | "running" | "completed" | "cancelled",
@@ -870,7 +893,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     }
   }, [snapshot?.contributionMetric]);
 
-  const sections: Array<{ id: Section; label: string; icon: React.ReactNode }> = [
+  const sections: Array<{ id: Section; label: string; icon: ReactNode }> = [
     { id: "overview", label: text("overview"), icon: <Target className="h-4 w-4" /> },
     { id: "assumptions", label: text("assumptions"), icon: <Lightbulb className="h-4 w-4" /> },
     { id: "evidence", label: text("evidence"), icon: <ShieldCheck className="h-4 w-4" /> },
@@ -1042,7 +1065,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                       <div className="md:col-span-2"><Area label={text("assumptionStatement")} value={form.assumptionStatement || ""} onChange={(value) => updateForm("assumptionStatement", value)} /></div>
                       <SelectField label={text("impact")} value={form.impact || "high"} onChange={(value) => updateForm("impact", value)} options={["low","medium","high"].map((value) => ({ value, label: text(value as CopyKey) }))} />
                       <SelectField label={text("uncertainty")} value={form.uncertainty || "high"} onChange={(value) => updateForm("uncertainty", value)} options={["low","medium","high"].map((value) => ({ value, label: text(value as CopyKey) }))} />
-                      <Field label={text("confidence")} type="number" min="0" max="1" step="0.05" value={form.confidence || "0.5"} onChange={(value) => updateForm("confidence", value)} />
+                      <div><Field label={text("confidence")} type="number" min="0" max="1" step="0.05" value={form.confidence || "0.5"} onChange={(value) => updateForm("confidence", value)} /><p className="mt-1 text-xs text-muted-foreground">{text("confidenceNote")}</p></div>
                       <Field label={text("reviewAt")} type="date" value={form.reviewAt || ""} onChange={(value) => updateForm("reviewAt", value)} />
                       <div className="md:col-span-2"><Area label={text("validationMethod")} value={form.validationMethod || ""} onChange={(value) => updateForm("validationMethod", value)} /></div>
                     </div>
@@ -1213,7 +1236,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                       <Area label={text("application")} value={form.applicationPrompt || ""} onChange={(value) => updateForm("applicationPrompt", value)} />
                       <div className="md:col-span-2"><Area label={text("reflection")} value={form.reflection || ""} onChange={(value) => updateForm("reflection", value)} /></div>
                     </div>
-                    <p className="mt-3 text-xs text-muted-foreground">{text("learningSequence")}: Orient → Model → Contrast → Retrieve → Apply → Reflect → Revisit</p>
+                    <p className="mt-3 text-xs text-muted-foreground">{text("learningSequence")}: Orient → Model → Contrast → Retrieve → Apply → Reflect → Revisit. {text("learningNote")}</p>
                     <button onClick={addLearning} className="mt-4 flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> {text("addLearning")}</button>
                   </SectionCard>
                   <SectionCard title={text("learning")}>
@@ -1267,11 +1290,12 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                 <div className="space-y-5">
                   <SectionCard title={text("metricTitle")}>
                     <div className="grid gap-4 md:grid-cols-3">
-                      <Field label={text("unitsSold")} type="number" min="0" step="1" value={form.unitsSold || String(snapshot.contributionMetric?.unitsSold ?? 20)} onChange={(value) => updateForm("unitsSold", value)} />
-                      <Field label={text("sellingPrice")} type="number" min="0.01" step="0.01" value={form.sellingPrice || (snapshot.contributionMetric ? money(snapshot.contributionMetric.sellingPricePence) : "8.00")} onChange={(value) => updateForm("sellingPrice", value)} />
-                      <Field label={text("variableCost")} type="number" min="0" step="0.01" value={form.variableCost || (snapshot.contributionMetric ? money(snapshot.contributionMetric.variableCostPence) : "3.20")} onChange={(value) => updateForm("variableCost", value)} />
+                      <Field label={text("unitsSold")} type="number" min="0" step="1" value={form.unitsSold || (snapshot.contributionMetric ? String(snapshot.contributionMetric.unitsSold) : "")} onChange={(value) => updateForm("unitsSold", value)} />
+                      <Field label={text("sellingPrice")} type="number" min="0.01" step="0.01" value={form.sellingPrice || (snapshot.contributionMetric ? money(snapshot.contributionMetric.sellingPricePence) : "")} onChange={(value) => updateForm("sellingPrice", value)} />
+                      <Field label={text("variableCost")} type="number" min="0" step="0.01" value={form.variableCost || (snapshot.contributionMetric ? money(snapshot.contributionMetric.variableCostPence) : "")} onChange={(value) => updateForm("variableCost", value)} />
                     </div>
                     <button onClick={saveMetric} className="mt-4 flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground">{text("calculate")}</button>
+                    {!snapshot.contributionMetric && <p className="mt-3 text-sm text-muted-foreground">{text("noMetric")}</p>}
                     {metricResult && snapshot.contributionMetric && (
                       <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                         {[
