@@ -141,6 +141,7 @@ export const UI_TRANSLATIONS: Record<LangCode, UITranslations> = {
     navigation: "Navigazione",
     analyzer: "Analizzatore di Idee",
     reportHistory: "Cronologia Report",
+    founderWorkspace: "Spazio del fondatore",
     businessIdeaLabel: "La Tua Idea di Business",
     businessIdeaPlaceholder: "Descrivi la tua idea di business in dettaglio. Quale prodotto o servizio vuoi offrire? Chi sono i tuoi clienti? Quale problema stai risolvendo?",
     analyzeButton: "Analizza Idea",
