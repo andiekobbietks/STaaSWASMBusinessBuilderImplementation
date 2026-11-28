@@ -55,6 +55,8 @@ export interface EvidenceRecord {
   redistribution: RedistributionState;
   limitations: string;
   reviewState: ReviewState;
+  reviewedBy?: string;
+  reviewedAt?: string;
   createdAt: string;
 }
 
