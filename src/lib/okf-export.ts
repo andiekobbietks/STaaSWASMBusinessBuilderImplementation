@@ -318,7 +318,7 @@ export function buildOkfBundle(
       item.hypothesis,
       "A bounded test designed to evaluate a founder assumption.",
       item.id,
-      1,
+      item.recordVersion,
       {
         execution_status: item.status,
         hypothesis: item.hypothesis,
@@ -443,7 +443,7 @@ export function buildOkfBundle(
       "Contribution margin per sale",
       "The proportion of each sale's revenue remaining after variable costs attributable to that sale.",
       metric.id,
-      1,
+      metric.recordVersion,
       { unit: "percent", scope: "per_sale" },
       [
         "# Metric definition",
