@@ -67,6 +67,8 @@ Common fields:
 | success_criteria | Experiment | Observable conditions that count as success |
 | failure_criteria | Experiment | Observable conditions that count as failure or disconfirmation |
 | learning_steps | Learning Concept | Ordered learning sequence from the set defined in section 8 |
+| unit | Metric | Unit of measurement, for example percent or GBP |
+| scope | Metric | Measurement scope, for example per_sale or per_month |
 
 The JSON Schema is permissive toward unknown keys. Consumers must preserve unknown OKF frontmatter and x-staas extension keys when reading and writing a bundle. A profile validator may warn about unsupported profile versions, but must not silently delete or rewrite fields.
 
