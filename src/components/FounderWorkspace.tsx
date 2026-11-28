@@ -94,6 +94,7 @@ const COPY = {
     createOption: "Compare at least two plausible strategic options.",
     recordDecision: "Record a founder-owned decision and the reason for choosing it.",
     planExperiment: "Design a bounded experiment with success and failure criteria.",
+    runExperiment: "Run the planned experiment and update its status when the test begins or finishes.",
     recordOutcome: "Record what the experiment actually produced, including negative results.",
     createLearning: "Create a learning concept that supports the next decision.",
     allDone: "You have a complete first learning-and-decision cycle. Review the evidence and revisit your assumptions.",
@@ -278,6 +279,7 @@ const COPY = {
     createOption: "Confronta almeno due opzioni strategiche plausibili.",
     recordDecision: "Registra una decisione del fondatore e la motivazione della scelta.",
     planExperiment: "Progetta un esperimento circoscritto con criteri di successo e insuccesso.",
+    runExperiment: "Esegui l’esperimento pianificato e aggiorna lo stato quando il test inizia o termina.",
     recordOutcome: "Registra il risultato effettivo dell'esperimento, compresi gli esiti negativi.",
     createLearning: "Crea un concetto di apprendimento utile per la prossima decisione.",
     allDone: "Hai completato un primo ciclo di apprendimento e decisione. Rivedi le evidenze e le ipotesi.",
@@ -946,7 +948,8 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     if (snapshot.options.length < 2) return text("createOption");
     if (snapshot.decisions.length === 0) return text("recordDecision");
     if (snapshot.experiments.length === 0) return text("planExperiment");
-    if (snapshot.outcomes.length === 0) return text("recordOutcome");
+    if (snapshot.outcomes.length === 0 && snapshot.experiments.some((item) => item.status === "completed")) return text("recordOutcome");
+    if (snapshot.outcomes.length === 0) return text("runExperiment");
     if (snapshot.learning.length === 0) return text("createLearning");
     return text("allDone");
   }, [snapshot, text]);
