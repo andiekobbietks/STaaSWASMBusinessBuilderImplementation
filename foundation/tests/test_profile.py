@@ -1,18 +1,21 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import importlib.util
 import shutil
 import sys
 import tempfile
 import unittest
+
+from jsonschema import Draft202012Validator, FormatChecker
 from pathlib import Path
 
 FOUNDATION = Path(__file__).resolve().parents[1]
 BUNDLE = FOUNDATION / "examples" / "founder-pilot"
 sys.path.insert(0, str(FOUNDATION / "tools"))
 
-from validate_profile import validate_bundle  # noqa: E402
+from validate_profile import validate_bundle, validate_concept  # noqa: E402
 
 
 class ProfileTests(unittest.TestCase):
@@ -20,6 +23,24 @@ class ProfileTests(unittest.TestCase):
         checked, errors = validate_bundle(BUNDLE)
         self.assertGreaterEqual(checked, 9)
         self.assertEqual(errors, [])
+
+    def test_human_reviewed_evidence_requires_reviewer_and_timestamp(self) -> None:
+        schema_path = FOUNDATION / "schemas" / "staas-profile-0.1.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        document = {
+            "type": "Evidence Claim",
+            "x-staas": {
+                "profile_version": "0.1.0",
+                "id": "2e2c2c8d-2c6f-4e8f-a6e7-222222222222",
+                "record_version": 1,
+                "claim_kind": "source_claim",
+                "review_state": "human_reviewed",
+            },
+        }
+        errors = validate_concept(document, validator)
+        self.assertTrue(any("reviewed_by" in error for error in errors))
+        self.assertTrue(any("reviewed_at" in error for error in errors))
 
     def test_attested_computation_matches_expected_example(self) -> None:
         computation_path = (
