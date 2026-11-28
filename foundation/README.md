@@ -34,7 +34,9 @@ Do not use the frozen OKF snapshots in the former GoogleCloudPlatform repositori
 
 The Apache-2.0 licence in this directory applies only to original STaaS Foundation materials under foundation/. The repository root LICENSE explicitly excludes this subtree. All files elsewhere in the repository retain their existing applicable rights and third-party licences.
 
-This is an initial profile, not a claim of OKF or STaaS-profile conformance. The profile still requires automated validation, round-trip tests, compatibility tests and review before a stable release.
+This is an initial profile alpha. Its profile-level validator and example tests pass in CI, but this is not a claim of canonical OKF base conformance or a stable release. Round-trip tests, compatibility tests and review remain outstanding.
+
+Contributions currently follow the repository-root CONTRIBUTING.md policy and require prior written approval. A dedicated DCO-based contribution process will be established before the Foundation is extracted into its own repository.
 
 ## Development status
 
