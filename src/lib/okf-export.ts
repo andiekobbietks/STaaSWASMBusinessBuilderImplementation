@@ -213,7 +213,7 @@ export function buildOkfBundle(
       [
         "# Claim",
         "",
-        item.claim,
+        item.claim + (item.sourceUrl ? "[^source-" + item.id.slice(0, 8) + "]" : ""),
         "",
         "## Source",
         item.sourceUrl ? "[" + (item.sourceTitle || item.sourceUrl) + "](" + item.sourceUrl + ")" : "No external source URL was supplied.",
