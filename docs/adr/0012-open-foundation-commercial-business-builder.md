@@ -1,6 +1,6 @@
 # ADR-0012: Open STaaS Foundation with a commercial Business Builder
 
-- **Status:** Recommended direction; Apache-licensed profile alpha implemented in foundation/; dedicated repository and product integration deferred
+- **Status:** Recommended direction; Apache-licensed Foundation alpha and first Founder Workspace vertical slice implemented; dedicated commercial application repository and full product integration still required
 - **Decision date:** 2026-11-28
 - **Last reviewed:** 2026-11-28
 
@@ -55,7 +55,7 @@ A spaced-repetition scheduler may support recall, but recall, conceptual underst
 - A separate repository boundary makes licensing clearer but introduces additional release, compatibility and maintenance work.
 - The Foundation can be useful without the hosted product, improving credibility and adoption potential.
 - The current Business Builder is not yet the full strategy-to-execution system described in the manifesto and requirements.
-- Apache-2.0 currently applies only to the foundation/ alpha subtree. A stable Foundation release, extraction to a dedicated repository and any change to the licensing of the rest of this repository remain gated on file-level rights, upstream provenance, dependency and non-code asset inventories, contributor terms and legal review.
+- Apache-2.0 currently applies only to the foundation/ alpha subtree. The first Founder Workspace UI and persistence slice lives outside foundation/ and remains under the root rights notice. The repository is public, so this source is visible even though no open-source licence grant applies. A dedicated private commercial repository is required before adding commercially sensitive differentiators. A stable Foundation release, extraction to a dedicated repository and any change to the licensing of the rest of this repository remain gated on file-level rights, upstream provenance, dependency and non-code asset inventories, contributor terms and legal review.
 
 ## Reconsideration triggers
 
