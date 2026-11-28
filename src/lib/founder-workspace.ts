@@ -38,6 +38,7 @@ export interface AssumptionRecord {
   uncertainty: UncertaintyLevel;
   confidence: number;
   validationMethod: string;
+  evidenceIds: string[];
   reviewAt: string;
   createdAt: string;
 }
