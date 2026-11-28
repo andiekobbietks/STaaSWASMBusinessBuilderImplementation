@@ -1,6 +1,6 @@
 # ADR-0012: Open STaaS Foundation with a commercial Business Builder
 
-- **Status:** Recommended direction; implementation and licensing release deferred
+- **Status:** Recommended direction; Apache-licensed profile alpha implemented in foundation/; dedicated repository and product integration deferred
 - **Decision date:** 2026-11-28
 - **Last reviewed:** 2026-11-28
 
@@ -17,20 +17,20 @@ A wholesale root Apache-2.0 change would still be premature and could misstate r
 ## Decision
 
 1. Adopt an **open STaaS Foundation plus commercial Business Builder and optional Strategy Service** as the target product and licensing architecture.
-2. Create a dedicated public Foundation repository after a complete provenance and licensing gate. Target Apache-2.0 for eligible original STaaS profile, adapter and tooling files.
+2. Use foundation/ as the initial, explicitly scoped Apache-2.0 alpha subtree. Extract it into a dedicated public Foundation repository after the full provenance, dependency and release gate. The Apache grant applies only to eligible original files in foundation/.
 3. Base the portable knowledge layer on canonical OKF v0.3. Do not fork or redefine the OKF specification.
 4. Define a versioned STaaS business-strategy profile for founder context, evidence, assumptions, options, decisions, experiments, learning and outcomes. Preserve unknown OKF extension keys and distinguish profile-specific semantics from base OKF semantics.
 5. Keep AgentSON separate as the agent-execution trace layer. Implement and test a bridge before claiming that AgentSON traces are linked to or exportable as OKF knowledge concepts.
-6. Keep the existing repository's root rights notice unchanged until its scope and future disposition are deliberately reviewed. Do not claim the entire repository is Apache-2.0.
+6. Keep the root rights notice in force for the rest of the repository, with an explicit scope exception for foundation/. Do not claim the entire repository is Apache-2.0.
 7. Prefer a separate commercial application repository for unreleased implementation. The existing public repository remains a research/prototype record; moving it to private cannot undo prior public disclosure.
-8. Make the Foundation independently useful: STaaS profile, examples, validators, conformance fixtures, import/export tooling, SDK/CLI and compatibility guidance.
+8. Make the Foundation independently useful. The initial alpha now contains the STaaS profile, profile schema, synthetic founder bundle, Python profile validator, deterministic contribution-margin example and tests. Base OKF validation, conformance fixtures, round-trip import/export, SDK/CLI and compatibility guidance remain to be completed.
 9. Keep hosted operations, managed evidence acquisition, licensed datasets, advanced workflows, enterprise collaboration, operational governance and human delivery as candidate commercial differentiators, subject to customer validation.
 10. Use an explicit inbound-equals-outbound contribution model for the Foundation, with DCO sign-off and provenance records. Do not assume that contributions can later be relicensed into proprietary code.
 11. Treat the cascade effect as a hypothesis to measure: adoption may create integrations, feedback, credibility and demand for maintained services, but it also permits forks, competing hosted offerings and fragmentation.
 
 ## Foundation scope
 
-The first release should not invent a new knowledge file format. It should implement a STaaS business-strategy profile over OKF v0.3, including:
+The first release should not invent a new knowledge file format. The initial Apache-licensed alpha under foundation/ implements the first draft of a STaaS business-strategy profile over OKF v0.3, including:
 - documented STaaS concept types and extension semantics;
 - application identity mapping to path-based OKF concept IDs;
 - provenance and transformation links;
@@ -55,7 +55,7 @@ A spaced-repetition scheduler may support recall, but recall, conceptual underst
 - A separate repository boundary makes licensing clearer but introduces additional release, compatibility and maintenance work.
 - The Foundation can be useful without the hosted product, improving credibility and adoption potential.
 - The current Business Builder is not yet the full strategy-to-execution system described in the manifesto and requirements.
-- No Apache release is authorised by this ADR. File-level rights, upstream provenance, dependency and non-code asset inventories, contributor terms and legal review remain release gates.
+- Apache-2.0 currently applies only to the foundation/ alpha subtree. A stable Foundation release, extraction to a dedicated repository and any change to the licensing of the rest of this repository remain gated on file-level rights, upstream provenance, dependency and non-code asset inventories, contributor terms and legal review.
 
 ## Reconsideration triggers
 
