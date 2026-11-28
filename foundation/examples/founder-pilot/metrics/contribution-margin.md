@@ -1,41 +1,27 @@
 ---
-type: Attested Computation
-title: "Contribution margin percentage"
-description: "Deterministic calculation of contribution margin from selling price and variable cost per unit."
-tags: [synthetic, metric, attested-computation]
+type: Metric
+title: "Contribution margin per sale"
+description: "The proportion of each sale's revenue remaining after variable costs attributable to that sale."
+tags: [synthetic, metric, unit-economics]
 status: draft
-runtime: python
-parameters:
-  - { name: units_sold, type: integer, required: true }
-  - { name: selling_price_gbp, type: number, required: true }
-  - { name: variable_cost_gbp, type: number, required: true }
-computation: "/references/computations/contribution_margin.py"
-executor:
-  resource: "/references/executors/run_contribution_margin.md"
-  receipt: [inputs, result, computation_sha256]
-attester:
-  resource: "/references/attesters/verify_contribution_margin.py"
-generated: { by: "process:staas-example", at: "2026-11-28T00:00:00Z" }
 x-staas:
   profile_version: "0.1.0"
-  id: "8e8c8c8d-2c6f-4e8f-a6e7-888888888888"
+  id: "9e9c9c8d-2c6f-4e8f-a6e7-999999999999"
   record_version: 1
+  unit: "percent"
+  scope: "per_sale"
 ---
 
-# Computation
+# Definition
 
-Contribution margin (%) = ((selling price - variable cost) / selling price) × 100
+Contribution margin per sale is the percentage of selling price remaining after variable costs per sale have been deducted.
 
-The computation is illustrative. It does not include fixed costs, tax, waste, refunds, payment fees or other business-specific costs unless they are included in variable_cost_gbp.
-
-## Example parameters
-
-- units_sold: 20
-- selling_price_gbp: 8.00
-- variable_cost_gbp: 3.20
-
-Expected result: revenue £160.00, variable costs £64.00, contribution £96.00 and contribution margin 60.00 percent.
+The [sanctioned contribution margin computation](../computations/contribution-margin.md) calculates the value from typed inputs. The calculation does not include fixed costs, tax, waste, refunds, payment fees or other costs unless explicitly included in the variable-cost input.
 
 ## Interpretation
 
-The attester checks that the receipt is consistent with the sanctioned computation and its inputs. It does not validate the source of the inputs or prove that the business is profitable.
+A higher contribution margin may improve the amount available to cover fixed costs, but it does not establish overall profitability. The founder must still consider volume, fixed costs, capacity, cash flow and other constraints.
+
+## Related learning
+
+[Understand contribution margin](../learning/contribution-margin.md)
