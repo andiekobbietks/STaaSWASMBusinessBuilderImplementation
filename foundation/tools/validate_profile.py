@@ -82,6 +82,10 @@ def validate_concept(
         for field in TYPE_REQUIRED_FIELDS.get(kind, ()):
             if field not in extension:
                 errors.append(f"x-staas.{field}: required for type {kind}")
+        if kind == "Evidence Claim" and extension.get("review_state") == "human_reviewed":
+            for field in ("reviewed_by", "reviewed_at"):
+                if not extension.get(field):
+                    errors.append(f"x-staas.{field}: required when review_state is human_reviewed")
     return errors
 
 
