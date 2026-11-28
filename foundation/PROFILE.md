@@ -2,7 +2,7 @@
 
 - **Profile version:** 0.1.0
 - **Base format:** Open Knowledge Format (OKF) v0.3
-- **Status:** Initial design; validation and interoperability tests pending
+- **Status:** Initial design; profile-level validation tests pass; base OKF and interoperability tests pending
 - **Licence:** Apache-2.0 within the foundation/ subtree
 
 ## 1. Purpose
