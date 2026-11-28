@@ -91,7 +91,7 @@ class ProfileTests(unittest.TestCase):
             content = decision_path.read_text(encoding="utf-8")
             content = content.replace(
                 "5e5c5c8d-2c6f-4e8f-a6e7-555555555555",
-                "9e9c9c8d-2c6f-4e8f-a6e7-999999999999",
+                "aeacac8d-2c6f-4e8f-a6e7-aaaaaaaaaaaa",
             )
             decision_path.write_text(content, encoding="utf-8")
             _, errors = validate_bundle(copied_bundle)
