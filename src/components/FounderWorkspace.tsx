@@ -801,6 +801,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
         ...current.experiments,
         {
           id: createId(),
+          recordVersion: 1,
           assumptionId: form.assumptionId,
           hypothesis: form.hypothesis.trim(),
           method: form.method.trim(),
@@ -881,6 +882,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
         ...current,
         contributionMetric: {
           id: current.contributionMetric?.id || createId(),
+          recordVersion: current.contributionMetric ? current.contributionMetric.recordVersion + 1 : 1,
           unitsSold: units,
           sellingPricePence: price,
           variableCostPence: cost,
@@ -1278,7 +1280,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                                   ...current,
                                   experiments: current.experiments.map((experiment) =>
                                     experiment.id === item.id
-                                      ? { ...experiment, status: event.target.value as "planned" | "running" | "completed" | "cancelled" }
+                                      ? { ...experiment, status: event.target.value as "planned" | "running" | "completed" | "cancelled", recordVersion: experiment.status === event.target.value ? experiment.recordVersion : experiment.recordVersion + 1 }
                                       : experiment,
                                   ),
                                 }))}
