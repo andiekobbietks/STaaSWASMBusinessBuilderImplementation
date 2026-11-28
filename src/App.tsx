@@ -3,9 +3,10 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { AuthScreen } from "@/components/AuthScreen";
 import { Analyzer } from "@/components/Analyzer";
 import { ReportHistory } from "@/components/ReportHistory";
+import { FounderWorkspace } from "@/components/FounderWorkspace";
 import type { LangCode } from "@/lib/translations";
 
-type View = "analyzer" | "history";
+type View = "analyzer" | "history" | "workspace";
 
 function AppContent() {
   const { session, loading } = useAuth();
@@ -36,17 +37,34 @@ function AppContent() {
     return <AuthScreen lang={lang} onLangChange={handleLangChange} />;
   }
 
-  return view === "history" ? (
-    <ReportHistory
-      lang={lang}
-      onLangChange={handleLangChange}
-      onBack={() => setView("analyzer")}
-    />
-  ) : (
+  if (view === "history") {
+    return (
+      <ReportHistory
+        lang={lang}
+        onLangChange={handleLangChange}
+        onBack={() => setView("analyzer")}
+        onViewWorkspace={() => setView("workspace")}
+      />
+    );
+  }
+
+  if (view === "workspace") {
+    return (
+      <FounderWorkspace
+        lang={lang}
+        onLangChange={handleLangChange}
+        onBack={() => setView("analyzer")}
+        onHistory={() => setView("history")}
+      />
+    );
+  }
+
+  return (
     <Analyzer
       lang={lang}
       onLangChange={handleLangChange}
       onViewHistory={() => setView("history")}
+      onViewWorkspace={() => setView("workspace")}
     />
   );
 }

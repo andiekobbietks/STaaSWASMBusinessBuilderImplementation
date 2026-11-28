@@ -2,7 +2,7 @@
 
 - **Profile version:** 0.1.0
 - **Base format:** Open Knowledge Format (OKF) v0.3
-- **Status:** Initial design; validation and interoperability tests pending
+- **Status:** Initial design; profile-level validation tests pass; base OKF and interoperability tests pending
 - **Licence:** Apache-2.0 within the foundation/ subtree
 
 ## 1. Purpose
@@ -59,6 +59,8 @@ Common fields:
 | uncertainty | Contextual | Low, medium or high uncertainty |
 | claim_kind | Evidence Claim | observed_fact, source_claim, founder_assertion, model_inference or hypothesis |
 | review_state | Evidence Claim | unreviewed, human_reviewed or disputed |
+| reviewed_by | Evidence Claim | Actor identifier recorded when a human review is declared |
+| reviewed_at | Evidence Claim | Timestamp recorded when a human review is declared |
 | decision_state | Decision | provisional, approved, deferred or rejected |
 | selected_option_id | Decision | Stable STaaS id of the selected Strategic Option |
 | execution_status | Experiment | planned, running, completed or cancelled |

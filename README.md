@@ -6,7 +6,7 @@ STaaS means **Strategy as a Service**. This project explores a founder-centred w
 
 The ambition is bigger than generating a business plan. STaaS should help founders build and continuously improve the mental models they use to make decisions. It connects business education, global company intelligence, founder-specific evidence, strategic frameworks and execution in one traceable workflow.
 
-**Current status:** an early React/TypeScript/Vite prototype with a deterministic, browser-side four-stage business-idea analysis flow and Supabase-backed authentication/report persistence. The STaaS profile alpha and synthetic OKF bundle now exist under foundation/ with a scoped Apache-2.0 licence. Application-level OKF import/export, canonical base-format conformance, external evidence acquisition, DWH, knowledge catalogue, persistent strategic state, the complete learning loop and agent integrations remain architectural or roadmap items unless explicitly marked as implemented. This repository distinguishes working code from proposed capabilities.
+**Current status:** an early React/TypeScript/Vite prototype with a deterministic, browser-side four-stage business-idea analysis flow and Supabase-backed authentication/report persistence. The STaaS profile alpha and synthetic OKF bundle exist under foundation/ with a scoped Apache-2.0 licence. The application now has an authenticated Founder Workspace vertical slice for venture context, assumptions, evidence, options, decisions, experiments, learning prompts, outcomes, a deterministic contribution-margin calculator and OKF v0.3 ZIP export. The Supabase migration is committed but has not been applied to a live project. Canonical OKF base-format validation, import/round-trip, portable Attested Computation export, full version-history restore, external evidence acquisition, DWH, knowledge catalogue and AgentSON integration remain outstanding. This repository distinguishes working code from proposed capabilities.
 
 - [The STaaS Manifesto](MANIFESTO.md)
 - [Intellectual foundations of STaaS](docs/INTELLECTUAL-FOUNDATIONS-OF-STAAS.md)
@@ -19,6 +19,7 @@ The ambition is bigger than generating a business plan. STaaS should help founde
 - [Architecture and provisional TRL assessment](docs/ARCHITECTURE-AND-TRL.md)
 - [Open Foundation and commercial Business Builder strategy](docs/OPEN-FOUNDATION-AND-BUSINESS-BUILDER-ROADMAP.md)
 - [STaaS Foundation (Apache-2.0 profile alpha)](foundation/README.md)
+- [Founder Workspace operations](docs/FOUNDER-WORKSPACE-OPERATIONS.md)
 - [Architecture decision records](docs/adr/README.md)
 
 ## Repository guide
@@ -49,6 +50,7 @@ This README is the product and architecture overview. Use the linked documents f
 | [Architecture and TRL](docs/ARCHITECTURE-AND-TRL.md) | Component boundaries, dependencies and provisional readiness |
 | [Open Foundation and Business Builder strategy](docs/OPEN-FOUNDATION-AND-BUSINESS-BUILDER-ROADMAP.md) | Licensing boundary, portable Foundation scope and commercial product roadmap |
 | [STaaS Foundation](foundation/README.md) | Apache-2.0 STaaS profile over canonical OKF v0.3, synthetic bundle, schema and tests |
+| [Founder Workspace operations](docs/FOUNDER-WORKSPACE-OPERATIONS.md) | Supabase migration, RLS model, versioning, OKF export and operational limits |
 | [Research register](RESEARCH.md) | Sources, research claims, evaluation questions and limitations |
 | [Continuity without sameness](docs/CONTINUITY-WITHOUT-SAMENESS.md) | Biblical memory, recontextualisation, information theory, computing and cultural knowledge transmission |
 | [Architecture decision records](docs/adr/README.md) | Decision history, status and reconsideration triggers |

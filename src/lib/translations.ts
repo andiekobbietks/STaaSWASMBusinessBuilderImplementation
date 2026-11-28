@@ -25,6 +25,7 @@ export interface UITranslations {
   navigation: string;
   analyzer: string;
   reportHistory: string;
+  founderWorkspace: string;
   businessIdeaLabel: string;
   businessIdeaPlaceholder: string;
   analyzeButton: string;
@@ -85,6 +86,7 @@ export const UI_TRANSLATIONS: Record<LangCode, UITranslations> = {
     navigation: "Navigation",
     analyzer: "Idea Analyzer",
     reportHistory: "Report History",
+    founderWorkspace: "Founder Workspace",
     businessIdeaLabel: "Your Business Idea",
     businessIdeaPlaceholder: "Describe your business idea in detail. What product or service do you want to offer? Who are your customers? What problem are you solving?",
     analyzeButton: "Analyze Idea",
@@ -139,6 +141,7 @@ export const UI_TRANSLATIONS: Record<LangCode, UITranslations> = {
     navigation: "Navigazione",
     analyzer: "Analizzatore di Idee",
     reportHistory: "Cronologia Report",
+    founderWorkspace: "Spazio del fondatore",
     businessIdeaLabel: "La Tua Idea di Business",
     businessIdeaPlaceholder: "Descrivi la tua idea di business in dettaglio. Quale prodotto o servizio vuoi offrire? Chi sono i tuoi clienti? Quale problema stai risolvendo?",
     analyzeButton: "Analizza Idea",

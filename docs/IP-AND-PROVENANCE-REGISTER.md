@@ -100,3 +100,21 @@ The new foundation/ subtree is separately licensed under Apache-2.0. The root LI
 The initial Foundation subtree does not include copied source code from the OKF reference implementation. The sample bundle contains fictional data and illustrative calculations only. The example attester checks a pinned computation digest and deterministic result; it does not prove source authenticity, input truth or protection against an attacker who can replace the trusted attester itself.
 
 This is a scoped Apache-2.0 alpha, not a stable release, complete legal clearance, OKF base-conformance certification or freedom-to-operate opinion. Dedicated-repository extraction, contributor governance, full dependency review, base OKF validation, profile round-trip tests and AgentSON integration remain outstanding.
+
+
+## 8. Founder Workspace MVP (28 November 2026)
+
+The following application materials are newly authored for this repository and remain under the root rights notice, not the Apache-2.0 licence scoped to foundation/:
+
+| Material | Provenance | Licence / treatment |
+|---|---|---|
+| src/components/FounderWorkspace.tsx | Newly authored founder workflow UI, English/Italian copy and form interactions | Root rights notice; no open-source grant |
+| src/lib/founder-workspace.ts | Newly authored domain types, Supabase persistence helpers and integer-pence contribution-margin calculation | Root rights notice; no open-source grant |
+| src/lib/okf-export.ts | Newly authored adapter from workspace snapshots to OKF v0.3 Markdown/YAML concepts | Root rights notice; designed against the Apache-2.0 Foundation profile, but not copied from its source |
+| src/lib/zip.ts | Newly authored dependency-free ZIP store writer | Root rights notice; no third-party ZIP package introduced |
+| supabase/migrations/20261128230000_create_founder_workspaces.sql | Newly authored owner-scoped tables, RLS policies and append-version RPC | Root rights notice; live deployment and RLS testing remain outstanding |
+| docs/FOUNDER-WORKSPACE-OPERATIONS.md and ADR-0013 | Newly authored operations and architecture documentation | Root rights notice |
+
+The application uses existing React, Supabase JS and Lucide dependencies already declared by the project. No new npm runtime dependency was introduced. The OKF v0.3 format and STaaS profile semantics are referenced; the app does not copy the Foundation's implementation files.
+
+The workspace currently persists full JSONB snapshots and exports founder-entered records. It does not acquire external source content, and it does not grant a bundle-wide licence. Live Supabase migration application, cross-user RLS tests, canonical OKF base validation and export round-trip tests remain release gates.

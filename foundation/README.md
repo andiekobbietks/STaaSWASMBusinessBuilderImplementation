@@ -43,7 +43,8 @@ Contributions currently follow the repository-root CONTRIBUTING.md policy and re
 - [x] Identify canonical OKF v0.3 repository and licence.
 - [x] Define initial STaaS concept types and metadata conventions.
 - [x] Add a synthetic founder-journey bundle.
-- [ ] Implement a validator that checks OKF v0.3 and the STaaS profile separately.
+- [x] Implement a STaaS profile validator for parsed frontmatter.
+- [ ] Run the canonical OKF v0.3 validator against the example bundle.
 - [ ] Test unknown-field preservation and import/export round trips.
 - [ ] Add AgentSON bridge with trace-to-concept linkage tests.
 - [ ] Extract this subtree into a dedicated repository after the repository-level provenance and release review.
