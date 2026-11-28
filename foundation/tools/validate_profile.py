@@ -43,6 +43,7 @@ TYPE_REQUIRED_FIELDS = {
         "success_criteria",
     ),
     "Learning Concept": ("learning_steps",),
+    "Metric": ("unit", "scope"),
 }
 
 
