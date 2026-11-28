@@ -928,18 +928,19 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     }
   };
 
+  const contributionMetric = snapshot?.contributionMetric;
   const metricResult = useMemo(() => {
-    if (!snapshot?.contributionMetric) return null;
+    if (!contributionMetric) return null;
     try {
       return calculateContributionMargin(
-        snapshot.contributionMetric.unitsSold,
-        snapshot.contributionMetric.sellingPricePence,
-        snapshot.contributionMetric.variableCostPence,
+        contributionMetric.unitsSold,
+        contributionMetric.sellingPricePence,
+        contributionMetric.variableCostPence,
       );
     } catch {
       return null;
     }
-  }, [snapshot?.contributionMetric]);
+  }, [contributionMetric]);
 
   const nextActionMessage = useMemo(() => {
     if (!snapshot || !snapshot.context.customer || !snapshot.context.problem || !snapshot.context.offer) return text("completeContext");
