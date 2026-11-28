@@ -209,6 +209,8 @@ export function buildOkfBundle(
       {
         claim_kind: item.claimKind,
         review_state: item.reviewState,
+        ...(item.reviewedBy ? { reviewed_by: item.reviewedBy } : {}),
+        ...(item.reviewedAt ? { reviewed_at: item.reviewedAt } : {}),
       },
       [
         "# Claim",
