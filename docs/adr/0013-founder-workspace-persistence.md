@@ -17,7 +17,7 @@ For the first authenticated vertical slice:
 
 1. Use owner-scoped PostgreSQL/Supabase workspace records.
 2. Store each complete workspace revision as a JSONB snapshot in founder_workspace_versions.
-3. Treat versions as append-only for ordinary authenticated clients. A dedicated RPC locks the parent workspace row, checks the caller's auth.uid() ownership and appends the next sequential version.
+3. Treat versions as append-only for ordinary authenticated clients. A public SECURITY INVOKER RPC delegates to a SECURITY DEFINER implementation in an unexposed staas_private schema. The private implementation locks the parent workspace row, checks the caller's auth.uid() ownership and appends the next sequential version.
 4. Apply Row Level Security to both tables. Do not expose service-role credentials to the browser. Do not grant authenticated clients direct update/delete privileges on version rows.
 5. Allow workspace deletion to cascade to its snapshots.
 6. Treat the database as transactional application state and OKF v0.3 bundles as the portable knowledge representation.
@@ -60,7 +60,7 @@ Object storage is useful for bundle archives and larger artefacts but is not sel
 
 ## Security requirements
 
-- The save function must remain SECURITY DEFINER only with fixed search_path and explicit auth.uid() ownership validation.
+- The public RPC wrapper must remain SECURITY INVOKER. Its private staas_private implementation must remain SECURITY DEFINER with empty search_path, schema-qualified relations and explicit auth.uid() ownership validation. Keep staas_private out of the Supabase Data API exposed schemas.
 - Do not grant authenticated clients direct INSERT, UPDATE or DELETE privileges on founder_workspace_versions.
 - Keep RLS enabled and test cross-user isolation with at least two independent accounts.
 - Review function owner and grants when deploying the migration.
