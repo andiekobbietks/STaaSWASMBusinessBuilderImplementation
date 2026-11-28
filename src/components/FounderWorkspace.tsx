@@ -586,6 +586,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
   }, [user, text]);
 
   const createWorkspace = async () => {
+    if (dirty && !window.confirm(text("discardUnsaved"))) return;
     if (!user || !newName.trim()) {
       setError(text("required"));
       return;
