@@ -40,7 +40,7 @@ The application can rename and delete an owned workspace. Deleting a workspace c
 3. Review the migration SQL and confirm it is the intended target.
 4. Apply pending migrations with the Supabase CLI.
 5. Inspect both tables and confirm RLS is enabled.
-6. Inspect the policies and function privileges in the Supabase dashboard or SQL editor.
+6. Inspect the policies and function privileges in the Supabase dashboard or SQL editor. Confirm staas_private is not listed under API > Exposed schemas, and confirm the public RPC is SECURITY INVOKER while the private implementation is SECURITY DEFINER.
 7. Test with two separate authenticated users:
    - User A can create, read, save, rename and delete A's workspace.
    - User B cannot read, save, rename or delete A's workspace or its snapshots.
