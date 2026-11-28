@@ -184,7 +184,7 @@ export function buildOkfBundle(
         item.reviewAt || "Not scheduled",
         "",
         "## Evidence links",
-        evidenceLinks.length ? evidenceLinks.join("\\n") : "No evidence linked to this assumption yet.",
+        evidenceLinks.length ? evidenceLinks.join("\n") : "No evidence linked to this assumption yet.",
       ].join("\n"),
       generatedAt,
       ["assumption"],
