@@ -25,7 +25,7 @@ Should the founder commit to a fixed lease now, or test demand first?
 
 ## Selected option
 
-Option 2: run a two-week pre-order pilot. This is a provisional choice, not a model instruction.
+Option 2: run the [two-week pre-order pilot](../options/two-week-pilot.md). This is a provisional choice, not a model instruction.
 
 ## Rationale
 
