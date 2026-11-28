@@ -119,7 +119,7 @@ export function buildOkfBundle(
     context.name || "Founder venture",
     "Founder-owned business context exported from STaaS Business Builder.",
     context.id,
-    workspaceVersion,
+    context.recordVersion,
     {},
     [
       "# Venture context",
