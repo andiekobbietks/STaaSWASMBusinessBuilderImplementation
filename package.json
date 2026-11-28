@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "test:zip": "node scripts/verify-zip.mjs",
     "check": "npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {
