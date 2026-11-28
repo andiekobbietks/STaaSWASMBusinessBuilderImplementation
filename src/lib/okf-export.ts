@@ -507,5 +507,5 @@ export function downloadOkfBundle(result: OkfExportResult): void {
   anchor.href = url;
   anchor.download = result.filename;
   anchor.click();
-  URL.revokeObjectURL(url);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
