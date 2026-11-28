@@ -30,6 +30,7 @@ import {
 import { buildOkfBundle, downloadOkfBundle } from "@/lib/okf-export";
 
 type Language = "en" | "it";
+type ContextTextField = "name" | "stage" | "sector" | "geography" | "customer" | "problem" | "offer" | "goals" | "constraints";
 type Section =
   | "overview"
   | "assumptions"
@@ -541,6 +542,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
+  const [contextDirty, setContextDirty] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [showCreate, setShowCreate] = useState(false);
@@ -560,6 +562,14 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     setNotice("");
   };
 
+  const updateContext = (field: ContextTextField, value: string) => {
+    updateSnapshot((current) => ({
+      ...current,
+      context: { ...current.context, [field]: value },
+    }));
+    setContextDirty(true);
+  };
+
   const loadWorkspace = useCallback(async (id: string) => {
     const selected = workspaces.find((item) => item.id === id);
     const latest = await loadFounderWorkspaceVersion(id);
@@ -567,6 +577,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     setSnapshot(normalizeWorkspaceSnapshot(latest?.snapshot, selected?.name || "My venture"));
     setVersion(latest?.version || 0);
     setDirty(false);
+    setContextDirty(false);
     setError("");
     setNotice("");
   }, [workspaces]);
@@ -590,9 +601,13 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           setWorkspaceId(found[0].id);
           setSnapshot(normalizeWorkspaceSnapshot(latest?.snapshot, found[0].name));
           setVersion(latest?.version || 0);
+          setDirty(false);
+          setContextDirty(false);
         } else {
           setSnapshot(null);
           setWorkspaceId("");
+          setDirty(false);
+          setContextDirty(false);
         }
       } catch {
         if (active) setError(text("loadError"));
@@ -623,6 +638,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
       setSnapshot(initial);
       setVersion(initialVersion);
       setDirty(false);
+      setContextDirty(false);
       setNewName("");
       setShowCreate(false);
       setSection("overview");
@@ -639,14 +655,22 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     setSaving(true);
     setError("");
     try {
+      const snapshotToSave = contextDirty
+        ? {
+            ...snapshot,
+            context: { ...snapshot.context, recordVersion: snapshot.context.recordVersion + 1 },
+          }
+        : snapshot;
       const { error: renameError } = await supabase
         .from("founder_workspaces")
-        .update({ name: snapshot.context.name.trim() || "My venture" })
+        .update({ name: snapshotToSave.context.name.trim() || "My venture" })
         .eq("id", workspaceId);
       if (renameError) throw renameError;
-      const nextVersion = await saveFounderWorkspaceVersion(workspaceId, snapshot);
+      const nextVersion = await saveFounderWorkspaceVersion(workspaceId, snapshotToSave);
+      setSnapshot(snapshotToSave);
       setVersion(nextVersion);
       setDirty(false);
+      setContextDirty(false);
       setNotice(text("saved") + " " + nextVersion);
       const refreshed = await listFounderWorkspaces(user.id);
       setWorkspaces(refreshed);
@@ -667,6 +691,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
       setWorkspaceId("");
       setVersion(0);
       setDirty(false);
+      setContextDirty(false);
       setNotice("");
       if (refreshed.length === 0) setShowCreate(true);
       else await loadWorkspace(refreshed[0].id);
@@ -919,7 +944,13 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
   const exportBundle = () => {
     if (!snapshot) return;
     try {
-      const result = buildOkfBundle(snapshot, Math.max(version + (dirty ? 1 : 0), 1));
+      const snapshotToExport = contextDirty
+        ? {
+            ...snapshot,
+            context: { ...snapshot.context, recordVersion: snapshot.context.recordVersion + 1 },
+          }
+        : snapshot;
+      const result = buildOkfBundle(snapshotToExport, Math.max(version + (dirty ? 1 : 0), 1));
       downloadOkfBundle(result);
       setNotice((dirty ? text("exportUnsaved") + " " : "") + text("exportReady") + ": " + result.conceptCount + " " + text("exportCount"));
       setError("");
@@ -1088,17 +1119,17 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                 <div className="space-y-5">
                   <SectionCard title={text("overview")}>
                     <div className="grid gap-4 md:grid-cols-2">
-                      <Field label={text("ventureName")} value={snapshot.context.name} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, name: value } }))} required />
-                      <SelectField label={text("stage")} value={snapshot.context.stage} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, stage: value } }))} options={["idea","validation","launch","operating","scaling"].map((value) => ({ value, label: text(value as CopyKey) }))} />
-                      <Field label={text("sector")} value={snapshot.context.sector} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, sector: value } }))} />
-                      <Field label={text("geography")} value={snapshot.context.geography} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, geography: value } }))} />
-                      <Field label={text("customer")} value={snapshot.context.customer} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, customer: value } }))} />
-                      <Field label={text("problem")} value={snapshot.context.problem} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, problem: value } }))} />
+                      <Field label={text("ventureName")} value={snapshot.context.name} onChange={(value) => updateContext("name", value)} required />
+                      <SelectField label={text("stage")} value={snapshot.context.stage} onChange={(value) => updateContext("stage", value)} options={["idea","validation","launch","operating","scaling"].map((value) => ({ value, label: text(value as CopyKey) }))} />
+                      <Field label={text("sector")} value={snapshot.context.sector} onChange={(value) => updateContext("sector", value)} />
+                      <Field label={text("geography")} value={snapshot.context.geography} onChange={(value) => updateContext("geography", value)} />
+                      <Field label={text("customer")} value={snapshot.context.customer} onChange={(value) => updateContext("customer", value)} />
+                      <Field label={text("problem")} value={snapshot.context.problem} onChange={(value) => updateContext("problem", value)} />
                       <div className="md:col-span-2">
-                        <Area label={text("offer")} value={snapshot.context.offer} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, offer: value } }))} />
+                        <Area label={text("offer")} value={snapshot.context.offer} onChange={(value) => updateContext("offer", value)} />
                       </div>
-                      <Area label={text("goals")} value={snapshot.context.goals} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, goals: value } }))} />
-                      <Area label={text("constraints")} value={snapshot.context.constraints} onChange={(value) => updateSnapshot((current) => ({ ...current, context: { ...current.context, constraints: value } }))} />
+                      <Area label={text("goals")} value={snapshot.context.goals} onChange={(value) => updateContext("goals", value)} />
+                      <Area label={text("constraints")} value={snapshot.context.constraints} onChange={(value) => updateContext("constraints", value)} />
                     </div>
                   </SectionCard>
                   <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
