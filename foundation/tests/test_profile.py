@@ -18,7 +18,7 @@ from validate_profile import validate_bundle  # noqa: E402
 class ProfileTests(unittest.TestCase):
     def test_synthetic_founder_bundle_passes_profile_validation(self) -> None:
         checked, errors = validate_bundle(BUNDLE)
-        self.assertGreaterEqual(checked, 7)
+        self.assertGreaterEqual(checked, 9)
         self.assertEqual(errors, [])
 
     def test_attested_computation_matches_expected_example(self) -> None:
