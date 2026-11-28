@@ -2,6 +2,15 @@ STaaS Business Builder
 
 RIGHTS NOTICE — NOT AN OPEN-SOURCE LICENCE
 
+SCOPE EXCEPTION — STaaS FOUNDATION SUBTREE
+
+This root rights notice does not apply to files under foundation/. The
+foundation/ subtree is separately licensed under the Apache License, Version
+2.0, as stated in foundation/LICENSE. That grant applies only to material for
+which the relevant rights holder has the necessary rights. Third-party
+materials under foundation/ remain governed by their own licences and
+notices; see foundation/NOTICE and foundation/THIRD_PARTY_NOTICES.md.
+
 Original STaaS materials authored by Andrea Enning are reserved to their
 applicable rights holder(s). Except for rights expressly granted by an
 applicable third-party licence or separate written permission from the
