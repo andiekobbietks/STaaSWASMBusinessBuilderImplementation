@@ -73,6 +73,7 @@ export interface StrategicOption {
 
 export interface DecisionRecord {
   id: string;
+  decisionState: "provisional" | "approved" | "deferred" | "rejected";
   question: string;
   selectedOptionId: string;
   rationale: string;
