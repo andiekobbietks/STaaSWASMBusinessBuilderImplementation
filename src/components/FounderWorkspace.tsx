@@ -375,6 +375,7 @@ const COPY = {
     exportTitle: "Bundle di conoscenza portabile",
     exportDescription: "Esporta contesto, evidenze, ipotesi, opzioni, decisioni, esperimenti, apprendimento e risultati in un bundle OKF v0.3.",
     exportRights: "L'esportazione non concede una licenza globale al bundle. I diritti delle fonti restano associati ai singoli record.",
+    exportStatusNote: "La validazione OKF canonica, l’importazione/round-trip e l’esportazione portabile di Attested Computation non sono ancora integrate.",
     exportCount: "concetti inclusi",
     noExport: "Aggiungi contesto e record prima di esportare.",
     required: "Completa i campi obbligatori.",
