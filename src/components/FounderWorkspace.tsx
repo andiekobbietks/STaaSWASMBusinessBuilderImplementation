@@ -119,6 +119,10 @@ const COPY = {
     decisionTitle: "Record a founder decision",
     decisionQuestion: "Decision question",
     selectedOption: "Selected option",
+    decisionState: "Decision state",
+    approved: "Approved",
+    deferred: "Deferred",
+    rejected: "Rejected",
     rationale: "Your rationale",
     rejectedOptions: "Options rejected or deferred",
     unresolved: "Unresolved uncertainty",
@@ -290,6 +294,10 @@ const COPY = {
     decisionTitle: "Registra una decisione del fondatore",
     decisionQuestion: "Domanda decisionale",
     selectedOption: "Opzione scelta",
+    decisionState: "Stato della decisione",
+    approved: "Approvata",
+    deferred: "Rinviata",
+    rejected: "Rifiutata",
     rationale: "La tua motivazione",
     rejectedOptions: "Opzioni rifiutate o rinviate",
     unresolved: "Incertezze irrisolte",
@@ -761,6 +769,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
         {
           id: createId(),
           question: form.decisionQuestion.trim(),
+          decisionState: (form.decisionState || "provisional") as "provisional" | "approved" | "deferred" | "rejected",
           selectedOptionId: form.selectedOptionId,
           rationale: form.rationale || "",
           rejectedOptions: form.rejectedOptions || "",
@@ -1208,6 +1217,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                       <div className="grid gap-4 md:grid-cols-2">
                         <div className="md:col-span-2"><Area label={text("decisionQuestion")} value={form.decisionQuestion || ""} onChange={(value) => updateForm("decisionQuestion", value)} /></div>
                         <SelectField label={text("selectedOption")} value={form.selectedOptionId || ""} onChange={(value) => updateForm("selectedOptionId", value)} options={[{value:"",label:"—"}, ...snapshot.options.map((item) => ({value:item.id,label:item.title}))]} />
+                        <SelectField label={text("decisionState")} value={form.decisionState || "provisional"} onChange={(value) => updateForm("decisionState", value)} options={["provisional","approved","deferred","rejected"].map((value) => ({value,label:text(value as CopyKey)}))} />
                         <Area label={text("rationale")} value={form.rationale || ""} onChange={(value) => updateForm("rationale", value)} />
                         <Area label={text("rejectedOptions")} value={form.rejectedOptions || ""} onChange={(value) => updateForm("rejectedOptions", value)} />
                         <Area label={text("unresolved")} value={form.unresolved || ""} onChange={(value) => updateForm("unresolved", value)} />
@@ -1223,7 +1233,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                           <div key={item.id} className="rounded-lg border border-border p-4">
                             <p className="font-medium">{item.question}</p>
                             <p className="mt-1 text-sm text-muted-foreground">{item.rationale}</p>
-                            <p className="mt-2 text-xs text-muted-foreground">{text("provisional")}</p>
+                            <p className="mt-2 text-xs text-muted-foreground">{text(item.decisionState)}</p>
                           </div>
                         ))}
                       </div>
