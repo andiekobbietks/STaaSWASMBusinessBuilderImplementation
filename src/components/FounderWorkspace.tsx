@@ -659,6 +659,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           uncertainty: (form.uncertainty || "high") as "low" | "medium" | "high",
           confidence,
           validationMethod: form.validationMethod || "",
+          evidenceIds: (form.evidenceIds || "").split(",").filter(Boolean),
           reviewAt: form.reviewAt || "",
           createdAt: now,
         },
@@ -1074,6 +1075,33 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                       <div><Field label={text("confidence")} type="number" min="0" max="1" step="0.05" value={form.confidence || "0.5"} onChange={(value) => updateForm("confidence", value)} /><p className="mt-1 text-xs text-muted-foreground">{text("confidenceNote")}</p></div>
                       <Field label={text("reviewAt")} type="date" value={form.reviewAt || ""} onChange={(value) => updateForm("reviewAt", value)} />
                       <div className="md:col-span-2"><Area label={text("validationMethod")} value={form.validationMethod || ""} onChange={(value) => updateForm("validationMethod", value)} /></div>
+                      {snapshot.evidence.length > 0 && (
+                        <fieldset className="md:col-span-2 rounded-lg border border-border p-3">
+                          <legend className="px-1 text-sm font-medium">{text("evidence")}</legend>
+                          <div className="grid gap-2 sm:grid-cols-2">
+                            {snapshot.evidence.map((item) => {
+                              const selectedIds = (form.evidenceIds || "").split(",").filter(Boolean);
+                              return (
+                                <label key={item.id} className="flex items-start gap-2 text-sm">
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedIds.includes(item.id)}
+                                    onChange={(event) => updateForm(
+                                      "evidenceIds",
+                                      (event.target.checked
+                                        ? [...selectedIds, item.id]
+                                        : selectedIds.filter((id) => id !== item.id)
+                                      ).join(","),
+                                    )}
+                                    className="mt-1"
+                                  />
+                                  <span>{item.claim}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                      )}
                     </div>
                     <button onClick={addAssumption} className="mt-4 flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> {text("addAssumption")}</button>
                   </SectionCard>
@@ -1091,6 +1119,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                               <span>{text("confidence")}: {item.confidence.toFixed(2)}</span>
                             </div>
                             {item.validationMethod && <p className="mt-2 text-sm text-muted-foreground">{item.validationMethod}</p>}
+                            {item.evidenceIds.length > 0 && <p className="mt-2 text-xs text-muted-foreground">{item.evidenceIds.length} linked evidence record(s)</p>}
                           </div>
                         ))}
                       </div>
@@ -1221,7 +1250,26 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                               <span className="rounded-full bg-muted px-2 py-1 text-xs">{text(item.status)}</span>
                             </div>
                             <p className="mt-1 text-sm text-muted-foreground">{item.method}</p>
-                            <p className="mt-2 text-xs text-muted-foreground">{item.durationDays} days · {moneyLabel(item.budgetPence, lang)}</p>
+                            <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                              <p className="text-xs text-muted-foreground">{item.durationDays} days · {moneyLabel(item.budgetPence, lang)}</p>
+                              <select
+                                value={item.status}
+                                onChange={(event) => updateSnapshot((current) => ({
+                                  ...current,
+                                  experiments: current.experiments.map((experiment) =>
+                                    experiment.id === item.id
+                                      ? { ...experiment, status: event.target.value as "planned" | "running" | "completed" | "cancelled" }
+                                      : experiment,
+                                  ),
+                                }))}
+                                className="h-8 rounded-md border border-input bg-background px-2 text-xs"
+                                aria-label={text("experiments") + ": " + item.hypothesis}
+                              >
+                                {["planned", "running", "completed", "cancelled"].map((status) => (
+                                  <option key={status} value={status}>{text(status)}</option>
+                                ))}
+                              </select>
+                            </div>
                           </div>
                         ))}
                       </div>
