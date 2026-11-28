@@ -1,0 +1,21 @@
+STaaS Foundation
+
+Copyright 2026 STaaS Foundation project authors.
+
+The files in this directory are licensed under the Apache License, Version 2.0.
+See LICENSE.
+
+STaaS Foundation is designed to interoperate with the Open Knowledge Format
+(OKF) v0.3 specification maintained at:
+https://github.com/open-knowledge-format/open-knowledge-format
+
+The OKF specification and its reference implementation are separate upstream
+works licensed under Apache-2.0 by their respective rights holders. This
+directory does not include copied OKF source code in this initial release.
+The STaaS profile is an independent integration/profile layer.
+
+No affiliation with, sponsorship by, or endorsement from Google or the
+Open Knowledge Format maintainers is implied.
+
+Third-party materials, if added in future, remain subject to their own
+licences and notices. This NOTICE does not modify the Apache-2.0 licence.

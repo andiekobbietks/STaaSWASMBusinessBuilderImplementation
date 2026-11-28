@@ -13,7 +13,7 @@ Do not relicense the current repository wholesale. The current root `LICENSE` is
 
 The preferred long-term boundary is:
 
-1. **STaaS Foundation (new, dedicated public repository):** a cleanly scoped STaaS profile and integration layer over the canonical Open Knowledge Format (OKF) v0.3, plus business-domain examples, AgentSON interoperability, validation/conformance fixtures and export/import tooling. Target licence: Apache-2.0 for eligible original STaaS code, after file-level provenance and rights review. Do not fork or redefine OKF itself.
+1. **STaaS Foundation:** an initial Apache-2.0-scoped alpha now exists under foundation/ in this repository. It contains a STaaS profile over canonical OKF v0.3, profile schema, synthetic founder bundle, Python profile validator and deterministic calculation example. The intended long-term boundary remains a dedicated public repository after full provenance, dependency and release review. Do not fork or redefine OKF itself.
 2. **STaaS Business Builder (commercial application):** founder experience, guided strategic workflows, advanced orchestration, managed evidence acquisition, proprietary operational tooling, commercial integrations and hosted capabilities. Keep commercially differentiated components in a separately governed repository. Reuse Apache-licensed Foundation components in compliance with their licence.
 3. **STaaS Strategy Service (human-delivered service):** discovery, strategy reviews, implementation support, delivery coordination, measurement and handover under a separately scoped customer agreement.
 
@@ -53,7 +53,8 @@ The audit of the current default branch and the retained AI-workspace branch est
 | Dependencies | Main and feature branches have different dependency graphs | Generate separate complete SBOM and licence inventories for every release branch |
 | Historical exposure | The migration runbook records prior `.bolt/` content in historical commits | Current-tree checks do not erase or clear historical disclosure; review history and rotate any exposed credentials |
 | Contributor terms | External contributions currently require written approval; no blanket assignment or contribution licence is in place | Establish an explicit contribution policy before inviting public Foundation contributions |
-| Repository visibility | Current repository is public and forkable | A proprietary notice does not make published code confidential or prevent forks |
+| Repository visibility | Current repository is public and forkable; foundation/ has a separate Apache-2.0 scope exception | The rest of the repository remains under its applicable rights notice and third-party licences; public visibility is not confidentiality |
+| Foundation alpha | foundation/ contains the first STaaS profile draft, schema, synthetic OKF bundle, Python validator and tests | This is a scoped Apache-2.0 alpha, not a stable release or proof of base OKF conformance |
 
 This is a repository-level review of the inspected trees and files, not a complete legal opinion, full commit-history audit, dependency clearance, or freedom-to-operate analysis.
 
@@ -65,7 +66,7 @@ Apache-2.0 is the recommended target for the new Foundation because it supports 
 
 The licence must be applied only to files for which the project has the rights to grant it. Do not include upstream MIT-derived code, third-party assets, datasets, model weights or contributed material under a blanket Foundation licence without checking the relevant licence and provenance.
 
-A dedicated repository is preferred over putting a nested Apache package inside the existing repository. It gives contributors, users, package managers and automated licence scanners a much clearer boundary.
+A dedicated repository remains the preferred long-term boundary. The current foundation/ subtree is an explicitly scoped staging alpha: its nested LICENSE and NOTICE are paired with a carve-out in the root LICENSE. Extract it once provenance, dependencies, contributor governance and release checks are complete.
 
 Before the first public Apache release:
 
@@ -204,10 +205,12 @@ The model may explain a calculation or propose parameter values, but it must not
 
 The Foundation should add value around OKF, not reproduce it. Its first release should contain:
 
-- a versioned STaaS business-strategy profile for OKF v0.3;
-- synthetic sample bundles for founder journeys;
+- a versioned STaaS business-strategy profile for OKF v0.3 (initial draft now present in foundation/PROFILE.md);
+- synthetic sample bundles for founder journeys (initial example now present);
+- a JSON Schema for parsed STaaS frontmatter and a Python profile validator (initial versions now present);
+- automated tests for the profile and deterministic calculation example;
 - TypeScript utilities to read/write the STaaS profile while preserving unknown OKF fields;
-- validators and conformance fixtures for the STaaS profile;
+- base OKF and STaaS-profile conformance fixtures;
 - import/export and round-trip tests;
 - an optional AgentSON bridge only after the trace-to-knowledge mapping is implemented and tested;
 - documentation, compatibility policy and migration guidance.
@@ -312,13 +315,14 @@ The commercial product must remain exportable. A customer should be able to leav
 
 ### Phase 2 — Foundation reference implementation
 
-- Implement TypeScript types and JSON Schema validation.
+- Extend the existing JSON Schema and Python validator with full profile semantics and negative fixtures.
+- Implement TypeScript types and an application-facing SDK.
 - Implement CLI validation and portable export/import.
 - Add round-trip, malformed-input, compatibility and provenance tests.
-- Publish Apache-2.0 only after the legal/provenance gate.
+- Extract the Apache-2.0 alpha into a dedicated repository only after the legal/provenance gate.
 - Add contribution governance, DCO and security reporting.
 
-**Gate:** reproducible tests pass and a clean installation can validate, export and re-import the sample records.
+**Gate:** reproducible tests pass and a clean installation can validate, export and re-import the sample records. The initial alpha has profile-level tests; base OKF validation and round-trip import/export are still outstanding.
 
 ### Phase 3 — Business Builder MVP
 

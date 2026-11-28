@@ -82,3 +82,21 @@ Candidate file pairs and normalized exact-line overlap:
 The measured overlap is low at the literal-line level for these selected pairs, consistent with a substantial rewrite from a Streamlit/Python application into a React/TypeScript browser application. It does **not** establish independent creation, eliminate possible reuse of structure or expression elsewhere, resolve the recorded port/adaptation provenance, or determine copyright ownership. This was a targeted comparison, not a complete repository-wide AST/token, commit-history, UI asset, prompt, documentation or semantic comparison. The upstream MIT licence and notice must remain documented wherever upstream code or substantial portions are incorporated.
 
 Before commercial distribution, complete a full tree-wide comparison (including all branches and historical commits), trace each reused or adapted component, inspect screenshots/assets and generated materials, and have the resulting provenance record reviewed by a qualified IP professional.
+
+
+## 7. STaaS Foundation alpha subtree (28 November 2026)
+
+The new foundation/ subtree is separately licensed under Apache-2.0. The root LICENSE contains an explicit scope exception for this directory; the root rights notice continues to apply outside it, subject to all third-party licences.
+
+| Material | Provenance | Licence / treatment |
+|---|---|---|
+| foundation/PROFILE.md | Newly authored STaaS business-strategy profile | Apache-2.0 within foundation/ |
+| foundation/schemas/staas-profile-0.1.schema.json | Newly authored profile schema | Apache-2.0 within foundation/ |
+| foundation/examples/founder-pilot/ | Synthetic scenario, records and examples authored for this profile | Apache-2.0 within foundation/; explicitly not real market evidence |
+| Contribution-margin computation and attester | Newly authored Python example using the standard library | Apache-2.0 within foundation/ |
+| Canonical OKF v0.3 | External specification referenced, not copied | Upstream Apache-2.0; retain attribution and do not imply affiliation |
+| jsonschema 4.24.0 and ruamel.yaml 0.18.16 | Pinned development/test dependencies | Dev-only; verify full licence metadata and transitive notices from SBOM before stable release |
+
+The initial Foundation subtree does not include copied source code from the OKF reference implementation. The sample bundle contains fictional data and illustrative calculations only. The example attester checks a pinned computation digest and deterministic result; it does not prove source authenticity, input truth or protection against an attacker who can replace the trusted attester itself.
+
+This is a scoped Apache-2.0 alpha, not a stable release, complete legal clearance, OKF base-conformance certification or freedom-to-operate opinion. Dedicated-repository extraction, contributor governance, full dependency review, base OKF validation, profile round-trip tests and AgentSON integration remain outstanding.
