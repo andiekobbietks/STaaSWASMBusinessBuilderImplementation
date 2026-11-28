@@ -93,7 +93,7 @@ create or replace function public.save_founder_workspace_version(
 returns integer
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = pg_catalog, public, pg_temp
 as $$
 declare
   v_user_id uuid := auth.uid();
