@@ -200,6 +200,7 @@ const COPY = {
     customerProvided: "Customer-provided",
     licensed: "Licensed",
     permissioned: "Permissioned",
+    synthetic: "Synthetic",
     other: "Other",
     permitted: "Permitted",
     prohibited: "Prohibited",
@@ -366,6 +367,7 @@ const COPY = {
     customerProvided: "Fornito dal cliente",
     licensed: "Concesso in licenza",
     permissioned: "Autorizzato",
+    synthetic: "Sintetico",
     other: "Altro",
     permitted: "Consentito",
     prohibited: "Vietato",
@@ -1108,7 +1110,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                       <Field label={text("author")} value={form.author || ""} onChange={(value) => updateForm("author", value)} />
                       <Field label={text("publishedAt")} type="date" value={form.publishedAt || ""} onChange={(value) => updateForm("publishedAt", value)} />
                       <SelectField label={text("accessBasis")} value={form.accessBasis || "other"} onChange={(value) => updateForm("accessBasis", value)} options={[
-                        ["public", text("public")], ["customer_provided", text("customerProvided")], ["licensed", text("licensed")], ["permissioned", text("permissioned")], ["other", text("other")],
+                        ["public", text("public")], ["customer_provided", text("customerProvided")], ["licensed", text("licensed")], ["permissioned", text("permissioned")], ["synthetic", text("synthetic")], ["other", text("other")],
                       ].map(([value,label]) => ({ value: String(value), label: String(label) }))} />
                       <SelectField label={text("redistribution")} value={form.redistribution || "unknown"} onChange={(value) => updateForm("redistribution", value)} options={[
                         ["permitted", text("permitted")], ["prohibited", text("prohibited")], ["unknown", text("unknown")],
