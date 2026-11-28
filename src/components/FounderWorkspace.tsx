@@ -716,7 +716,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           redistribution: (form.redistribution || "unknown") as WorkspaceSnapshot["evidence"][number]["redistribution"],
           limitations: form.limitations || "",
           reviewState,
-          ...(reviewState === "human_reviewed" ? { reviewedBy: "human:workspace-owner", reviewedAt: now } : {}),
+          ...(reviewState === "human_reviewed" ? { reviewedBy: "human:founder", reviewedAt: now } : {}),
           createdAt: now,
         },
       ],
