@@ -31,6 +31,12 @@ function concatBytes(chunks: Uint8Array[]): Uint8Array {
   return output;
 }
 
+function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
+  const copy = new Uint8Array(bytes.length);
+  copy.set(bytes);
+  return copy.buffer;
+}
+
 function dosDateTime(date: Date): { date: number; time: number } {
   const year = Math.max(1980, Math.min(2107, date.getFullYear()));
   return {
@@ -161,8 +167,6 @@ export function createZipBlob(files: Record<string, string>): Blob {
   endView.setUint32(16, localOffset, true);
   endView.setUint16(20, 0, true);
 
-  return new Blob(
-    [...localParts, centralDirectory, end],
-    { type: "application/zip" },
-  );
+  const parts = [...localParts, centralDirectory, end].map(toArrayBuffer);
+  return new Blob(parts, { type: "application/zip" });
 }
