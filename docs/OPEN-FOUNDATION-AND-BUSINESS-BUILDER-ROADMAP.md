@@ -301,7 +301,7 @@ The commercial product must remain exportable. A customer should be able to leav
 
 ### Phase 1 — Foundation specification
 
-- Verify the authoritative OKF schema/specification and licence.
+- Pin canonical OKF v0.3 and add a compatibility policy for future upstream versions; preserve the upstream Apache-2.0 notice for any reused tooling.
 - Define the STaaS business-strategy profile over OKF v0.3; do not create a competing file format.
 - Define path-based concept identity, application ID mapping, lineage, correction, supersession and transformation semantics.
 - Define source-rights metadata and fact/inference distinctions using base OKF fields first and documented extension keys only where necessary.
@@ -394,8 +394,8 @@ Use consent-based pilots and suitable comparison methods. Do not infer that bett
 
 ## 11. Open questions and decision gates
 
-1. What is the authoritative OKF specification, version, repository and licence, and can STaaS implement it without creating a competing or incompatible standard?
-2. Which artefacts should be STaaS-specific extensions rather than new canonical formats?
+1. Which STaaS business concepts need profile-level extension metadata beyond the base OKF v0.3 fields?
+2. What compatibility policy should the Foundation adopt when canonical OKF releases a new version, and which old bundle versions must remain readable?
 3. Should the first Foundation release be TypeScript-first, with language-neutral schemas as the normative contract?
 4. Which business cases and datasets can be redistributed, which can only be indexed, and which require commercial licences?
 5. Which founder segment will participate in the first pilot, and what decision task will be evaluated?
