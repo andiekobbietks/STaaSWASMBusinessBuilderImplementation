@@ -14,6 +14,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/lib/supabase";
 import {
   createEmptySnapshot,
   createFounderWorkspace,
@@ -49,6 +50,7 @@ const COPY = {
     assumptions: "Assumptions",
     evidence: "Evidence",
     strategy: "Options and decisions",
+    decisions: "Decisions",
     experiments: "Experiments",
     learning: "Learning",
     outcomes: "Outcomes",
@@ -235,6 +237,7 @@ const COPY = {
     assumptions: "Ipotesi",
     evidence: "Evidenze",
     strategy: "Opzioni e decisioni",
+    decisions: "Decisioni",
     experiments: "Esperimenti",
     learning: "Apprendimento",
     outcomes: "Risultati",
@@ -526,6 +529,10 @@ function moneyLabel(pence: number, lang: Language): string {
     style: "currency",
     currency: "GBP",
   }).format(pence / 100);
+}
+
+function moneyInput(pence: number): string {
+  return (pence / 100).toFixed(2);
 }
 
 function toPence(value: string): number {
@@ -1434,8 +1441,8 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                   <SectionCard title={text("metricTitle")}>
                     <div className="grid gap-4 md:grid-cols-3">
                       <Field label={text("unitsSold")} type="number" min="0" step="1" value={form.unitsSold || (snapshot.contributionMetric ? String(snapshot.contributionMetric.unitsSold) : "")} onChange={(value) => updateForm("unitsSold", value)} />
-                      <Field label={text("sellingPrice")} type="number" min="0.01" step="0.01" value={form.sellingPrice || (snapshot.contributionMetric ? money(snapshot.contributionMetric.sellingPricePence) : "")} onChange={(value) => updateForm("sellingPrice", value)} />
-                      <Field label={text("variableCost")} type="number" min="0" step="0.01" value={form.variableCost || (snapshot.contributionMetric ? money(snapshot.contributionMetric.variableCostPence) : "")} onChange={(value) => updateForm("variableCost", value)} />
+                      <Field label={text("sellingPrice")} type="number" min="0.01" step="0.01" value={form.sellingPrice || (snapshot.contributionMetric ? moneyInput(snapshot.contributionMetric.sellingPricePence) : "")} onChange={(value) => updateForm("sellingPrice", value)} />
+                      <Field label={text("variableCost")} type="number" min="0" step="0.01" value={form.variableCost || (snapshot.contributionMetric ? moneyInput(snapshot.contributionMetric.variableCostPence) : "")} onChange={(value) => updateForm("variableCost", value)} />
                     </div>
                     <button onClick={saveMetric} className="mt-4 flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground">{text("calculate")}</button>
                     {!snapshot.contributionMetric && <p className="mt-3 text-sm text-muted-foreground">{text("noMetric")}</p>}
