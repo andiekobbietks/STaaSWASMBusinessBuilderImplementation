@@ -15,9 +15,10 @@ interface Props {
   lang: LangCode;
   onLangChange: (lang: LangCode) => void;
   onBack: () => void;
+  onViewWorkspace: () => void;
 }
 
-export function ReportHistory({ lang, onLangChange, onBack }: Props) {
+export function ReportHistory({ lang, onLangChange, onBack, onViewWorkspace }: Props) {
   const { signOut } = useAuth();
   const texts = UI_TRANSLATIONS[lang];
   const [reports, setReports] = useState<Report[]>([]);
@@ -86,6 +87,12 @@ export function ReportHistory({ lang, onLangChange, onBack }: Props) {
             </button>
             <div className="flex items-center gap-3">
               <button
+                onClick={onViewWorkspace}
+                className="text-sm text-slate-600 hover:text-sky-600 transition px-3 py-1.5 rounded-lg hover:bg-slate-100"
+              >
+                {texts.founderWorkspace}
+              </button>
+              <button
                 onClick={() => handleDownload(selected)}
                 className="flex items-center gap-2 text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 px-4 py-2 rounded-lg transition"
               >
@@ -145,6 +152,12 @@ export function ReportHistory({ lang, onLangChange, onBack }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <button
+              onClick={onViewWorkspace}
+              className="text-sm text-slate-600 hover:text-sky-600 font-medium transition px-3 py-1.5 rounded-lg hover:bg-slate-100"
+            >
+              {texts.founderWorkspace}
+            </button>
             <button
               onClick={onBack}
               className="text-sm text-sky-600 hover:text-sky-700 font-medium transition px-3 py-1.5 rounded-lg hover:bg-sky-50"
