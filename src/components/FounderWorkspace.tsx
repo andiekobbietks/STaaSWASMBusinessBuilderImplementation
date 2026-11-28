@@ -21,6 +21,7 @@ import {
   deleteFounderWorkspace,
   listFounderWorkspaces,
   loadFounderWorkspaceVersion,
+  normalizeWorkspaceSnapshot,
   saveFounderWorkspaceVersion,
   calculateContributionMargin,
   type FounderWorkspace,
@@ -543,7 +544,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
     const selected = workspaces.find((item) => item.id === id);
     const latest = await loadFounderWorkspaceVersion(id);
     setWorkspaceId(id);
-    setSnapshot(latest?.snapshot || createEmptySnapshot(selected?.name || "My venture"));
+    setSnapshot(normalizeWorkspaceSnapshot(latest?.snapshot, selected?.name || "My venture"));
     setVersion(latest?.version || 0);
     setDirty(false);
     setError("");
@@ -567,7 +568,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
           const latest = await loadFounderWorkspaceVersion(found[0].id);
           if (!active) return;
           setWorkspaceId(found[0].id);
-          setSnapshot(latest?.snapshot || createEmptySnapshot(found[0].name));
+          setSnapshot(normalizeWorkspaceSnapshot(latest?.snapshot, found[0].name));
           setVersion(latest?.version || 0);
         } else {
           setSnapshot(null);
