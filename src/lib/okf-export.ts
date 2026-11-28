@@ -10,7 +10,8 @@ function yamlValue(value: unknown): string {
   if (typeof value === "string") return JSON.stringify(value);
   if (value === null) return "null";
   if (typeof value === "number" || typeof value === "boolean") return String(value);
-  return JSON.stringify(value);
+  const serialized = JSON.stringify(value);
+  return serialized === undefined ? "null" : serialized;
 }
 
 function renderFrontmatter(data: Frontmatter): string {
