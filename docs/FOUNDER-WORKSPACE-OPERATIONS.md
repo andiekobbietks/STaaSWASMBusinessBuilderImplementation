@@ -87,5 +87,7 @@ The exported bundle has not yet been validated by the canonical OKF v0.3 validat
 - Workspace deletion removes saved snapshots.
 - The UI does not yet support individual record edit/delete, full version diff/restore, collaborative workspaces, billing or AI.
 - The learning prompts are a structure for learning, not evidence that learning or transfer has occurred.
+- The contribution-margin calculator currently accepts GBP inputs only.
+- The UI can update venture context, experiment status and the contribution metric; most other concept records are append-only in the current UI. Individual record editing/deletion is deferred.
 
 Before production use, complete live RLS tests, migration rollback/recovery rehearsal, schema validation on write, version-history UI, export validation and round-trip tests, accessibility review, threat modelling, backup/retention policy and privacy review.
