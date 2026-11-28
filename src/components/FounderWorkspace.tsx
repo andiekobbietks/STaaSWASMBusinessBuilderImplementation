@@ -499,7 +499,7 @@ function moneyLabel(pence: number, lang: Language): string {
 
 function toPence(value: string): number {
   const amount = Number(value);
-  return Number.isFinite(amount) ? Math.round(amount * 100) : 0;
+  return Number.isFinite(amount) ? Math.round(amount * 100) : Number.NaN;
 }
 
 export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Props) {
