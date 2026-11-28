@@ -173,6 +173,9 @@ const COPY = {
     noExport: "Add venture context and records before exporting.",
     required: "Complete the required fields.",
     sourceRequired: "Provide a source URL for source-based claims. Use founder assertion or hypothesis when no external source is available.",
+    invalidUrl: "Enter a valid HTTP or HTTPS source URL, or leave it blank.",
+    rightsNote: "Public access does not automatically grant redistribution rights. Record unknown when you have not checked the terms.",
+    reviewNote: "Only mark a claim as human reviewed after you have personally checked the source and its limitations.",
     confidenceNote: "This is your subjective belief, not evidence quality or a calibrated probability.",
     learningNote: "These prompts support learning; they do not prove recall, understanding or transfer.",
     delete: "Delete",
@@ -340,6 +343,9 @@ const COPY = {
     noExport: "Aggiungi contesto e record prima di esportare.",
     required: "Completa i campi obbligatori.",
     sourceRequired: "Inserisci un URL per le affermazioni basate su fonti. Se non hai una fonte esterna, usa affermazione del fondatore o ipotesi.",
+    invalidUrl: "Inserisci un URL HTTP o HTTPS valido, oppure lascia il campo vuoto.",
+    rightsNote: "L’accesso pubblico non concede automaticamente diritti di ridistribuzione. Se non hai verificato le condizioni, indica sconosciuto.",
+    reviewNote: "Segna un’affermazione come revisionata da una persona solo dopo aver controllato personalmente la fonte e i suoi limiti.",
     confidenceNote: "È una valutazione soggettiva, non la qualità delle prove né una probabilità calibrata.",
     learningNote: "Queste domande supportano l’apprendimento, ma non ne dimostrano richiamo, comprensione o trasferimento.",
     delete: "Elimina",
@@ -685,7 +691,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
         const parsed = new URL(sourceUrl);
         if (parsed.protocol !== "https:" && parsed.protocol !== "http:") throw new Error("Unsupported protocol");
       } catch {
-        setError("Enter a valid HTTP or HTTPS source URL, or leave it blank.");
+        setError(text("invalidUrl"));
         return;
       }
     }
@@ -1151,6 +1157,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                       ].map(([value,label]) => ({ value: String(value), label: String(label) }))} />
                       <div className="md:col-span-2"><Area label={text("limitations")} value={form.limitations || ""} onChange={(value) => updateForm("limitations", value)} /></div>
                     </div>
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{text("rightsNote")} {text("reviewNote")}</p>
                     <button onClick={addEvidence} className="mt-4 flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> {text("addEvidence")}</button>
                   </SectionCard>
                   <SectionCard title={text("evidence")}>
