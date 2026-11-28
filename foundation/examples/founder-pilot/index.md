@@ -21,4 +21,5 @@ This bundle is entirely synthetic. All names, numbers, sources and observations 
 
 ## Learning and calculation
 - [Contribution margin learning concept](learning/contribution-margin.md)
-- [Contribution margin computation](metrics/contribution-margin.md)
+- [Contribution margin metric](metrics/contribution-margin.md)
+- [Contribution margin computation](computations/contribution-margin.md)
