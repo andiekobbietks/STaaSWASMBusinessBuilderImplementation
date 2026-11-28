@@ -13,7 +13,7 @@ Do not relicense the current repository wholesale. The current root `LICENSE` is
 
 The preferred long-term boundary is:
 
-1. **STaaS Foundation (new, dedicated public repository):** a cleanly scoped, independently useful set of portable data contracts, provenance and transformation rules, validators, conformance fixtures, export/import tooling and reference implementations. Target licence: Apache-2.0, after file-level provenance and rights review.
+1. **STaaS Foundation (new, dedicated public repository):** a cleanly scoped STaaS profile and integration layer over the canonical Open Knowledge Format (OKF) v0.3, plus business-domain examples, AgentSON interoperability, validation/conformance fixtures and export/import tooling. Target licence: Apache-2.0 for eligible original STaaS code, after file-level provenance and rights review. Do not fork or redefine OKF itself.
 2. **STaaS Business Builder (commercial application):** founder experience, guided strategic workflows, advanced orchestration, managed evidence acquisition, proprietary operational tooling, commercial integrations and hosted capabilities. Keep commercially differentiated components in a separately governed repository. Reuse Apache-licensed Foundation components in compliance with their licence.
 3. **STaaS Strategy Service (human-delivered service):** discovery, strategy reviews, implementation support, delivery coordination, measurement and handover under a separately scoped customer agreement.
 
@@ -49,7 +49,7 @@ The audit of the current default branch and the retained AI-workspace branch est
 | Main application | React/TypeScript/Vite; deterministic four-stage browser analysis; Supabase authentication and report persistence | Current working product is an early idea-analyser, not the complete STaaS platform |
 | Analysis logic | `src/lib/analysis.ts` uses keyword/context heuristics and deterministic text generation | Do not market current outputs as verified market research or model reasoning |
 | AI workspace branch | Contains a chat-oriented UI and AI SDK packages, but `api/chat.ts` deliberately returns HTTP 503 and the UI disables inference | The workspace is not a working AI agent or live research system; keep it out of shipped claims until implemented and tested |
-| Roadmap architecture | Evidence ingestion, OKF interchange, DWH, catalogue, persistent strategic state, learning loop and agent integrations are documented as proposed | Build these as explicit increments with acceptance evidence |
+| Roadmap architecture | Evidence ingestion, a STaaS profile over OKF, DWH, catalogue, persistent strategic state, learning loop and agent integrations are documented as proposed | Build these as explicit increments with acceptance evidence |
 | Dependencies | Main and feature branches have different dependency graphs | Generate separate complete SBOM and licence inventories for every release branch |
 | Historical exposure | The migration runbook records prior `.bolt/` content in historical commits | Current-tree checks do not erase or clear historical disclosure; review history and rotate any exposed credentials |
 | Contributor terms | External contributions currently require written approval; no blanket assignment or contribution licence is in place | Establish an explicit contribution policy before inviting public Foundation contributions |
@@ -117,55 +117,102 @@ Do not promise that Foundation contributions can later be relicensed into a prop
 
 Keep the commercial application repository closed to unsolicited code contributions unless a suitable contributor agreement and review process are in place.
 
-## 5. What belongs in the Foundation
+## 5. Existing standards and the STaaS Foundation
 
-The first Foundation release should be small, testable and useful without a hosted service.
+### 5.1 OKF is the knowledge format; STaaS must not reinvent it
 
-### 5.1 Portable artefact contracts
+The canonical Open Knowledge Format repository is:
 
-Define versioned schemas and normative semantics for:
+- **Canonical repository:** https://github.com/open-knowledge-format/open-knowledge-format
+- **Specification:** `SPEC.md`
+- **Version inspected:** 0.3
+- **Licence:** Apache-2.0
+- **Review date:** 28 November 2026
 
-1. **Business context:** venture identity, stage, geography, sector, goals, constraints and context provenance.
-2. **Source record:** publisher/creator, source identifier, publication or event date, retrieval date, source terms/licence, permitted use, and source integrity metadata.
-3. **Evidence claim:** a bounded claim, its supporting source passages/locations, context, confidence or review status, limitations and attribution.
-4. **Assumption:** statement, rationale, impact, uncertainty, evidence links, validation method, owner and status.
-5. **Strategic option and decision:** alternatives, criteria, rationale, decision owner, date, approval and review trigger.
-6. **Experiment:** hypothesis, method, target, cost/time boundary, success and failure criteria, result and learning.
-7. **Outcome and metric:** definition, unit, baseline, target, observation time, source and limitations.
-8. **Transformation event:** input artefact identifiers and versions, operation, actor/tool, time, output identifiers, validation result and disclosed information loss or uncertainty.
+The earlier `GoogleCloudPlatform/knowledge-catalog` repository and its `okf/` directory are deprecated/frozen snapshots. The intermediate `GoogleCloudPlatform/open-knowledge-format` repository also directs readers to the current canonical repository. Do not build new STaaS integrations against those frozen copies.
 
-These are proposed STaaS contracts. Before implementation, reconcile them with the authoritative OKF specification and any applicable existing standards. Do not invent OKF fields, claim OKF conformance or duplicate an existing canonical model.
+OKF v0.3 defines a vendor-neutral knowledge bundle: a directory of Markdown concept documents with YAML frontmatter, optional `index.md` and `log.md`, directory hierarchy and Markdown links. It deliberately has no schema registry, central authority, required runtime or prescribed storage/query infrastructure. It refers to domain-specific schemas rather than replacing them.
 
-### 5.2 Integrity, provenance and correction
+The base format provides:
+- a required `type` field and optional `title`, `description`, `resource` and `tags`;
+- source provenance through `sources`, with per-claim Markdown footnote attribution;
+- producer identity and time through `generated`;
+- verification events through `verified`, from which consumers derive unverified, machine-confirmed or human-reviewed trust tiers;
+- lifecycle metadata such as `status`, `stale_after` and supersession;
+- bundle-level metadata including `okf_version`, title, description and content licence;
+- graph relationships through Markdown links and path-valued fields;
+- `Attested Computation` concepts with declared runtime, parameters, executor receipts and deterministic attesters.
 
-The Foundation should support:
+OKF's concept ID is the bundle-relative file path without `.md`. It is not a globally assigned immutable UUID. If STaaS needs stable identity across renames, it must define and test that behaviour in a separate STaaS profile or maintain an explicit identity mapping. Do not claim that base OKF supplies a stronger identity guarantee than it does.
 
-- stable identifiers and explicit schema versions;
-- source-to-extraction-to-claim lineage;
-- append-only decision and transformation history where appropriate;
-- correction and supersession events rather than silent overwrites;
-- content hashes for integrity checking, not as proof that content is true;
-- explicit distinction between source fact, attributed claim, founder assertion, model interpretation and unresolved hypothesis;
-- deterministic validation and conformance fixtures;
-- export/import that preserves identifiers, relationships and licence metadata;
-- documented behaviour when a transformation is lossy or cannot preserve a field.
+**Decision for STaaS:** use OKF v0.3 as the portable knowledge-bundle envelope. Do not design a competing Markdown/YAML interchange format or duplicate OKF's provenance, trust, lifecycle, link or attestation semantics.
 
-Do not claim that hashes alone make a record immutable, incorruptible, authentic or forgery-proof. Those properties depend on the threat model, key custody, storage controls, signatures, audit operations and independent verification.
+### 5.2 STaaS business-strategy profile
 
-### 5.3 Developer-facing deliverables
+STaaS should define a small, separately versioned profile that explains how to represent business-strategy knowledge using OKF concepts. Candidate `type` values include:
 
-A useful initial release could contain:
+- `Business Context`
+- `Customer Segment`
+- `Market Observation`
+- `Evidence Claim`
+- `Assumption`
+- `Strategic Option`
+- `Decision`
+- `Experiment`
+- `Metric`
+- `Outcome`
+- `Learning Concept`
 
-- JSON Schema contracts and examples;
-- a TypeScript SDK for creating and validating artefacts;
-- a small CLI for validate, inspect, export and import;
-- synthetic end-to-end examples;
-- conformance and round-trip tests;
-- versioning and compatibility policy;
-- threat model and security guidance;
-- migration notes and reference documentation.
+These are STaaS profile conventions, not types registered by OKF. The profile must define:
+- required and optional STaaS-specific metadata;
+- how a concept links to sources, claims, assumptions, decisions and outcomes;
+- how facts, attributed claims, founder assertions, model interpretations and hypotheses are distinguished;
+- how application-level stable IDs map to path-based OKF concept IDs;
+- how corrections, supersession and history are represented without silently overwriting prior decisions;
+- how unknown OKF extension keys are preserved during import/export;
+- version compatibility and migration behaviour.
 
-Keep storage engines, model providers, embeddings, vector databases and cloud platforms replaceable. The Foundation should specify portable artefacts and behaviours, not mandate one vendor.
+Keep the profile minimal. Prefer standard OKF fields and body structure where they are sufficient. Use extension keys only when a STaaS-specific requirement cannot be represented cleanly through the base format. Keep domain-specific validation schemas separate and link to them as resources where appropriate.
+
+Not every transactional row or analytical fact needs to become a Markdown concept. The application database remains responsible for transactional state and access control. The DWH remains responsible for analytical integration and source-grain historical facts. OKF bundles provide a portable, human-readable knowledge and context layer. Catalogue and vector indexes remain rebuildable discovery projections.
+
+### 5.3 Relationship to AgentSON
+
+OKF and AgentSON solve different problems and should remain separate:
+
+| Layer | Primary question | Representation |
+|---|---|---|
+| OKF | What knowledge was captured, what does it mean, where did it come from, and how current/verified is it? | Markdown knowledge bundle with YAML frontmatter |
+| AgentSON | What did the agent/tool do, observe, hand off or change over time? | Typed NDJSON execution-event stream |
+
+AgentSON's `spec/okf-digest.md` and architect skill describe a bridge in which an adapter reads OKF bundles and an exporter writes OKF concepts from AgentSON traces. The inspected AgentSON tree did not contain the named `okf_adapter.py` and `okf_export.py` modules, so treat that bridge as a proposed integration until the implementation is located, tested and version-pinned.
+
+The intended relationship is complementary: AgentSON can provide execution provenance for the process that produced or transformed a knowledge concept; OKF carries the resulting knowledge artefact. A future bridge must preserve trace IDs, concept paths, timestamps, actors, source references and transformation relationships without pretending that a trace is itself the knowledge document. Any extra OKF frontmatter used for AgentSON linkage must be explicitly documented as a STaaS profile extension, not described as a base OKF field.
+
+### 5.4 Attested business computations
+
+OKF v0.3's Attested Computation concept is particularly relevant to the Business Builder. Use it as the contract for calculations that should be reproducible and inspectable, such as:
+- gross margin and contribution margin;
+- unit economics and customer acquisition cost;
+- recurring revenue scenarios;
+- break-even and cash runway calculations;
+- sensitivity analysis and pricing scenarios.
+
+The model may explain a calculation or propose parameter values, but it must not author or silently replace the sanctioned formula. The computation should have typed parameters, a declared runtime, an execution receipt and a deterministic attester. The UI should label the result as attested only when the attester succeeds. A hash alone does not establish that the formula is correct or the input data is true.
+
+### 5.5 STaaS Foundation release scope
+
+The Foundation should add value around OKF, not reproduce it. Its first release should contain:
+
+- a versioned STaaS business-strategy profile for OKF v0.3;
+- synthetic sample bundles for founder journeys;
+- TypeScript utilities to read/write the STaaS profile while preserving unknown OKF fields;
+- validators and conformance fixtures for the STaaS profile;
+- import/export and round-trip tests;
+- an optional AgentSON bridge only after the trace-to-knowledge mapping is implemented and tested;
+- documentation, compatibility policy and migration guidance.
+
+Reuse the canonical OKF specification and tooling under its Apache-2.0 terms where appropriate. Preserve required upstream notices for any code or assets reused. Do not copy upstream implementation code into the Foundation merely to create a new project identity.
 
 ## 6. How the Business Builder should learn from the Foundation
 
@@ -254,10 +301,11 @@ The commercial product must remain exportable. A customer should be able to leav
 
 ### Phase 1 — Foundation specification
 
-- Verify the authoritative OKF schema/specification and licence.
-- Define the minimum STaaS artefact set and versioning rules.
-- Define identity, lineage, correction, supersession and transformation semantics.
-- Define source rights metadata and fact/inference distinctions.
+- Pin canonical OKF v0.3 and add a compatibility policy for future upstream versions; preserve the upstream Apache-2.0 notice for any reused tooling.
+- Define the STaaS business-strategy profile over OKF v0.3; do not create a competing file format.
+- Define path-based concept identity, application ID mapping, lineage, correction, supersession and transformation semantics.
+- Define source-rights metadata and fact/inference distinctions using base OKF fields first and documented extension keys only where necessary.
+- Define the AgentSON trace-to-OKF relationship as a separate adapter contract.
 - Publish examples and conformance fixtures.
 
 **Gate:** an independent developer can validate and exchange a sample founder journey without using STaaS hosting.
@@ -346,8 +394,8 @@ Use consent-based pilots and suitable comparison methods. Do not infer that bett
 
 ## 11. Open questions and decision gates
 
-1. What is the authoritative OKF specification, version, repository and licence, and can STaaS implement it without creating a competing or incompatible standard?
-2. Which artefacts should be STaaS-specific extensions rather than new canonical formats?
+1. Which STaaS business concepts need profile-level extension metadata beyond the base OKF v0.3 fields?
+2. What compatibility policy should the Foundation adopt when canonical OKF releases a new version, and which old bundle versions must remain readable?
 3. Should the first Foundation release be TypeScript-first, with language-neutral schemas as the normative contract?
 4. Which business cases and datasets can be redistributed, which can only be indexed, and which require commercial licences?
 5. Which founder segment will participate in the first pilot, and what decision task will be evaluated?
