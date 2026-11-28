@@ -17,6 +17,7 @@ The ambition is bigger than generating a business plan. STaaS should help founde
 - [Product requirements](docs/PRODUCT-REQUIREMENTS.md)
 - [STaaS operating model](docs/STAAS-OPERATING-MODEL.md)
 - [Architecture and provisional TRL assessment](docs/ARCHITECTURE-AND-TRL.md)
+- [Open Foundation and commercial Business Builder strategy](docs/OPEN-FOUNDATION-AND-BUSINESS-BUILDER-ROADMAP.md)
 - [Architecture decision records](docs/adr/README.md)
 
 ## Repository guide
@@ -45,6 +46,7 @@ This README is the product and architecture overview. Use the linked documents f
 | [Product requirements](docs/PRODUCT-REQUIREMENTS.md) | User needs, functional scope and acceptance criteria |
 | [Operating model](docs/STAAS-OPERATING-MODEL.md) | How the service is intended to work |
 | [Architecture and TRL](docs/ARCHITECTURE-AND-TRL.md) | Component boundaries, dependencies and provisional readiness |
+| [Open Foundation and Business Builder strategy](docs/OPEN-FOUNDATION-AND-BUSINESS-BUILDER-ROADMAP.md) | Licensing boundary, portable Foundation scope and commercial product roadmap |
 | [Research register](RESEARCH.md) | Sources, research claims, evaluation questions and limitations |
 | [Continuity without sameness](docs/CONTINUITY-WITHOUT-SAMENESS.md) | Biblical memory, recontextualisation, information theory, computing and cultural knowledge transmission |
 | [Architecture decision records](docs/adr/README.md) | Decision history, status and reconsideration triggers |
