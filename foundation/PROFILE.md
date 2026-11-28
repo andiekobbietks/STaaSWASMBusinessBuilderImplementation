@@ -100,7 +100,7 @@ A model response is not a source. A search result is not automatically reliable 
 
 For every source where reuse rights matter, the STaaS profile may add a namespaced x-staas mapping inside the relevant sources entry:
 
-- access_basis: public, customer_provided, licensed, permissioned or other;
+- access_basis: public, customer_provided, licensed, permissioned, synthetic or other;
 - redistribution: permitted, prohibited or unknown;
 - terms_uri: link to relevant terms where available;
 - reviewed_at: time of the latest rights review.
