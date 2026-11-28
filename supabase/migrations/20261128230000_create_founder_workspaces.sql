@@ -123,7 +123,7 @@ begin
       using errcode = '22023';
   end if;
 
-  select pg_catalog.coalesce(pg_catalog.max(version), 0) + 1
+  select coalesce(pg_catalog.max(version), 0) + 1
     into v_next_version
   from public.founder_workspace_versions
   where workspace_id = p_workspace_id;
