@@ -75,6 +75,7 @@ const COPY = {
     newVenture: "New venture",
     deleteVenture: "Delete venture",
     confirmDelete: "Delete this venture and all its saved versions?",
+    discardUnsaved: "This workspace has unsaved changes. Discard them and switch?",
     noVenture: "Create a venture to start recording context and decisions.",
     loading: "Loading workspace…",
     loadError: "Could not load your workspace.",
@@ -240,6 +241,7 @@ const COPY = {
     newVenture: "Nuova impresa",
     deleteVenture: "Elimina impresa",
     confirmDelete: "Eliminare questa impresa e tutte le versioni salvate?",
+    discardUnsaved: "Ci sono modifiche non salvate. Vuoi scartarle e cambiare impresa?",
     noVenture: "Crea un'impresa per iniziare a registrare contesto e decisioni.",
     loading: "Caricamento spazio di lavoro…",
     loadError: "Impossibile caricare lo spazio di lavoro.",
@@ -940,7 +942,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
               <select
                 value={workspaceId}
                 onChange={(event) => {
-                  if (dirty && !window.confirm("Discard unsaved changes and switch venture?")) return;
+                  if (dirty && !window.confirm(text("discardUnsaved"))) return;
                   void loadWorkspace(event.target.value);
                 }}
                 className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm"
