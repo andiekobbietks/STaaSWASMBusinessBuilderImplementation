@@ -5,6 +5,8 @@ import importlib.util
 from pathlib import Path
 from typing import Any
 
+EXPECTED_COMPUTATION_SHA256 = "af70189fb574f2c8ea3314a920338e0d4211c7d4067c0c6f98ce6e699333a170"
+
 
 def attest(receipt: dict[str, Any], bundle_root: Path) -> dict[str, Any]:
     computation_path = (
@@ -13,8 +15,10 @@ def attest(receipt: dict[str, Any], bundle_root: Path) -> dict[str, Any]:
     if not computation_path.is_file():
         return {"ok": False, "reason": "Sanctioned computation file is missing"}
 
-    expected_hash = hashlib.sha256(computation_path.read_bytes()).hexdigest()
-    if receipt.get("computation_sha256") != expected_hash:
+    actual_hash = hashlib.sha256(computation_path.read_bytes()).hexdigest()
+    if actual_hash != EXPECTED_COMPUTATION_SHA256:
+        return {"ok": False, "reason": "Sanctioned computation differs from the reviewed example hash"}
+    if receipt.get("computation_sha256") != EXPECTED_COMPUTATION_SHA256:
         return {"ok": False, "reason": "Executed computation hash does not match bundle file"}
 
     spec = importlib.util.spec_from_file_location(
