@@ -25,6 +25,7 @@ An accepted ADR is not proof that the capability has shipped. The README and arc
 | [0010](0010-model-reasoning-evaluation-and-runtime.md) | Separate strategic reasoning evaluation from runtime performance | Accepted evaluation principle | Build reproducible benchmark and publish scored results |
 | [0011](0011-provider-neutral-chat-and-mcp-apps.md) | Provider-neutral conversational orchestration and MCP Apps | Accepted architectural direction; implementation deferred | Verify SDK/framework fit; pass streaming, MCP, sandbox, approval, audit and interoperability tests |
 | [0012](0012-open-foundation-commercial-business-builder.md) | Open STaaS Foundation with commercial Business Builder and Strategy Service | Recommended direction; scoped Apache-2.0 profile alpha implemented; dedicated repository and product integration deferred | Complete provenance, conformance and contributor gates; extract foundation/ into a separately governed repository |
+| [0013](0013-founder-workspace-persistence.md) | Founder Workspace persistence and portable knowledge boundary | Accepted for MVP; live database and RLS verification outstanding | Test migration, RLS isolation and concurrency; revisit normalised concepts and version restore before production |
 
 ## Decision review
 
