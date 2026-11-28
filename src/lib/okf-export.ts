@@ -283,7 +283,7 @@ export function buildOkfBundle(
       item.id,
       1,
       {
-        decision_state: "provisional",
+        decision_state: item.decisionState,
         ...(item.selectedOptionId ? { selected_option_id: item.selectedOptionId } : {}),
       },
       [
