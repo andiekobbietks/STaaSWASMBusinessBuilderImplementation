@@ -14,7 +14,7 @@ An accepted ADR is not proof that the capability has shipped. The README and arc
 | ADR | Decision | Status | Main boundary / next gate |
 |---|---|---|---|
 | [0001](0001-provider-independent-strategic-state.md) | Platform-owned persistent strategic state | Accepted architectural direction | Implement schemas, migrations, access control, export and deletion |
-| [0002](0002-okf-as-portable-knowledge-interchange.md) | OKF as portable knowledge interchange | Deferred | Verify authoritative specification, version, licence and conformance fixtures |
+| [0002](0002-okf-as-portable-knowledge-interchange.md) | OKF v0.3 as portable knowledge envelope; STaaS profile deferred | Accepted architectural direction; profile and conformance deferred | Map STaaS concepts and identity; pass profile and round-trip fixtures |
 | [0003](0003-dwh-and-catalogue-separation.md) | Separate DWH, catalogue and source artefacts | Accepted architectural direction | Define source grain, identity, event time and lineage |
 | [0004](0004-evidence-provenance-and-data-governance.md) | Evidence provenance, rights and validation | Accepted principle | Implement source register, rights review and validation workflow |
 | [0005](0005-model-and-orchestration-boundaries.md) | Model + retrieval + deterministic workflow + human approval | Accepted architectural direction | Enforce boundaries, least privilege and approval gates |
@@ -24,7 +24,7 @@ An accepted ADR is not proof that the capability has shipped. The README and arc
 | [0009](0009-evidence-led-reflective-founder-learning.md) | Evidence-led reflective dialogue for founder learning | Accepted design direction; effectiveness unvalidated | Run consent-based STaaS-specific evaluation |
 | [0010](0010-model-reasoning-evaluation-and-runtime.md) | Separate strategic reasoning evaluation from runtime performance | Accepted evaluation principle | Build reproducible benchmark and publish scored results |
 | [0011](0011-provider-neutral-chat-and-mcp-apps.md) | Provider-neutral conversational orchestration and MCP Apps | Accepted architectural direction; implementation deferred | Verify SDK/framework fit; pass streaming, MCP, sandbox, approval, audit and interoperability tests |
-| [0012](0012-open-foundation-commercial-business-builder.md) | Open STaaS Foundation with commercial Business Builder and Strategy Service | Recommended direction; implementation and licensing release deferred | Complete provenance and OKF compatibility gates; create separately governed repositories |
+| [0012](0012-open-foundation-commercial-business-builder.md) | Open STaaS Foundation with commercial Business Builder and Strategy Service | Recommended direction; implementation and licensing release deferred | Complete provenance and STaaS-profile gates over canonical OKF v0.3; create separately governed repositories |
 
 ## Decision review
 
