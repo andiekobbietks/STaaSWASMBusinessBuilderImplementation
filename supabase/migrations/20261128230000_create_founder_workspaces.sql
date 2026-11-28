@@ -14,7 +14,9 @@ create index if not exists founder_workspaces_user_created_idx
 alter table public.founder_workspaces enable row level security;
 
 revoke all on table public.founder_workspaces from anon, public;
-grant select, insert, update, delete on table public.founder_workspaces to authenticated;
+grant select, insert, delete on table public.founder_workspaces to authenticated;
+revoke update on table public.founder_workspaces from authenticated;
+grant update (name) on table public.founder_workspaces to authenticated;
 
 create policy "Users can read their founder workspaces"
   on public.founder_workspaces
@@ -42,7 +44,10 @@ create table if not exists public.founder_workspace_versions (
   workspace_id uuid not null references public.founder_workspaces(id) on delete cascade,
   user_id uuid not null references auth.users(id) on delete cascade,
   version integer not null check (version > 0),
-  snapshot jsonb not null check (jsonb_typeof(snapshot) = 'object'),
+  snapshot jsonb not null check (
+    jsonb_typeof(snapshot) = 'object'
+    and snapshot ->> 'schemaVersion' = '1'
+  ),
   created_at timestamptz not null default now(),
   unique (workspace_id, version)
 );
