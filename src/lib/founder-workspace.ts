@@ -15,6 +15,7 @@ export type AccessBasis =
   | "customer_provided"
   | "licensed"
   | "permissioned"
+  | "synthetic"
   | "other";
 
 export interface VentureContext {
