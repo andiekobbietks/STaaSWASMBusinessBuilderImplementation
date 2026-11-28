@@ -57,7 +57,10 @@ def parse_frontmatter(path: Path) -> dict[str, Any] | None:
 
     yaml = YAML(typ="safe")
     yaml.version = (1, 2)
-    value = yaml.load("\n".join(lines[1:closing]))
+    try:
+        value = yaml.load("\n".join(lines[1:closing]))
+    except YAMLError as exc:
+        raise ValueError(f"invalid YAML frontmatter: {exc}") from exc
     if not isinstance(value, dict):
         raise ValueError("frontmatter must be a YAML mapping")
     return value
