@@ -18,6 +18,7 @@ interface Props {
   lang: LangCode;
   onLangChange: (lang: LangCode) => void;
   onViewHistory: () => void;
+  onViewWorkspace: () => void;
 }
 
 const AGENT_ICONS: Record<string, typeof Lightbulb> = {
@@ -27,7 +28,7 @@ const AGENT_ICONS: Record<string, typeof Lightbulb> = {
   strategy: FileText,
 };
 
-export function Analyzer({ lang, onLangChange, onViewHistory }: Props) {
+export function Analyzer({ lang, onLangChange, onViewHistory, onViewWorkspace }: Props) {
   const { user, signOut } = useAuth();
   const texts = UI_TRANSLATIONS[lang];
   const [idea, setIdea] = useState("");
@@ -119,6 +120,12 @@ export function Analyzer({ lang, onLangChange, onViewHistory }: Props) {
             <span className="hidden sm:inline text-sm text-slate-500">
               {texts.welcome}, <span className="font-medium text-slate-700">{user?.email}</span>
             </span>
+            <button
+              onClick={onViewWorkspace}
+              className="text-sm text-slate-600 hover:text-sky-600 transition px-3 py-1.5 rounded-lg hover:bg-slate-100"
+            >
+              {texts.founderWorkspace}
+            </button>
             <button
               onClick={onViewHistory}
               className="text-sm text-slate-600 hover:text-sky-600 transition px-3 py-1.5 rounded-lg hover:bg-slate-100"
