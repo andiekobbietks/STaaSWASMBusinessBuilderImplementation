@@ -85,6 +85,7 @@ export interface DecisionRecord {
 
 export interface ExperimentRecord {
   id: string;
+  recordVersion: number;
   assumptionId: string;
   hypothesis: string;
   method: string;
@@ -123,6 +124,7 @@ export interface LearningRecord {
 
 export interface ContributionMetric {
   id: string;
+  recordVersion: number;
   unitsSold: number;
   sellingPricePence: number;
   variableCostPence: number;
