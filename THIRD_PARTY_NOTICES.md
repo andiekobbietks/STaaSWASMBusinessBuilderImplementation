@@ -1,5 +1,8 @@
 # Third-party notices and licence register
 
+The separately Apache-2.0-licensed STaaS Foundation subtree has its own scoped notices in [foundation/NOTICE](foundation/NOTICE) and [foundation/THIRD_PARTY_NOTICES.md](foundation/THIRD_PARTY_NOTICES.md). The canonical OKF specification is referenced there; no OKF source code is copied into the Foundation alpha.
+
+
 This register is a starting point, not a completed software bill of materials
 (SBOM) or legal clearance. Verify every shipped dependency and inherited file
 against the exact source version before distribution.
