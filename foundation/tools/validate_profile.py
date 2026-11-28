@@ -15,6 +15,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 from ruamel.yaml import YAML
+from ruamel.yaml.error import YAMLError
 
 PROFILE_TYPES = {
     "Business Context",
