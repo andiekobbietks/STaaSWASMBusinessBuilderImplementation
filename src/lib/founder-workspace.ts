@@ -20,6 +20,7 @@ export type AccessBasis =
 
 export interface VentureContext {
   id: string;
+  recordVersion: number;
   name: string;
   stage: string;
   sector: string;
@@ -176,6 +177,7 @@ export function normalizeWorkspaceSnapshot(
     context: {
       ...base.context,
       ...(candidate.context || {}),
+      recordVersion: candidate.context?.recordVersion || 1,
       name: candidate.context?.name || fallbackName,
     },
     assumptions: Array.isArray(candidate.assumptions)
@@ -218,6 +220,7 @@ export function createEmptySnapshot(name: string): WorkspaceSnapshot {
     schemaVersion: 1,
     context: {
       id: createId(),
+      recordVersion: 1,
       name,
       stage: "idea",
       sector: "",
