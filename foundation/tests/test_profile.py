@@ -83,6 +83,22 @@ class ProfileTests(unittest.TestCase):
         receipt["result"]["contribution_margin_pct"] = "99.00"
         self.assertFalse(module.attest(receipt, BUNDLE)["ok"])
 
+    def test_decision_must_reference_an_existing_strategic_option(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            copied_bundle = Path(directory) / "bundle"
+            shutil.copytree(BUNDLE, copied_bundle)
+            decision_path = copied_bundle / "decisions" / "test-preorders.md"
+            content = decision_path.read_text(encoding="utf-8")
+            content = content.replace(
+                "5e5c5c8d-2c6f-4e8f-a6e7-555555555555",
+                "9e9c9c8d-2c6f-4e8f-a6e7-999999999999",
+            )
+            decision_path.write_text(content, encoding="utf-8")
+            _, errors = validate_bundle(copied_bundle)
+            self.assertTrue(
+                any("selected_option_id does not resolve" in error for error in errors)
+            )
+
     def test_attester_rejects_modified_computation_file(self) -> None:
         attester_path = (
             BUNDLE / "references" / "attesters" / "verify_contribution_margin.py"
