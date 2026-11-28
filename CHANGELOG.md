@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+- Add an Apache-2.0-scoped STaaS Foundation subtree implementing an initial business-strategy profile over canonical OKF v0.3.
+- Add a synthetic founder journey, profile JSON Schema, profile validator, deterministic contribution-margin example and tests.
+- Keep the root rights notice in force for the rest of the repository; explicitly carve out foundation/.
+
+
 All notable changes are documented here. This project follows Semantic
 Versioning 2.0.0. Until 1.0.0, the public interfaces and product behaviour may
 change without backwards compatibility.
