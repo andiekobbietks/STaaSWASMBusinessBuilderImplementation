@@ -1322,7 +1322,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
                                 aria-label={text("experiments") + ": " + item.hypothesis}
                               >
                                 {["planned", "running", "completed", "cancelled"].map((status) => (
-                                  <option key={status} value={status}>{text(status)}</option>
+                                  <option key={status} value={status}>{text(status as CopyKey)}</option>
                                 ))}
                               </select>
                             </div>
