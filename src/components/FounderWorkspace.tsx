@@ -186,6 +186,7 @@ const COPY = {
     exportTitle: "Portable knowledge bundle",
     exportDescription: "Export your founder context, evidence, assumptions, options, decisions, experiments, learning and outcomes as an OKF v0.3 bundle.",
     exportRights: "The export does not grant a bundle-wide licence. Source rights remain attached to individual source records.",
+    exportStatusNote: "Canonical OKF validation, import/round-trip and portable Attested Computation export are not yet integrated.",
     exportCount: "concepts included",
     noExport: "Add venture context and records before exporting.",
     required: "Complete the required fields.",
@@ -1459,7 +1460,7 @@ export function FounderWorkspace({ lang, onLangChange, onBack, onHistory }: Prop
               )}
 
               <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-                <p className="text-xs text-muted-foreground">{text("exportRights")}</p>
+                <div className="max-w-3xl space-y-1"><p className="text-xs text-muted-foreground">{text("exportRights")}</p><p className="text-xs text-muted-foreground">{text("exportStatusNote")}</p></div>
                 <button onClick={exportBundle} className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium hover:bg-muted">
                   <FileArchive className="h-4 w-4" /> {text("export")}
                 </button>
